@@ -38,7 +38,7 @@ O projeto encontra-se em fase de exploração técnica, considerando a seguinte 
 * **`/notebooks`**: Jupyter Notebooks para testes rápidos e visualização de dados.
 * **`/docs`**: Documentação técnica e especificações dos algoritmos.
 * **`/management`**: 📑 **Atas de Reunião** e documentos de planejamento administrativo.
-* **`/data`**: (Opcional) Amostras de dados para teste.
+* **`/data`**: Amostras de dados para teste.
 
 ---
 
