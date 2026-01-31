@@ -44,8 +44,8 @@ O projeto encontra-se em fase de exploração técnica, considerando a seguinte 
 
 ## 👥 Colaboradores
 * **Caio Lima**
-* **Thiago**
 * **Mariana**
+* **Thiago**
 * **Prof. Aldebaro**
 
 ---
