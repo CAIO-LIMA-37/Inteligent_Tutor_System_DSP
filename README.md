@@ -28,7 +28,7 @@ O projeto encontra-se em fase de exploração técnica, considerando a seguinte 
 * **IA & Orquestração:** LangChain, LangGraph, Hugging Face-Transformers.
 * **Modelos:** Llama Family, Foundation Models (Open-source & API-based).
 * **Desenvolvimento:** Python (Backend), Integrações de Frontend (HTML/Markdown/Modern Frameworks).
-* **Gestão de Conhecimento:** Undermind, Zotero, Parsifal ou Prism (ainda a ser definido) e Documentação Técnica (Latex).
+* **Gestão de Conhecimento:** Undermind, Parsifal e Documentação Técnica (Latex).
 
 ---
 
