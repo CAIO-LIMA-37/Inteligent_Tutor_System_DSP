@@ -49,9 +49,6 @@ O projeto encontra-se em fase de exploração técnica, considerando a seguinte 
 
 ---
 
-## 📝 Gestão e Governança
-Para manter a transparência e o histórico do projeto, todas as decisões tomadas em reunião são documentadas e armazenadas na pasta `/management`. 
-
 > **Nota:** Este é um repositório privado focado na produção científica do paper. O código aqui presente é de uso restrito aos membros do projeto.
 
 ---
