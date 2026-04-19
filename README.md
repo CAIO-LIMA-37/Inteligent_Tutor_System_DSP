@@ -34,7 +34,7 @@ O projeto encontra-se em fase de exploração técnica, considerando a seguinte 
 
 ## 📂 Estrutura do Projeto
 
-* **`/src`**: Código-fonte dos algoritmos, modelos e experimentos.
+* **`/src`**: Código-fonte dos algoritmos do AcademiCK.
 * **`/notebooks`**: Jupyter Notebooks para testes rápidos e visualização de dados.
 * **`/docs`**: Documentação técnica e especificações dos algoritmos.
 * **`/data`**: Amostras de dados para teste.
