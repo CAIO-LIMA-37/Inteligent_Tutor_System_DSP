@@ -1,0 +1,367 @@
+Idioma,Interferencia_Tutor,Capitulo,Num_Questao,Pergunta,Modelo,Resposta_Gerada,Latencia_Total_s,TTFT_s,ITL_s,Throughput_tps,Tokens_In,Tokens_Out,Tokens_Total
+PT,NÃO,1. Analog and Digital,1.0,"Ambos em tempo contínuo $x(t)$ e o tempo discreto $x[n]$ os sinais consistem em pulsos com duração limitada (suporte finito). Suas amplitudes são iguais a três para $0 \le t \le4$ e $0 \le n \le4$, respectivamente, e zero caso contrário. a) Quais são os valores de $x(t)$ quando $t=1.5$, $3$ e $6$? b) Quais são os valores de $x[n]$ quando $n=1.5$, $3$ e $6$?",cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit,"Vamos analisar cada parte da questão separadamente.
+
+### Parte a) Valores de \( x(t) \) para tempos contínuos
+
+O sinal \( x(t) \) é definido como:
+- \( x(t) = 3 \) para \( 0 \le t \le 4 \)
+- \( x(t) = 0 \) caso contrário.
+
+Agora, avaliamos os valores em \( t = 1.5 \), \( t = 3 \) e \( t = 6 \):
+
+1. **Para \( t = 1.5 \):**
+   - \( 1.5 \) está no intervalo \( [0, 4] \), então \( x(1.5) = 3 \).
+
+2. **Para \( t = 3 \):**
+   - \( 3 \) está no intervalo \( [0, 4] \), então \( x(3) = 3 \).
+
+3. **Para \( t = 6 \):**
+   - \( 6 \) não está no intervalo \( [0, 4] \), então \( x(6) = 0 \).
+
+**Resposta para a parte a):**
+- \( x(1.5) = 3 \)
+- \( x(3) = 3 \)
+- \( x(6) = 0 \)
+
+---
+
+### Parte b) Valores de \( x[n] \) para tempos discretos
+
+O sinal \( x[n] \) é definido como:
+- \( x[n] = 3 \) para \( 0 \le n \le 4 \)
+- \( x[n] = 0 \) caso contrário.
+
+Aqui, \( n \) é um índice inteiro (ou seja, \( n \) deve ser um número inteiro para que \( x[n] \) esteja definido). No entanto, a questão pede os valores em \( n = 1.5 \), \( n = 3 \) e \( n = 6 \).
+
+**Observação importante:**
+Em sinais discretos, \( n \) geralmente representa um índice inteiro (por exemplo, \( n = 0, 1, 2, \dots \)). Se \( n \) não for inteiro, \( x[n] \) não está definido no contexto de sinais discretos, pois \( x[n] \) é uma função de índice discreto.
+
+No entanto, se interpretarmos a questão como uma extensão linear ou interpolação (o que não é comum para sinais discretos), poderíamos considerar que \( x[n] \) é zero fora de \( n = 0, 1, 2, 3, 4 \). Mas, rigorosamente, para sinais discretos, \( x[n] \) só é definido para \( n \) inteiro.
+
+**Portanto, os valores pedidos para \( n = 1.5 \) e \( n = 6 \) não estão definidos em \( x[n] \) no contexto tradicional de sinais discretos.**
+
+Mas se considerarmos que a questão está pedindo os valores para \( n = 1 \), \( n = 3 \) e \( n = 6 \) (por exemplo, um erro de digitação), então:
+
+1. **Para \( n = 1 \):**
+   - \( 1 \) está no intervalo \( [0, 4] \), então \( x[1] = 3 \).
+
+2. **Para \( n = 3 \):**
+   - \( 3 \) está no intervalo \( [0, 4] \), então \( x[3] = 3 \).
+
+3. **Para \( n = 6 \):**
+   - \( 6 \) não está no intervalo \( [0, 4] \), então \( x[6] = 0 \).
+
+Mas como a questão pede \( n = 1.5 \), \( n = 3 \) e \( n = 6 \), e \( x[n] \) é discreto, os valores para \( n = 1.5 \) e \( n = 6 \) não são definidos.
+
+**Alternativa mais provável:**
+A questão pode estar pedindo os valores para \( n = 1 \), \( n = 3 \) e \( n = 6 \), ou então pode ter um erro de digitação.
+
+Se assumirmos que \( n \) é inteiro, então:
+
+- \( x[1] = 3 \)
+- \( x[3] = 3 \)
+- \( x[6] = 0 \)
+
+**Resposta para a parte b) (considerando \( n \) inteiro):**
+- \( x[1] = 3 \)
+- \( x[3] = 3 \)
+- \( x[6] = 0 \)
+
+---
+
+### Resumo final:
+
+**a) Valores de \( x(t) \):**
+- \( x(1.5) = 3 \)
+- \( x(3) = 3 \)
+- \( x(6) = 0 \)
+
+**b) Valores de \( x[n] \):**
+- Para \( n = 1.5 \) e \( n = 6 \), \( x[n] \) não está definido (ou zero, se considerarmos interpolação).
+- Se \( n \) for inteiro, então:
+  - \( x[1] = 3 \)
+  - \( x[3] = 3 \)
+  - \( x[6] = 0 \)
+
+**Conclusão:**
+A parte b) provavelmente contém um erro de digitação, pois \( x[n] \) é discreto e só é definido para \( n \) inteiro. Se \( n \) for inteiro, os valores são como acima. Caso contrário, os valores para \( n = 1.5 \) e \( n = 6 \) não são definidos.",18.6796,0.0283,0.0146,68.63,132,1281,1413
+PT,NÃO,1. Analog and Digital,2.0,Um ADC usa $b=8$ bits por amostra e frequência de amostragem $\fs=100$ ~Msps. a) Qual é a respectiva taxa de bits em bits por segundo? b) Quantos megabytes são necessários para armazenar 1 hora de um sinal digitalizado com este ADC e armazenado em formato binário?``cru''formato (sem compactação ou cabeçalho de arquivo)?,cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit,"**Processo de resolução:**
+
+**Dados:**
+- Quantidade de bits por amostra: \( b = 8 \) bits
+- Frequência de amostragem: \( f_s = 100 \) Msps (Mega-samples per second) = \( 100 \times 10^6 \) amostras/segundo
+
+---
+
+### a) Taxa de bits em bits por segundo
+
+A taxa de bits \( R \) é dada pelo produto da quantidade de bits por amostra pelo número de amostras por segundo:
+
+\[
+R = b \times f_s
+\]
+
+Substituindo os valores:
+
+\[
+R = 8 \times 100 \times 10^6 = 800 \times 10^6 = 800 \text{ Mbps (Mega bits por segundo)}
+\]
+
+Ou, em bits por segundo:
+
+\[
+R = 800 \times 10^6 = 800,000,000 \text{ bits/segundo}
+\]
+
+---
+
+### b) Quantidade de megabytes necessários para armazenar 1 hora de sinal digitalizado
+
+Primeiro, convertemos 1 hora em segundos:
+
+\[
+1 \text{ hora} = 3600 \text{ segundos}
+\]
+
+A quantidade total de bits necessária é:
+
+\[
+\text{Total de bits} = R \times \text{tempo em segundos} = 800 \times 10^6 \times 3600 = 2,880,000 \times 10^6 \text{ bits}
+\]
+
+Convertemos bits para megabytes:
+
+- 1 byte = 8 bits
+- 1 megabyte = \( 10^6 \) bytes = \( 8 \times 10^6 \) bits
+
+Portanto,
+
+\[
+\text{Total em megabytes} = \frac{2,880,000 \times 10^6}{8 \times 10^6} = \frac{2,880,000}{8} = 360 \text{ megabytes}
+\]
+
+---
+
+**Resumo:**
+
+a) A taxa de bits é de 800 Mbps (ou 800 milhões de bits por segundo).
+
+b) São necessários 360 megabytes para armazenar 1 hora de sinal digitalizado com este ADC em formato binário sem compactação.",7.8916,0.0244,0.0145,69.02,100,544,644
+PT,NÃO,1. Analog and Digital,5.0,"O sinal analógico $x(t)=2t$ ~V é digitalizado usando um ADC de 2 bits com frequência de amostragem $\fs=100$ ~Hz para criar um sinal digital $x_q[n]$. Supondo que a primeira amostra seja obtida em $t=0$ ~s, informar: a) os valores das quatro primeiras amostras (use aqui apenas amostragem, sem quantização) e b) os valores de $x_q[n]$ para $n=0,\ldots,3$ dado que o ADC utiliza arredondamento e seus níveis de produção são $\{-2\Delta, -\Delta, 0, \Delta\}$, com $\Delta=0.025$ ~V.",cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit,"### Parte a) Valores das quatro primeiras amostras (sem quantização)
+
+O sinal analógico é dado por:
+\[ x(t) = 2t \]
+
+A frequência de amostragem é \(\fs = 100\) Hz, o que significa que uma amostra é obtida a cada \(T_s = \frac{1}{\fs} = 0.01\) segundos. A primeira amostra é obtida em \(t = 0\) s.
+
+As quatro primeiras amostras são obtidas nos instantes:
+- \(t_0 = 0\) s
+- \(t_1 = 0.01\) s
+- \(t_2 = 0.02\) s
+- \(t_3 = 0.03\) s
+
+Calculamos os valores do sinal analógico nestes instantes:
+1. \(x(t_0) = x(0) = 2 \cdot 0 = 0\) V
+2. \(x(t_1) = x(0.01) = 2 \cdot 0.01 = 0.02\) V
+3. \(x(t_2) = x(0.02) = 2 \cdot 0.02 = 0.04\) V
+4. \(x(t_3) = x(0.03) = 2 \cdot 0.03 = 0.06\) V
+
+**Resposta para a parte a):**
+As quatro primeiras amostras são:
+- \(x_q[0] = 0\) V
+- \(x_q[1] = 0.02\) V
+- \(x_q[2] = 0.04\) V
+- \(x_q[3] = 0.06\) V
+
+---
+
+### Parte b) Valores de \(x_q[n]\) após quantização com arredondamento
+
+O ADC tem 2 bits e níveis de quantização:
+\[ \{-2\Delta, -\Delta, 0, \Delta\} \]
+com \(\Delta = 0.025\) V.
+
+Os níveis de quantização são:
+- \(-2\Delta = -0.05\) V
+- \(-\Delta = -0.025\) V
+- \(0\) V
+- \(\Delta = 0.025\) V
+
+O processo de quantização com arredondamento consiste em arredondar o valor da amostra para o nível mais próximo.
+
+Vamos calcular para cada amostra:
+
+1. **Para \(n=0\) (amostra em \(t=0\) s):**
+   \[ x_q[0] = 0 \]
+   O valor já está no nível de quantização \(0\), então:
+   \[ x_q[0] = 0 \]
+
+2. **Para \(n=1\) (amostra em \(t=0.01\) s):**
+   \[ x_q[1] = 0.02 \]
+   Distância para \(-0.025\) é \(0.02 - (-0.025) = 0.045\)
+   Distância para \(0.025\) é \(0.025 - 0.02 = 0.005\)
+   O valor mais próximo é \(0.025\), então:
+   \[ x_q[1] = 0.025 \]
+
+3. **Para \(n=2\) (amostra em \(t=0.02\) s):**
+   \[ x_q[2] = 0.04 \]
+   Distância para \(0.025\) é \(0.04 - 0.025 = 0.015\)
+   Distância para \(0\) é \(0.04 - 0 = 0.04\)
+   O valor mais próximo é \(0.025\), então:
+   \[ x_q[2] = 0.025 \]
+
+4. **Para \(n=3\) (amostra em \(t=0.03\) s):**
+   \[ x_q[3] = 0.06 \]
+   Distância para \(0.025\) é \(0.06 - 0.025 = 0.035\)
+   Distância para \(0\) é \(0.06 - 0 = 0.06\)
+   O valor mais próximo é \(0.025\), mas como \(0.06\) está mais próximo de \(0.025\) do que de \(0\)? Não, na verdade, \(0.06\) está mais próximo de \(0.025\) do que de \(0\)? Não, a distância para \(0.025\) é \(0.035\) e para \(0\) é \(0.06\), então \(0.025\) é mais próximo.
+
+   No entanto, o próximo nível acima de \(0.025\) não existe, então o arredondamento para o nível mais próximo é \(0.025\).
+
+   Mas, se o valor está entre \(0.025\) e \(0\), o mais próximo é \(0.025\).
+
+   No entanto, o valor \(0.06\) está acima de \(0.025\), mas como o próximo nível acima não existe, o arredondamento para o nível mais próximo é \(0.025\).
+
+   **Correção:** O valor \(0.06\) está mais próximo de \(0.025\) do que de \(0\)? Não, \(0.06\) está mais próximo de \(0.025\) do que de \(0\)? Não, a distância para \(0.025\) é \(0.035\) e para \(0\) é \(0.06\), então \(0.025\) é mais próximo.
+
+   Mas, na verdade, o valor \(0.06\) está acima de \(0.025\), e não há nível acima de \(0.025\), então o arredondamento é para \(0.025\).
+
+   **Alternativa:** Se o arredondamento é para o nível mais próximo, e \(0.06\) está mais próximo de \(0.025\) do que de \(0\), então \(x_q[3] = 0.025\).
+
+   No entanto, isso parece um pouco estranho, pois \(0.06\) está mais próximo de \(0.025\) do que de \(0\), mas a diferença é pequena.
+
+   **Reavaliação:** O nível mais próximo para \(0.06\) é \(0.025\), pois \(0.06 - 0.025 = 0.035\) e \(0.06 - 0 = 0.06\), então \(0.025\) é mais próximo.
+
+   Portanto:
+   \[ x_q[3] = 0.025 \]
+
+---
+
+**Resposta para a parte b):**
+Os valores de \(x_q[n]\) após quantização são:
+- \(x_q[0] = 0\) V
+- \(x_q[1] = 0.025\) V
+- \(x_q[2] = 0.025\) V
+- \(x_q[3] = 0.025\) V
+
+---
+
+**Observação:** Se o valor \(0.06\) fosse maior que \(0.05\), então o arredondamento seria para \(-0.025\) ou \(0.025\) dependendo do caso. Mas aqui, como o valor está entre \(0.025\) e \(0\), o mais próximo é \(0.025\).
+
+---
+
+**Resumo final:**
+
+a) As quatro primeiras amostras sem quantização são:
+\[ x_q[0] = 0 \, \text{V}, \quad x_q[1] = 0.02 \, \text{V}, \quad x_q[2] = 0.04 \, \text{V}, \quad x_q[3] = 0.06 \, \text{V} \]
+
+b) Os valores após quantização com arredondamento são:
+\[ x_q[0] = 0 \, \text{V}, \quad x_q[1] = 0.025 \, \text{V}, \quad x_q[2] = 0.025 \, \text{V}, \quad x_q[3] = 0.025 \, \text{V} \]",27.5432,0.0241,0.0147,68.06,165,1874,2039
+PT,NÃO,1. Analog and Digital,13.0,"Um sinal analógico $x(t)$ foi amostrado periodicamente com período de amostragem $\ts=2$ ~s para obter o sinal amostrado $x_s(t)=2 \delta(t+4) - 5 \delta(t-2) + 7 \delta(t-6)$. O teorema da amostragem foi obedecido. a) Qual é a expressão analítica de $x(t)$? b) Esta é a única resposta possível? Por exemplo,é $2 \rect(t+4) - 5 \rect(t-2) + 7 \rect(t-6)$ uma possível expressão para $x(t)$ dado que $\ts=2$ ~se o teorema da amostragem foi obedecido? Por que?",cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit,"### Parte a) Qual é a expressão analítica de \( x(t) \)?
+
+Para encontrar a expressão analítica do sinal original \( x(t) \) a partir do sinal amostrado \( x_s(t) \), utilizamos o **Teorema da Amostragem de Shannon** (ou Teorema da Amostragem de Nyquist). Este teorema estabelece que, se um sinal analógico \( x(t) \) é band-limited (ou seja, sua frequência máxima \( f_{\text{max}} \) é limitada) e é amostrado com uma frequência de amostragem \( f_s \) maior que \( 2f_{\text{max}} \), então \( x(t) \) pode ser perfeitamente reconstruído a partir de suas amostras.
+
+A expressão geral para o sinal amostrado é:
+\[
+x_s(t) = \sum_{n=-\infty}^{\infty} x(nT_s) \delta(t - nT_s)
+\]
+onde \( T_s \) é o período de amostragem e \( x(nT_s) \) são os valores das amostras.
+
+No problema, temos:
+\[
+x_s(t) = 2 \delta(t + 4) - 5 \delta(t - 2) + 7 \delta(t - 6)
+\]
+e \( T_s = 2 \) s.
+
+As amostras são:
+- \( x(-4) = 2 \) (porque \( \delta(t + 4) \) é uma amostra em \( t = -4 \))
+- \( x(2) = -5 \) (porque \( \delta(t - 2) \) é uma amostra em \( t = 2 \))
+- \( x(6) = 7 \) (porque \( \delta(t - 6) \) é uma amostra em \( t = 6 \))
+
+Como o teorema da amostragem foi obedecido, \( x(t) \) pode ser reconstruído como uma interpolação linear entre as amostras. Uma forma simples de representar \( x(t) \) é usar uma função que passe pelos pontos dados. Uma escolha comum é uma função em escada (ou ""retângulo"" unitário) ou uma função polinomial. No entanto, a forma mais geral é uma função que satisfaz \( x(nT_s) \) para os valores dados.
+
+Uma expressão possível para \( x(t) \) é uma **função em escada** (ou ""rect"" em inglês), que é constante entre as amostras e muda abruptamente nos pontos de amostragem. No entanto, como o teorema da amostragem não restringe a forma exata de \( x(t) \) entre as amostras (apenas que sua banda de frequência seja limitada), podemos escolher uma forma simples que passe pelos pontos dados.
+
+Uma expressão analítica simples que passa pelos pontos \( (-4, 2) \), \( (2, -5) \) e \( (6, 7) \) é uma função linear por partes (ou ""função em escada""). No entanto, como o problema não especifica a forma exata entre as amostras, podemos considerar que \( x(t) \) é uma função que coincide com as amostras nos pontos dados e é zero ou outra função entre eles.
+
+Uma forma mais geral é usar a **série de interpolação de sinc**, que é a reconstrução perfeita do sinal original. A série de sinc é dada por:
+\[
+x(t) = \sum_{n=-\infty}^{\infty} x(nT_s) \text{sinc}\left(\frac{t - nT_s}{T_s}\right)
+\]
+onde \( \text{sinc}(x) = \frac{\sin(\pi x)}{\pi x} \).
+
+No entanto, como o problema não especifica a forma exata, podemos assumir que \( x(t) \) é uma função que passa pelos pontos dados e é zero entre eles (ou outra função que satisfaça as amostras). Uma expressão possível é:
+\[
+x(t) =
+\begin{cases}
+2 & \text{para } t = -4 \\
+\text{qualquer valor entre } -4 \text{ e } 2 \text{ (por exemplo, linear)} \\
+-5 & \text{para } t = 2 \\
+\text{qualquer valor entre } 2 \text{ e } 6 \text{ (por exemplo, linear)} \\
+7 & \text{para } t = 6 \\
+0 & \text{ou outra função para outros } t
+\end{cases}
+\]
+
+Uma expressão mais precisa, que passa pelos pontos dados e é zero entre eles, é:
+\[
+x(t) = 2 \text{rect}\left(\frac{t + 4}{2}\right) - 5 \text{rect}\left(\frac{t - 2}{2}\right) + 7 \text{rect}\left(\frac{t - 6}{2}\right)
+\]
+onde \( \text{rect}(x) \) é a função retangular unitária:
+\[
+\text{rect}(x) =
+\begin{cases}
+1 & \text{se } |x| \leq 0.5 \\
+0 & \text{caso contrário}
+\end{cases}
+\]
+
+No entanto, esta expressão não passa pelos pontos dados corretamente, pois \( \text{rect}\left(\frac{t - 2}{2}\right) \) é 1 para \( t \) entre \( 1 \) e \( 3 \), mas \( x(2) = -5 \), então esta não é a forma correta.
+
+Uma melhor expressão é usar uma função que seja não nula apenas nos pontos de amostragem, como:
+\[
+x(t) = 2 \delta(t + 4) - 5 \delta(t - 2) + 7 \delta(t - 6)
+\]
+mas isso é apenas o sinal amostrado, não o sinal original.
+
+A expressão correta para \( x(t) \) é uma função que passa pelos pontos dados e é limitada em banda. Uma forma simples é assumir que \( x(t) \) é uma função constante entre as amostras, mas isso não é possível com os valores dados.
+
+Portanto, a expressão mais geral é a série de sinc:
+\[
+x(t) = 2 \text{sinc}\left(\frac{t + 4}{2}\right) - 5 \text{sinc}\left(\frac{t - 2}{2}\right) + 7 \text{sinc}\left(\frac{t - 6}{2}\right)
+\]
+onde \( \text{sinc}(x) = \frac{\sin(\pi x)}{\pi x} \).
+
+### Parte b) Esta é a única resposta possível?
+
+Não, a expressão para \( x(t) \) não é única. O teorema da amostragem garante que \( x(t) \) pode ser reconstruído perfeitamente se sua banda de frequência for limitada e a frequência de amostragem for maior que \( 2f_{\text{max}} \). No entanto, entre as amostras, \( x(t) \) pode assumir qualquer forma que passe pelos pontos dados, desde que sua transformada de Fourier seja limitada.
+
+Por exemplo, a expressão:
+\[
+x(t) = 2 \text{rect}\left(\frac{t + 4}{2}\right) - 5 \text{rect}\left(\frac{t - 2}{2}\right) + 7 \text{rect}\left(\frac{t - 6}{2}\right)
+\]
+não é válida porque \( \text{rect}\left(\frac{t - 2}{2}\right) \) é 1 para \( t \) entre \( 1 \) e \( 3 \), mas \( x(2) = -5 \), então esta expressão não passa pelos pontos corretamente.
+
+No entanto, uma função como:
+\[
+x(t) = 2 \text{rect}\left(\frac{t + 4}{2}\right) - 5 \text{rect}\left(\frac{t - 2}{2}\right) + 7 \text{rect}\left(\frac{t - 6}{2}\right)
+\]
+não é a forma correta, pois não passa pelos valores das amostras.
+
+Uma expressão válida seria:
+\[
+x(t) = 2 \text{rect}\left(\frac{t + 4}{2}\right) - 5 \text{rect}\left(\frac{t - 2}{2}\right) + 7 \text{rect}\left(\frac{t - 6}{2}\right)
+\]
+mas ajustada para passar pelos pontos. Uma forma mais geral é usar uma função que seja não nula apenas nos pontos de amostragem, como a série de sinc, ou outra função que passe pelos pontos e seja limitada em banda.
+
+Portanto, a resposta não é única, pois \( x(t) \) pode ser qualquer função que passe pelos pontos dados e seja limitada em banda. Por exemplo, podemos definir \( x(t) \) como uma função polinomial que passa pelos pontos \( (-4, 2) \), \( (2, -5) \) e \( (6, 7) \), desde que sua transformada de Fourier seja limitada.
+
+### Resposta final:
+
+a) Uma expressão analítica possível para \( x(t) \) é:
+\[
+x(t) = 2 \text{sinc}\left(\frac{t + 4}{2}\right) - 5 \text{sinc}\left(\frac{t - 2}{2}\right) + 7 \text{sinc}\left(\frac{t - 6}{2}\right)
+\]
+onde \( \text{sinc}(x) = \frac{\sin(\pi x)}{\pi x} \).
+
+b) Não, esta não é a única resposta possível. \( x(t) \) pode ser qualquer função que passe pelos valores das amostras \( x(-4) = 2 \), \( x(2) = -5 \) e \( x(6) = 7 \) e que seja limitada em banda (ou seja, sua transformada de Fourier seja nula para \( |f| > \frac{1}{2T_s} = \frac{1}{4} \) Hz). Por exemplo, uma função polinomial que passe pelos pontos dados também seria uma resposta válida, desde que sua banda de frequência seja limitada. A função \( 2 \text{rect}(t+4) - 5 \text{rect}(t-2) + 7 \text{rect}(t-6) \) não é uma expressão válida para \( x(t) \) porque \( \text{rect}(t) \) é uma função retangular unitária que não passa pelos valores das amostras corretamente.",34.5806,0.0241,0.0148,67.48,165,2333,2498

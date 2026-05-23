@@ -1,0 +1,69 @@
+Idioma,Interferencia_Tutor,Capitulo,Num_Questao,Pergunta,Modelo,Resposta_Gerada,Latencia_Total_s,TTFT_s,ITL_s,Throughput_tps,Tokens_In,Tokens_Out,Tokens_Total
+PT,SIM,1. Analog and Digital,1.0,"Ambos em tempo contínuo $x(t)$ e o tempo discreto $x[n]$ os sinais consistem em pulsos com duração limitada (suporte finito). Suas amplitudes são iguais a três para $0 \le t \le4$ e $0 \le n \le4$, respectivamente, e zero caso contrário. a) Quais são os valores de $x(t)$ quando $t=1.5$, $3$ e $6$? b) Quais são os valores de $x[n]$ quando $n=1.5$, $3$ e $6$?",gpt-5,"Ideia-chave
+- Em tempo contínuo, $x(t)$ está definido para todo $t \in \mathbb{R}$. Um “pulso” de suporte finito é 3 no intervalo e 0 fora.
+- Em tempo discreto, $x[n]$ só está definido para índices inteiros $n \in \mathbb{Z}$. Valores para $n$ não inteiros (como $1.5$) são indefinidos.
+
+Definições dadas no enunciado
+Para organizar, as funções são:
+$$
+x(t)=
+\begin{cases}
+3, & 0 \le t \le 4 \\
+0, & \text{caso contrário}
+\end{cases}
+\qquad
+x[n]=
+\begin{cases}
+3, & n \in \mathbb{Z},\, 0 \le n \le 4 \\
+0, & n \in \mathbb{Z},\, \text{caso contrário}
+\end{cases}
+$$
+e $x[n]$ é indefinido quando $n \notin \mathbb{Z}$.
+
+Respostas
+a) Valores de $x(t)$:
+- $x(1.5)=3$ (está dentro de $0 \le t \le 4$).
+- $x(3)=3$ (está dentro de $0 \le t \le 4$).
+- $x(6)=0$ (fora do suporte).
+
+b) Valores de $x[n]$:
+- $x[1.5]$ é indefinido, pois $n \notin \mathbb{Z}$ (discreto só admite índices inteiros).
+- $x[3]=3$ (inteiro e dentro de $0 \le n \le 4$).
+- $x[6]=0$ (inteiro e fora do suporte).
+
+Onde estudar mais no material fornecido
+- Sobre pulsos retangulares e como descrever amplitude e suporte: Book: ak_dsp_book | Chapter: Analog and Digital Signals | Section: The rect function | Page: Não informada.
+- Sobre por que $x[n]$ não está definido para $n$ não inteiros: Book: ak_dsp_book | Chapter: Analog and Digital Signals | Section: When the independent variable is not an integer | Page: Não informada.
+
+Para aprofundar seus conhecimentos consulte a seguinte referência:
+Livro: ak_dsp_book
+Capítulo: Analog and Digital Signals
+Seção: When the independent variable is not an integer
+Páginas: Não informada",73.8159,67.559,0.0158,63.45,89,398,487
+PT,SIM,1. Analog and Digital,2.0,Um ADC usa $b=8$ bits por amostra e frequência de amostragem $\fs=100$ ~Msps. a) Qual é a respectiva taxa de bits em bits por segundo? b) Quantos megabytes são necessários para armazenar 1 hora de um sinal digitalizado com este ADC e armazenado em formato binário?``cru''formato (sem compactação ou cabeçalho de arquivo)?,gpt-5,"a) Taxa de bits
+
+A taxa de bits é o número de bits por amostra multiplicado pela frequência de amostragem:
+$$ R_b = b \cdot F_s $$
+Substituindo $b=8$ bits/amostra e $F_s=100\times 10^6$ amostras/s:
+$$ R_b = 8 \cdot 100\times 10^6 = 8.0\times 10^8 \text{ bits/s} $$
+
+b) Espaço para 1 hora em formato binário “cru” (sem compressão/cabeçalho)
+
+Primeiro, convertemos a taxa de bits para bytes por segundo e multiplicamos pela duração $T=3600$ s:
+$$ S_{\text{bytes}} = \frac{R_b}{8}\cdot T $$
+$$ S_{\text{bytes}} = \frac{8.0\times 10^8}{8}\cdot 3600 = 1.0\times 10^8 \cdot 3600 = 3.6\times 10^{11} \text{ bytes} $$
+Convertendo para megabytes ($1\,\text{MB}=10^6$ bytes):
+$$ S_{\text{MB}} = \frac{3.6\times 10^{11}}{10^6} = 3.6\times 10^{5}\ \text{MB} = 360{,}000\ \text{MB} $$
+
+Resposta final:
+- a) $8.0\times 10^8$ bits/s (800 Mbit/s)
+- b) $360{,}000$ MB
+
+
+Para aprofundar seus conhecimentos consulte a seguinte referência:
+Livro: ak_dsp_book
+Capítulo: Analog and Digital Signals
+Seção: Exercises
+Páginas: Não informada",81.4496,67.9986,0.0534,18.73,80,253,333
+PT,SIM,1. Analog and Digital,5.0,"O sinal analógico $x(t)=2t$ ~V é digitalizado usando um ADC de 2 bits com frequência de amostragem $\fs=100$ ~Hz para criar um sinal digital $x_q[n]$. Supondo que a primeira amostra seja obtida em $t=0$ ~s, informar: a) os valores das quatro primeiras amostras (use aqui apenas amostragem, sem quantização) e b) os valores de $x_q[n]$ para $n=0,\ldots,3$ dado que o ADC utiliza arredondamento e seus níveis de produção são $\{-2\Delta, -\Delta, 0, \Delta\}$, com $\Delta=0.025$ ~V.",gpt-5,,91.9974,0.0,0.0,0.0,120,1,121
+PT,SIM,1. Analog and Digital,13.0,"Um sinal analógico $x(t)$ foi amostrado periodicamente com período de amostragem $\ts=2$ ~s para obter o sinal amostrado $x_s(t)=2 \delta(t+4) - 5 \delta(t-2) + 7 \delta(t-6)$. O teorema da amostragem foi obedecido. a) Qual é a expressão analítica de $x(t)$? b) Esta é a única resposta possível? Por exemplo,é $2 \rect(t+4) - 5 \rect(t-2) + 7 \rect(t-6)$ uma possível expressão para $x(t)$ dado que $\ts=2$ ~se o teorema da amostragem foi obedecido? Por que?",gpt-5,,118.3552,0.0,0.0,0.0,114,1,115

@@ -1,0 +1,55 @@
+Idioma,Interferencia_Tutor,Capitulo,Num_Questao,Pergunta,Modelo,Resposta_Gerada,Latencia_Total_s,TTFT_s,ITL_s,Throughput_tps,Tokens_In,Tokens_Out,Tokens_Total
+PT,NÃO,1. Analog and Digital,1.0,"Ambos em tempo contínuo $x(t)$ e o tempo discreto $x[n]$ os sinais consistem em pulsos com duração limitada (suporte finito). Suas amplitudes são iguais a três para $0 \le t \le4$ e $0 \le n \le4$, respectivamente, e zero caso contrário. a) Quais são os valores de $x(t)$ quando $t=1.5$, $3$ e $6$? b) Quais são os valores de $x[n]$ quando $n=1.5$, $3$ e $6$?",deepseek-reasoner,"a) Para o sinal de tempo contínuo \(x(t)\), que vale 3 para \(0 \le t \le 4\) e zero fora desse intervalo, temos:
+- \(x(1.5) = 3\) (pois \(1.5 \in [0,4]\)),
+- \(x(3) = 3\) (pois \(3 \in [0,4]\)),
+- \(x(6) = 0\) (pois \(6 > 4\)).
+
+b) Para o sinal de tempo discreto \(x[n]\), a variável \(n\) é tipicamente inteira. O sinal é definido como 3 para \(0 \le n \le 4\) (com \(n\) inteiro) e zero caso contrário. Assim:
+- \(x[1.5]\) não é definido, pois \(1.5\) não é inteiro (o sinal discreto só existe para índices inteiros).
+- \(x[3] = 3\) (pois \(3\) é inteiro e pertence ao intervalo).
+- \(x[6] = 0\) (pois \(6 > 4\) e é inteiro, mas está fora do suporte).",17.7544,15.8815,0.001,1019.83,138,1911,2049
+PT,NÃO,1. Analog and Digital,2.0,Um ADC usa $b=8$ bits por amostra e frequência de amostragem $\fs=100$ ~Msps. a) Qual é a respectiva taxa de bits em bits por segundo? b) Quantos megabytes são necessários para armazenar 1 hora de um sinal digitalizado com este ADC e armazenado em formato binário?``cru''formato (sem compactação ou cabeçalho de arquivo)?,deepseek-reasoner,"a) A taxa de bits é dada pelo produto do número de bits por amostra pela frequência de amostragem:
+\[
+\text{taxa} = 8 \, \text{bits/amostra} \times 100 \times 10^6 \, \text{amostras/s} = 800 \times 10^6 \, \text{bits/s} = 800 \, \text{Mbps}.
+\]
+
+b) Para 1 hora (3600 segundos), o total de bits é:
+\[
+800 \times 10^6 \, \text{bits/s} \times 3600 \, \text{s} = 2,88 \times 10^{12} \, \text{bits}.
+\]
+Convertendo para bytes (1 byte = 8 bits):
+\[
+\frac{2,88 \times 10^{12}}{8} = 3,6 \times 10^{11} \, \text{bytes}.
+\]
+Em megabytes (1 MB = \(10^6\) bytes):
+\[
+\frac{3,6 \times 10^{11}}{10^6} = 3,6 \times 10^5 \, \text{MB} = 360\,000 \, \text{MB}.
+\]
+Equivalentemente, 360 GB.
+
+\boxed{800\ \text{Mbps}} \quad \boxed{360\,000\ \text{MB}}",11.3202,9.5307,0.0014,739.34,100,1324,1424
+PT,NÃO,1. Analog and Digital,5.0,"O sinal analógico $x(t)=2t$ ~V é digitalizado usando um ADC de 2 bits com frequência de amostragem $\fs=100$ ~Hz para criar um sinal digital $x_q[n]$. Supondo que a primeira amostra seja obtida em $t=0$ ~s, informar: a) os valores das quatro primeiras amostras (use aqui apenas amostragem, sem quantização) e b) os valores de $x_q[n]$ para $n=0,\ldots,3$ dado que o ADC utiliza arredondamento e seus níveis de produção são $\{-2\Delta, -\Delta, 0, \Delta\}$, com $\Delta=0.025$ ~V.",deepseek-reasoner,"a) As quatro primeiras amostras sem quantização são:
+- \( x[0] = 0 \) V
+- \( x[1] = 0,02 \) V
+- \( x[2] = 0,04 \) V
+- \( x[3] = 0,06 \) V
+
+b) Com quantização por arredondamento usando os níveis \(\{-2\Delta, -\Delta, 0, \Delta\}\) e \(\Delta = 0,025\) V, as amostras quantizadas são:
+- \( x_q[0] = 0 \) V
+- \( x_q[1] = \Delta = 0,025 \) V
+- \( x_q[2] = \Delta = 0,025 \) V
+- \( x_q[3] = \Delta = 0,025 \) V",13.6864,12.5351,0.0007,1341.98,165,1546,1711
+PT,NÃO,1. Analog and Digital,13.0,"Um sinal analógico $x(t)$ foi amostrado periodicamente com período de amostragem $\ts=2$ ~s para obter o sinal amostrado $x_s(t)=2 \delta(t+4) - 5 \delta(t-2) + 7 \delta(t-6)$. O teorema da amostragem foi obedecido. a) Qual é a expressão analítica de $x(t)$? b) Esta é a única resposta possível? Por exemplo,é $2 \rect(t+4) - 5 \rect(t-2) + 7 \rect(t-6)$ uma possível expressão para $x(t)$ dado que $\ts=2$ ~se o teorema da amostragem foi obedecido? Por que?",deepseek-reasoner,"a) O período de amostragem é \(T_s = 2\) s. O sinal amostrado \(x_s(t)=2\delta(t+4)-5\delta(t-2)+7\delta(t-6)\) indica que as amostras são:
+\[
+x(-4)=2,\quad x(2)=-5,\quad x(6)=7,
+\]
+e \(x(n\cdot2)=0\) para todos os outros inteiros \(n\). Como o teorema da amostragem foi obedecido, o sinal \(x(t)\) é limitado em banda a uma frequência máxima \(B < 1/(2T_s)=0,25\) Hz. Nessas condições, a reconstrução ideal é única e dada pela fórmula de interpolação de Whittaker–Shannon:
+\[
+x(t)=\sum_{n=-\infty}^{\infty} x(nT_s)\,\operatorname{sinc}\!\left(\frac{t-nT_s}{T_s}\right),
+\]
+onde \(\operatorname{sinc}(u)=\dfrac{\sin(\pi u)}{\pi u}\). Logo,
+\[
+x(t)=2\operatorname{sinc}\!\left(\frac{t+4}{2}\right)-5\operatorname{sinc}\!\left(\frac{t-2}{2}\right)+7\operatorname{sinc}\!\left(\frac{t-6}{2}\right).
+\]
+
+b) A expressão \(2\operatorname{rect}(t+4)-5\operatorname{rect}(t-2)+7\operatorname{rect}(t-6)\) (com \(\operatorname{rect}(t)=1\) para \(|t|\le 1/2\) e \(0\) caso contrário) também produz as mesmas amostras nos instantes \(t=-4,2,6\) e zero nos demais múltiplos de \(2\). Entretanto, esse sinal não é limitado em banda (um pulso retangular possui largura de banda infinita). Como o problema afirma que o teorema da amostragem foi obedecido, o sinal original \(x(t)\) deve ser limitado em banda a frequências inferiores a \(0,25\) Hz. Portanto, a expressão com funções retangulares não é possível para \(x(t)\). A única resposta (dentre os sinais limitados em banda) é a fornecida no item (a).",43.6008,40.3015,0.0007,1479.7,173,4883,5056

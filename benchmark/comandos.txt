@@ -1,0 +1,48 @@
+Executando teste com o MOdelo local (Ex: Ministral 8B)
+
+1. Atualizar o Backend (.env)
+DEFAULT_MODEL="cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit"
+QUERY_ENHANCEMENT_MODEL="cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit"
+
+2. Subir o Novo Servidor de Inferência (vLLM)
+python3 -m vllm.entrypoints.openai.api_server \
+    --model cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit \
+    --host 0.0.0.0 \
+    --port 8006 \
+    --max-model-len 30000 \
+    --gpu-memory-utilization 0.85 \
+    --no-enable-prefix-caching
+
+3. Atualizar o Contêiner do Gateway Novamente
+sudo docker compose up -d --build api-gateway
+
+Validação
+Para garantir que a transição ocorreu com sucesso. Abra a interface web do Academick (recarregue a página com Ctrl + F5 se necessário).
+Envie uma pergunta de teste.
+Observe os logs do api-gateway para confirmar o roteamento correto:
+sudo docker compose logs -f api-gateway
+
+A saída esperada deve conter o nome exato do novo modelo selecionado no .env.
+
+8.1 Trocando para Modelos via API (OpenAI, Anthropic, DeepSeek)
+1. Desalocar Recursos Locais
+Vá até o terminal onde o vLLM está rodando e pressione Ctrl + C para derrubar o processo.
+
+2. Configurar as Chaves de API no Backend (.env)
+OPENAI_API_KEY="sk-sua-chave-aqui"
+ANTHROPIC_API_KEY="sk-ant-sua-chave-aqui"
+DEEPSEEK_API_KEY="sk-sua-chave-aqui"
+
+3. Alterar os Modelos Padrão (.env)
+DEFAULT_MODEL="gpt-4o-mini"
+QUERY_ENHANCEMENT_MODEL="gpt-4o-mini"
+
+4. Atualizar o Contêiner do Gateway
+Sempre que o arquivo .env for modificado, force o Docker a recarregar as variáveis de ambiente do backend:
+
+sudo docker compose up -d api-gateway
+
+(Nota: Para voltar a usar os modelos locais, basta repetir a Fase 1 do manual, subindo o vLLM no terminal e alterando o .env de volta para a string do Ministral).
+
+=== REALIZAR OS TESTES ===
+python3 gerador_respostas_2.py

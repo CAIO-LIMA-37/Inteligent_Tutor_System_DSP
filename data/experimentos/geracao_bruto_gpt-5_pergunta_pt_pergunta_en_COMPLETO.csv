@@ -1,0 +1,1819 @@
+Idioma,Interferencia_Tutor,Capitulo,Num_Questao,Pergunta,Modelo,Resposta_Gerada,Latencia_Total_s,TTFT_s,ITL_s,Throughput_tps,Tokens_In,Tokens_Out,Tokens_Total
+PT,NÃO,1. Analog and Digital,1.0,"Ambos em tempo contínuo $x(t)$ e o tempo discreto $x[n]$ os sinais consistem em pulsos com duração limitada (suporte finito). Suas amplitudes são iguais a três para $0 \le t \le4$ e $0 \le n \le4$, respectivamente, e zero caso contrário. a) Quais são os valores de $x(t)$ quando $t=1.5$, $3$ e $6$? b) Quais são os valores de $x[n]$ quando $n=1.5$, $3$ e $6$?",gpt-5,"a)
+- x(1.5) = 3 (pois 1.5 ∈ [0,4])
+- x(3) = 3 (pois 3 ∈ [0,4])
+- x(6) = 0 (pois 6 ∉ [0,4])
+
+b)
+- x[1.5] = não definido (sinal discreto só é definido para índices inteiros)
+- x[3] = 3 (pois 3 ∈ {0,1,2,3,4})
+- x[6] = 0 (pois 6 ∉ {0,1,2,3,4})",11.9303,10.56888318,1.36142445,578.07,134,787,921
+PT,NÃO,1. Analog and Digital,2.0,Um ADC usa $b=8$ bits por amostra e frequência de amostragem $\fs=100$ ~Msps. a) Qual é a respectiva taxa de bits em bits por segundo? b) Quantos megabytes são necessários para armazenar 1 hora de um sinal digitalizado com este ADC e armazenado em formato binário?``cru''formato (sem compactação ou cabeçalho de arquivo)?,gpt-5,"a) R = b·fs = 8 × 100×10^6 = 8×10^8 bit/s = 800 Mbit/s.
+
+b) Cada amostra tem 8 bits = 1 byte, logo taxa de dados = 100×10^6 bytes/s = 100 MB/s (decimal).
+Em 1 hora (3600 s): 100 MB/s × 3600 s = 360,000 MB ≈ 360 GB (decimal).
+(Em unidades binárias: ≈ 343,323 MiB ≈ 335.5 GiB.)",19.3203,17.88837457,1.4318769,941.42,95,1348,1443
+PT,NÃO,1. Analog and Digital,5.0,"O sinal analógico $x(t)=2t$ ~V é digitalizado usando um ADC de 2 bits com frequência de amostragem $\fs=100$ ~Hz para criar um sinal digital $x_q[n]$. Supondo que a primeira amostra seja obtida em $t=0$ ~s, informar: a) os valores das quatro primeiras amostras (use aqui apenas amostragem, sem quantização) e b) os valores de $x_q[n]$ para $n=0,\ldots,3$ dado que o ADC utiliza arredondamento e seus níveis de produção são $\{-2\Delta, -\Delta, 0, \Delta\}$, com $\Delta=0.025$ ~V.",gpt-5,"a) Fs = 100 Hz ⇒ Ts = 0,01 s. Amostras (sem quantização): 
+- n=0: x[0] = x(0) = 2·0 = 0 V
+- n=1: x[1] = x(0,01) = 2·0,01 = 0,02 V
+- n=2: x[2] = x(0,02) = 2·0,02 = 0,04 V
+- n=3: x[3] = x(0,03) = 2·0,03 = 0,06 V
+
+b) Níveis do ADC: {-2Δ, -Δ, 0, Δ} com Δ=0,025 V ⇒ {-0,05, -0,025, 0, 0,025} V.
+Limiares de arredondamento: -0,0375; -0,0125; +0,0125 V.
+
+Quantizações:
+- x_q[0] = 0 V
+- x_q[1] = 0,025 V
+- x_q[2] = 0,025 V
+- x_q[3] = 0,025 V",24.1463,20.74428415,3.40196657,494.42,163,1682,1845
+PT,NÃO,1. Analog and Digital,13.0,"Um sinal analógico $x(t)$ foi amostrado periodicamente com período de amostragem $\ts=2$ ~s para obter o sinal amostrado $x_s(t)=2 \delta(t+4) - 5 \delta(t-2) + 7 \delta(t-6)$. O teorema da amostragem foi obedecido. a) Qual é a expressão analítica de $x(t)$? b) Esta é a única resposta possível? Por exemplo,é $2 \rect(t+4) - 5 \rect(t-2) + 7 \rect(t-6)$ uma possível expressão para $x(t)$ dado que $\ts=2$ ~se o teorema da amostragem foi obedecido? Por que?",gpt-5,"a) Pelo modelo de amostragem com trem de impulsos,
+xs(t) = Σ x(nTs) δ(t − nTs).
+Com Ts = 2 s e xs(t) = 2 δ(t+4) − 5 δ(t−2) + 7 δ(t−6), temos os valores de amostra:
+x(−4)=2, x(2)=−5, x(6)=7 e x(nTs)=0 para todo n ≠ −2, 1, 3.
+
+Como o teorema da amostragem foi obedecido (x(t) é banda-limitado a |Ω| < Ωs/2), a reconstrução ideal é única e dada por Shannon:
+x(t) = Σ x(nTs) sinc((t − nTs)/Ts)
+= 2 sinc((t+4)/2) − 5 sinc((t−2)/2) + 7 sinc((t−6)/2),
+onde sinc(u) = sin(πu)/(πu).
+
+b) Entre todos os sinais contínuos que possuem as mesmas amostras, há infinitos candidatos. Porém, impondo a hipótese do teorema da amostragem (x(t) banda-limitado a |Ω| < Ωs/2), a solução acima é a única.
+
+A forma 2 rect(t+4) − 5 rect(t−2) + 7 rect(t−6) não é válida sob essa hipótese: rect(t−t0) não é banda-limitado (seu espectro é um sinc que se estende para todas as frequências), logo violaria a condição de banda limitada exigida para que “o teorema da amostragem seja obedecido”. Embora essa combinação de rects gere as mesmas amostras, ela não pode ser o x(t) original assumido como banda-limitado; a reconstrução ideal a partir das amostras produziria o sinal sinc-interpolado, não a soma de retângulos.",88.2976,82.86024904,5.43730569,984.31,168,5352,5520
+PT,NÃO,1. Analog and Digital,15.0,"Um $b=8$ -bits ADC usa complemento de dois para gerar números binários que correspondem a inteiros no intervalo $[-128, 127]$. O quantizador do ADC é uniforme com um tamanho de passo $\Delta=10$ ~mV. a) Para os seguintes valores de entrada $x[n] = [0, 1, -1.28, 1.28, 2]$, indique a saída $x_b[n]=\tilde Q_c\{x[n]\}$ em binário, seu valor correspondente como um número inteiro $x_d[n]$, a saída decodificada $x_q[n]$ e o erro de quantização. b) Repita o procedimento assumindo que o ADC usa um esquema de numeração baseado em um deslocamento $2^{b-1}=128$.",gpt-5,"Considere um quantizador uniforme de passo Δ = 10 mV = 0,01 V, com arredondamento ao mais próximo e saturação aos códigos extremos. Assim, o nível quantizado é k = clip(round(x/Δ), −128, 127) e x_q = kΔ.
+
+a) Códigos em complemento de dois (8 bits), inteiros em [−128, 127]
+- x = 0 V
+  - k = 0; x_b = 00000000; x_d = 0; x_q = 0,00 V; erro = 0,00 V
+- x = 1,00 V
+  - k = 100; x_b = 01100100; x_d = 100; x_q = 1,00 V; erro = 0,00 V
+- x = −1,28 V
+  - k = −128; x_b = 10000000; x_d = −128; x_q = −1,28 V; erro = 0,00 V
+- x = 1,28 V
+  - k = 127 (saturação do +128); x_b = 01111111; x_d = 127; x_q = 1,27 V; erro = +0,01 V
+- x = 2,00 V
+  - k = 127 (saturado); x_b = 01111111; x_d = 127; x_q = 1,27 V; erro = +0,73 V
+
+b) Códigos em binário deslocado (offset = 2^{b−1} = 128), inteiros em [0, 255]
+Regra: u = k + 128 (0 a 255), x_q = (u − 128)Δ.
+
+- x = 0 V
+  - u = 128; x_b = 10000000; x_d = 128; x_q = 0,00 V; erro = 0,00 V
+- x = 1,00 V
+  - u = 228; x_b = 11100100; x_d = 228; x_q = 1,00 V; erro = 0,00 V
+- x = −1,28 V
+  - u = 0; x_b = 00000000; x_d = 0; x_q = −1,28 V; erro = 0,00 V
+- x = 1,28 V
+  - u = 255 (saturado); x_b = 11111111; x_d = 255; x_q = 1,27 V; erro = +0,01 V
+- x = 2,00 V
+  - u = 255 (saturado); x_b = 11111111; x_d = 255; x_q = 1,27 V; erro = +0,73 V
+
+Observação: Em ambos os esquemas, os níveis quantizados k (e portanto x_q e o erro) são os mesmos; apenas a codificação binária difere.",53.7793,35.56349158,18.21579266,184.62,179,3363,3542
+PT,NÃO,1. Analog and Digital,16.0,"Uma sinusóide $x[n]=\sin((\pi/3)n)$ foi quantizado com $b=3$ bits por amostra usando um tamanho de passo $\Delta=0.25$ e $\hat X_{\textrm{min}}=-1$. Essa quantização gerou o sinal digital $x_q[n]$. Os valores binários correspondentes $x_b[n]=\tilde Q_c\{x[n]\}$ foram armazenados em um arquivo usando um esquema de numeração com deslocamento $2^{b-1}=4$, mas este arquivo foi interpretado erroneamente com uma rotina que gerou $y_q[n]$ assumindo um esquema de complemento de dois. Informar os 6 valores de um período do original $x[n]$, o adequadamente quantizado $x_q[n]$ e o erroneamente interpretado $y_q[n]$.",gpt-5,"Frequência: ω0 = π/3 ⇒ período N0 = 6 amostras. Para n = 0,…,5:
+
+- x[n] = {0, 0.8660, 0.8660, 0, −0.8660, −0.8660}
+
+Quantizador uniforme mid-rise com Δ = 0.25, X̂min = −1:
+- Limiares: −1, −0.75, −0.5, −0.25, 0, 0.25, 0.5, 0.75, 1
+- Níveis: −0.875, −0.625, −0.375, −0.125, 0.125, 0.375, 0.625, 0.875
+
+Índices i = floor((x − (−1))/0.25) saturados em [0,7] ⇒ i = {4, 7, 7, 4, 0, 0}
+- Bits (offset-binary): {100, 111, 111, 100, 000, 000}
+
+Valores corretamente quantizados:
+- x_q[n] = X̂min + (i + 0.5)Δ = {0.125, 0.875, 0.875, 0.125, −0.875, −0.875}
+
+Interpretação errada como complemento de dois (3 bits):
+- 100→−4, 111→−1, 000→0 ⇒ s = {−4, −1, −1, −4, 0, 0}
+- Reconstrução mid-tread típica: y_q[n] = s·Δ
+- y_q[n] = {−1.00, −0.25, −0.25, −1.00, 0.00, 0.00}",108.9923,104.14737511,4.84492397,1300.95,190,6303,6493
+PT,NÃO,1. Analog and Digital,17.0,"O objetivo é projetar um quantizador escalar uniforme para um sinal em tempo discreto. $x[n]$. É dado que $x[n]$ é distribuído aproximadamente uniformemente com média igual a 2 e desvio padrão igual a 3. a) Descreva um quantizador de 3 bits que minimize o erro de quantização, explicando suas decisões de projeto. b) Calcule a relação sinal/ruído (em dB) para o caso de um quantizador de 8 bits operando com o mesmo sinal de entrada.",gpt-5,"a) Projeto do quantizador escalar uniforme (3 bits, L = 8)
+- Como x[n] é aproximadamente uniforme com média μ = 2 e desvio padrão σ = 3, modelamos x ~ U[a,b].
+  - Para U[a,b]: σ = (b−a)/√12 ⇒ b−a = √12 σ = 6√3 ≈ 10,392.
+  - Como μ = (a+b)/2 = 2 ⇒ a = 2 − (b−a)/2 ≈ 2 − 5,196 ≈ −3,196; b ≈ 7,196.
+- Passo de quantização: Δ = (b−a)/8 = (6√3)/8 ≈ 1,299.
+- Limiares de decisão (midrise), k = 1,…,7: τ_k = a + kΔ
+  - τ_1 ≈ −1,897; τ_2 ≈ −0,598; τ_3 ≈ 0,701; τ_4 = 2,000; τ_5 ≈ 3,299; τ_6 ≈ 4,598; τ_7 ≈ 5,897.
+- Níveis de reconstrução (centros dos intervalos), k = 1,…,8: y_k = a + (k−0,5)Δ
+  - y_1 ≈ −2,547; y_2 ≈ −1,248; y_3 ≈ 0,051; y_4 ≈ 1,350; y_5 ≈ 2,650; y_6 ≈ 3,949; y_7 ≈ 5,248; y_8 ≈ 6,547.
+- Regra de codificação: k = clamp(floor((x−a)/Δ), 0, 7). Saída = y_{k+1}. Fora de [a,b], saturar em y_1 ou y_8.
+- Justificativa: Para pdf uniforme em [a,b], o quantizador de Lloyd–Max que minimiza o erro quadrático médio tem células de igual largura e níveis nos centróides; para pdf uniforme, os centróides coincidem com os centros dos intervalos, logo o quantizador uniforme acima é ótimo (sem sobrecarga em [a,b]).
+
+b) SNR para 8 bits (L = 256) com o mesmo sinal
+- Δ = (b−a)/256 = (6√3)/256.
+- Potência do ruído de quantização: σ_q^2 = Δ^2/12 = (b−a)^2/(12·256^2) = 108/(12·65536) = 9/65536 ≈ 1,373×10^−4.
+- Variância do sinal: σ_x^2 = 9. (Potência total seria 9 + μ^2 = 13.)
+- SNR (definição usual em quantização, usando a variância do sinal): SNR = σ_x^2/σ_q^2 = 9 / (9/65536) = 65536 ⇒ SNR_dB = 10 log10(65536) ≈ 48,16 dB.
+- Observação: Se considerar a potência total (incluindo a média), SNR = 13 / (9/65536) ⇒ SNR_dB ≈ 49,76 dB.",155.7573,145.65092921,10.10635734,618.62,121,6252,6373
+PT,NÃO,1. Analog and Digital,20.0,"Considere que você deseja quantizar uma senóide com amplitude de pico igual a 10 volts usando $b=10$ pedaços. Encontre expressões gerais para o SNR de quantização em termos de $b$, usando escalas lineares e de dB. Se em vez de uma senóide o seu sinal (a ser quantizado) tivesse uma PDF gaussiana com média $\mu=3$ e desvio padrão $\sigma=2$, encontre expressões semelhantes para o SNR assumindo que a faixa dinâmica do sinalé $6 \sigma$ em torno da média.",gpt-5,"Vamos assumir quantização uniforme, sem sobrecarga (o sinal ocupa exatamente a faixa do quantizador) e erro de quantização branco com variância Δ²/12.
+
+Definições:
+- b = número de bits; L = 2^b níveis.
+- Passo de quantização Δ = faixa_dinâmica / L.
+
+1) Senoide de pico A = 10 V (faixa dinâmica de ±A ⇒ 2A)
+- Δ = 2A / 2^b.
+- Potência do sinal (média temporal): Ps = A²/2.
+- Variância do erro de quantização: Pq = Δ²/12.
+- SNR (linear): SNR = Ps/Pq = (A²/2) / (Δ²/12) = (3/2) 2^{2b}.
+- SNR (dB): SNR_dB = 10 log10(3/2) + 20 b log10(2) ≈ 1,76 + 6,02 b.
+
+Cheque para b = 10:
+- SNR ≈ 1,5 × 2^{20} ≈ 1,573 × 10^6.
+- SNR_dB ≈ 61,96 dB.
+
+Observação: A = 10 V cancela nas expressões gerais; o valor numérico só depende de b quando o sinal ocupa a escala cheia.
+
+2) Sinal gaussiano N(μ = 3, σ = 2) com faixa dinâmica de 6σ em torno da média (de μ − 3σ a μ + 3σ)
+- Faixa dinâmica = 6σ; Δ = 6σ / 2^b.
+- Potência “útil” do sinal (variância em torno da média): Ps = σ².
+- Variância do erro: Pq = Δ²/12.
+- SNR (linear): SNR = σ² / (Δ²/12) = 12σ² / (6σ)² × 2^{2b} = (1/3) 2^{2b}.
+- SNR (dB): SNR_dB = 10 log10(1/3) + 20 b log10(2) ≈ −4,77 + 6,02 b.
+
+Cheque para b = 10:
+- SNR ≈ (1/3) × 2^{20} ≈ 3,495 × 10^5.
+- SNR_dB ≈ 55,43 dB.
+
+Notas rápidas:
+- Se incluir a componente DC na potência do sinal gaussiano (μ ≠ 0), o SNR em dB aumenta em 10 log10(1 + (μ/σ)²); aqui adotamos a prática comum de usar apenas a variância σ² como potência do sinal. 
+- Para o caso senoidal com escala cheia, recupera-se a forma clássica SNR_dB ≈ 6,02 b + 1,76 dB. Para o gaussiano com faixa de ±3σ, a constante é ≈ −4,77 dB, refletindo o fator de crista maior.",55.0239,47.12675381,7.89714217,491.57,129,3882,4011
+PT,NÃO,1. Analog and Digital,22.0,"Um sistema de aquisição de dados usa um ADC de 12 bits. Para melhorar sua resolução, é desenvolvida uma placa de condicionamento de sinais, baseada em um circuito de controle automático de ganho (AGC) com ganho programável. Este ganho pode assumir 16 valores distintos e é representado por 4 bits. Supondo que o sistema global representa agora uma amostra com $12+4=16$ bits, qual a melhoria esperada na SNR de quantização em dB com a adoção do AGC?",gpt-5,"A melhoria na SNR de quantização é de aproximadamente 6,02 dB por bit adicional. Com 4 bits a mais (de 12 para 16 bits), a melhora esperada é:
+ΔSNR ≈ 6,02 × 4 ≈ 24 dB (≈24,1 dB para um seno full-scale).",12.5443,11.70723724,0.83704138,709.64,115,594,709
+PT,NÃO,1. Analog and Digital,23.0,"Um ADC de oito bits usa complemento de dois e o formato Q2.5. O sinal de entrada está sempre dentro da região granular do quantizador (sem saturação). O quantizador é uniforme, utiliza arredondamento e seus níveis de saída correspondem à faixa dinâmica do sinal dada por $[-3, 3]$ ~V. a) Qual é a média e a variância esperadas do erro de quantização assumindo que o modelo linear para quantização é válido? b) Qual é o SQNR estimado? c) Qual será o novo SNR se o Q3.4 for adotado e o que poderia ser uma vantagem do Q3.4 sobre o Q2.5?",gpt-5,"Vamos adotar o modelo linear de quantização (erro independente, uniforme em [−Δ/2, Δ/2]) e que o sinal não satura.
+
+Dados:
+- B = 8 bits, níveis em [−3, 3] V ⇒ Δ = (3 − (−3))/2^8 = 6/256 = 3/128 ≈ 0,0234375 V.
+
+a) Erro de quantização
+- Média: E{e} = 0.
+- Variância: Var{e} = Δ^2/12 = (0,0234375^2)/12 ≈ 4,5776×10^−5 V^2.
+  (e_rms = Δ/√12 ≈ 6,77 mV)
+
+b) SQNR estimado
+- Para senóide em fundo de escala (padrão): SQNR ≈ 6,02·B + 1,76 ≈ 49,9 dB.
+  Cálculo direto: P_sinal = (3/√2)^2 = 4,5 V^2; SQNR = 10log10(4,5/(Δ^2/12)) ≈ 49,9 dB.
+- Se o sinal for uniforme em [−3, 3]: P_sinal = 3 V^2 ⇒ SQNR ≈ 10log10(3/(Δ^2/12)) = 10log10(65536) ≈ 48,2 dB.
+
+c) Adotando Q3.4
+- Com 8 bits e a mesma faixa analógica [−3, 3] V, o número de níveis (256) e Δ não mudam; logo o ruído de quantização não muda. Portanto, o SNR permanece igual ao do item (b) (≈ 49,9 dB para senóide de fundo de escala, ou ≈ 48,2 dB para sinal uniforme).
+- Possível vantagem do Q3.4 sobre o Q2.5: mais bits na parte inteira (maior margem/“headroom” até ±7,9375 em unidades normalizadas), o que reduz risco de estouro em operações internas (somas, acumulações, produtos) sem reescalonamento frequente, embora com menor resolução fracionária.",105.3271,99.05013061,6.27699399,987.57,151,6199,6350
+PT,NÃO,1. Analog and Digital,28.0,"Você não sabe muito sobre um sinal $x[n]$, mas é dado que $x[0]=3$. Pode $x[n]$ ser um sinal estranho? Por que?",gpt-5,"Não. Um sinal ímpar (odd) satisfaz x[−n] = −x[n]. Avaliando em n = 0, temos x[0] = −x[0] ⇒ x[0] = 0. Como foi dado x[0] = 3, isso contradiz a condição de ímpar. Logo, x[n] não pode ser um sinal ímpar; pode ser par ou nem par nem ímpar.",8.8037,7.59434795,1.20939445,563.92,43,682,725
+PT,NÃO,1. Analog and Digital,29.0,"Para os seguintes sinais, calcule a energia $E_\infty$ e poder $P_\infty$. Eles têm uma energia total finita ou uma potência média finita? um) $x(t)=5 \cos(2 \pi 300 t + \pi/4)$, b) $x(t)=3 e^{-2 t} u(t)$ ec) $x(t)=t$.",gpt-5,"Definições
+- Energia: E∞ = ∫_{−∞}^{∞} |x(t)|² dt
+- Potência média: P∞ = lim_{T→∞} (1/(2T)) ∫_{−T}^{T} |x(t)|² dt
+
+a) x(t) = 5 cos(2π 300 t + π/4)
+- |x(t)|² = 25 cos²(…)
+- Energia: E∞ = ∞ (a integral de cos² ao longo de todo o tempo diverge)
+- Potência: P∞ = média de 25 cos² = 25/2 = 12,5
+- Classificação: sinal de potência (potência finita, energia infinita)
+
+b) x(t) = 3 e^{−2t} u(t)
+- |x(t)|² = 9 e^{−4t} u(t)
+- Energia: E∞ = ∫_0^∞ 9 e^{−4t} dt = 9/4 = 2,25 (finita)
+- Potência: P∞ = lim_{T→∞} (1/(2T)) ∫_{−T}^{T} |x(t)|² dt = (constante finita)/(2T) → 0
+- Classificação: sinal de energia (energia finita, potência média zero)
+
+c) x(t) = t
+- |x(t)|² = t²
+- Energia: E∞ = ∫_{−∞}^{∞} t² dt = ∞
+- Potência: P∞ = lim_{T→∞} (1/(2T)) ∫_{−T}^{T} t² dt = lim (T²/3) = ∞
+- Classificação: nem de energia nem de potência (ambas infinitas)",27.9576,22.62145185,5.33617353,326.26,89,1741,1830
+PT,NÃO,1. Analog and Digital,30.0,O que pode ser dito sobre a energia total e a potência média de qualquer sinal periódico?,gpt-5,"- Para qualquer sinal periódico não nulo, a energia total é infinita: E = ∞.
+- A potência média é finita e constante, podendo ser calculada em um único período:
+  - Contínuo: P̄ = (1/T0) ∫_{t0}^{t0+T0} |x(t)|² dt
+  - Discreto: P̄ = (1/N0) Σ_{n=n0}^{n0+N0-1} |x[n]|²
+- Portanto, sinais periódicos (não nulos) são sinais de potência, não de energia. 
+- Exceção trivial: se o sinal for identicamente zero, então E = 0 e P̄ = 0.",14.0651,12.63314414,1.43192911,651.57,24,933,957
+PT,NÃO,1. Analog and Digital,31.0,"a) O conjunto $\calM = \{-7,-5,-3,-1,1,3,5,7\}$ descreve os valores de saída de um determinado quantizador, em volts.	Supondo que todos os elementos tenham a mesma probabilidade, qual é a energia média em joules desses valores? b) Considere que os mesmos valores compõem uma sequência de tempo discreto $x[n]=[-7,-5,-3,-1,1,3,5,7]$. Qual é a potência média em watts de $x[n]$ sobre o seu apoio a oito amostras diferentes de zero? c) Dado que a equação para ambos os casos a) e b) é a mesma, discuta por que os resultados são expressos em unidades distintas (joules e watts).",gpt-5,"a) Energia média (assumindo carga de 1 Ω e duração de 1 s por amostra):
+- Os níveis são ±1, ±3, ±5, ±7 V, todos com probabilidade 1/8.
+- E{energia} = E{x^2} = (1/8)·[2·(1^2 + 3^2 + 5^2 + 7^2)] = (1/8)·[2·(84)] = 168/8 = 21 J.
+
+b) Potência média de x[n] sobre seu apoio (8 amostras não nulas), com 1 Ω:
+- Pm = (1/8)·∑|x[n]|^2 = (1/8)·(49+25+9+1+1+9+25+49) = 168/8 = 21 W.
+
+c) Por que as unidades diferem se a expressão é a mesma:
+- Em ambos os casos aparece a média do quadrado (valor quadrático médio) do sinal.
+- Energia integra potência no tempo; para sinais em tempo discreto, energia total em N amostras é E_total = ∑|x[n]|^2·Ts/R. Com Ts = 1 s e R = 1 Ω, E_total = ∑|x[n]|^2 (J).
+- Potência média é a taxa de energia: Pm = (1/(N·Ts))·E_total = (1/N)·∑|x[n]|^2 (W) para Ts = 1 s e R = 1 Ω.
+- Assim, a mesma média de |x|^2 gera numericamente 21, mas:
+  - como energia média por amostra (J) no item (a),
+  - como potência média (W) no item (b).
+- Se mudassem Ts ou R, os valores numéricos/units mudariam; por exemplo, a energia total nas 8 amostras seria 168 J, enquanto a potência média permanece 21 W (para Ts = 1 s, R = 1 Ω).",36.1919,30.45715117,5.73479271,448.14,175,2570,2745
+PT,NÃO,1. Analog and Digital,32.0,"Para cada um dos seguintes sinais, determine se é periódico ou não e, em caso positivo, seu período fundamental $N_0$ : a) $x[n]=u[n] + u[-n-1]$, b) $x[n]=\cos(\frac \pi 8 n)$, c) $x[n]=\cos(\frac {11} {128} n + \pi/3)$ e d) $x[n]=\cos( (\pi/4) n^2)$?",gpt-5,"- a) x[n] = u[n] + u[-n-1] = 1 para todo n. Periódico. N0 = 1.
+- b) x[n] = cos(π/8 n). Periódico, pois (π/8)N0 = 2πk ⇒ N0 = 16. Logo N0 = 16.
+- c) x[n] = cos((11/128) n + π/3). Não periódico, pois ω0 = 11/128 e ω0/(2π) = 11/(256π) é irracional, não existindo N0 inteiro. (Se fosse cos((11π/128) n + π/3), então N0 = 256.)
+- d) x[n] = cos((π/4) n^2). Periódico: para N = 4, θ(n+4) − θ(n) = (π/4)((n+4)^2 − n^2) = 2π(n+2), logo x[n+4] = x[n]. Não há N menor que funcione, então N0 = 4.",50.2417,47.87316895,2.36856318,1592.1,111,3771,3882
+PT,NÃO,2. Transforms and Signal Representation,1.0,"Dados dois vetores $[4, 3]$ e $[-5, 2]$, encontre suas normas, produto interno e ângulo entre eles.",gpt-5,"- Normas:
+  - ||[4, 3]|| = sqrt(4^2 + 3^2) = 5
+  - ||[-5, 2]|| = sqrt((-5)^2 + 2^2) = sqrt(29) ≈ 5,385
+
+- Produto interno:
+  - [4, 3] · [-5, 2] = 4·(-5) + 3·2 = -14
+
+- Ângulo entre eles:
+  - cos θ = (a·b)/(||a|| ||b||) = -14 / (5√29)
+  - θ = arccos(-14/(5√29)) ≈ 121,3° ≈ 2,117 rad",53.8212,51.58747292,2.23377323,1479.11,39,3304,3343
+PT,NÃO,2. Transforms and Signal Representation,2.0,"Dados dois vetores $\bx=[4, 0]$ e $\by=[-5, 2]$, encontre as projeções $\bp_{yx}$ e $\bp_{xy}$ e os respectivos vetores de erro $\be_{yx}$ e $\be_{xy}$.",gpt-5,"Assumindo p_yx = proj de y sobre x e p_xy = proj de x sobre y:
+
+- p_yx = [(y·x)/(x·x)] x
+  - x·x = 16, y·x = -20
+  - p_yx = (-20/16) x = (-5/4)(4,0) = (-5, 0)
+- e_yx = y − p_yx = (-5, 2) − (-5, 0) = (0, 2)
+
+- p_xy = [(x·y)/(y·y)] y
+  - y·y = 29, x·y = -20
+  - p_xy = (-20/29) y = (-20/29)(-5, 2) = (100/29, -40/29)
+- e_xy = x − p_xy = (4, 0) − (100/29, -40/29) = (16/29, 40/29)
+
+Verificação: e_yx · x = 0 e e_xy · y = 0.",12.5246,10.33557796,2.18903637,462.76,64,1013,1077
+PT,NÃO,2. Transforms and Signal Representation,3.0,"É a matriz $\bA =
+    \begin{bmatrix}
+    1 & -5 \\
+    3 & 4 \\
+    \end{bmatrix}$ unitário? Projete uma matriz unitária $\bB$ isso é semelhantea $\bA$ no sentido de que sua primeira base (coluna) é um vetor na mesma direção que $[1,~3]^T$.",gpt-5,"Não. Para ser unitária (no caso real, ortogonal), precisaríamos A^T A = I. Mas
+A^T A = [[10, 7],[7, 41]] ≠ I, e as colunas de A não são ortogonais nem de norma 1.
+
+Uma matriz unitária B cuja primeira coluna é paralela a [1, 3]^T pode ser
+B = (1/√10) [[1, -3],
+              [3,  1]].
+Aqui, a primeira coluna é [1, 3]/√10 (mesma direção de [1, 3]^T), a segunda é ortogonal e de norma 1, e B^T B = I (com det B = 1).",20.8895,19.31047559,1.57905841,1120.29,91,1769,1860
+PT,NÃO,2. Transforms and Signal Representation,4.0,"Suponha que um espaço vetorial 2-d tenha uma base não ortogonal dada por $\overline i=[2, 1]$ e $\overline j=[0, 3]$. Encontre os coeficientes $\alpha$ e $\beta$ que permitem representar o vetor $\bx=[4,1]$ como a combinação linear $\bx = \alpha \overline i + \beta \overlinej$.",gpt-5,"Queremos α e β tais that [4, 1] = α[2, 1] + β[0, 3].
+
+Componentes:
+- x: 2α = 4 ⇒ α = 2.
+- y: α + 3β = 1 ⇒ 2 + 3β = 1 ⇒ 3β = −1 ⇒ β = −1/3.
+
+Resposta: α = 2 e β = −1/3.",9.8913,7.36408591,2.5272305,143.24,95,362,457
+PT,NÃO,2. Transforms and Signal Representation,5.0,"Use o procedimento de Gram-Schmidt para encontrar uma base ortonormal para representar os vetores no conjunto $\calC = \{ [0, 0, 1], [0, 1, 0], [0, 0, 8], [0, 5, 0], [4, 1, 2], [0, 0, 3]\}$. Mostre também que qualquer vetor em $\calC$ pode ser escrito como uma combinação linear dos vetores de base obtidos.",gpt-5,"Vamos aplicar Gram–Schmidt à lista na ordem dada, sobre ℝ^3.
+
+Dados:
+v1=(0,0,1), v2=(0,1,0), v3=(0,0,8), v4=(0,5,0), v5=(4,1,2), v6=(0,0,3).
+
+Passos de Gram–Schmidt:
+- u1 = v1 ⇒ e1 = u1/||u1|| = (0,0,1).
+- u2 = v2 − (v2·e1)e1 = v2 ⇒ e2 = u2/||u2|| = (0,1,0).
+- u3 = v3 − (v3·e1)e1 − (v3·e2)e2 = (0,0,8) − 8(0,0,1) − 0 = 0 ⇒ descarta.
+- u4 = v4 − (v4·e1)e1 − (v4·e2)e2 = (0,5,0) − 0 − 5(0,1,0) = 0 ⇒ descarta.
+- u5 = v5 − (v5·e1)e1 − (v5·e2)e2 = (4,1,2) − 2(0,0,1) − 1(0,1,0) = (4,0,0).
+  Então e3 = u5/||u5|| = (1,0,0).
+- u6 = v6 − (v6·e1)e1 − (v6·e2)e2 − (v6·e3)e3 = (0,0,3) − 3(0,0,1) − 0 − 0 = 0 ⇒ descarta.
+
+Base ortonormal obtida para span(C):
+B = { e1=(0,0,1), e2=(0,1,0), e3=(1,0,0) }.
+(Trata-se da base canônica, possivelmente em ordem diferente.)
+
+Escrita dos vetores de C como combinações lineares de B:
+- (0,0,1) = 1·e1 + 0·e2 + 0·e3
+- (0,1,0) = 0·e1 + 1·e2 + 0·e3
+- (0,0,8) = 8·e1 + 0·e2 + 0·e3
+- (0,5,0) = 0·e1 + 5·e2 + 0·e3
+- (4,1,2) = 2·e1 + 1·e2 + 4·e3
+- (0,0,3) = 3·e1 + 0·e2 + 0·e3
+
+Observação: como B é ortonormal, quaisquer coeficientes de um vetor x são dados por x·e1, x·e2 e x·e3. Aqui, span(C)=ℝ^3, então B é uma base ortonormal de ℝ^3.",33.5951,27.36918139,6.2258966,451.02,115,2808,2923
+PT,NÃO,2. Transforms and Signal Representation,10.0,Quais são os avançados $\bA$ e inverso $\bA^H$ matrizes para uma DFT ortonormal de 3 pontos?,gpt-5,"Para a DFT ortonormal de 3 pontos (N=3):
+
+- Matriz direta (forward) A, com A_{k,n} = (1/√3) e^{-j 2π kn/3}, k,n ∈ {0,1,2}.
+  Seja ω = e^{-j 2π/3} = −1/2 − j√3/2 e ω^2 = e^{-j 4π/3} = −1/2 + j√3/2.
+  Então:
+  A = (1/√3) ·
+      [ [1, 1, 1],
+        [1, ω, ω^2],
+        [1, ω^2, ω] ]
+
+- Matriz inversa (Hermitiana) A^H = A^{-1}, com A^H_{k,n} = (1/√3) e^{+j 2π kn/3}:
+  A^H = (1/√3) ·
+        [ [1, 1, 1],
+          [1, ω^2, ω],
+          [1, ω, ω^2] ]
+
+Verificação: A^H A = I_3.",25.0558,22.96680641,2.08898973,1015.8,39,2122,2161
+PT,NÃO,2. Transforms and Signal Representation,12.0,"Dado que $\bX=[8,0,0,0]$ foi obtido com uma DFT ortonormal de 4 pontos, encontre seu inverso $\bx$. Para o mesmo espectro, supondo que $\fs=10$ Hz, às quais as frequências correspondem aos elementos de $\bX$?",gpt-5,"- Inversão (DFT ortonormal, N=4): x[n] = (1/√N) Σ_k X[k] e^{j2πkn/N}. Como só X[0]=8,
+  x[n] = (1/2)·8 = 4 para n=0,1,2,3.
+  Portanto, x = [4, 4, 4, 4].
+
+- Frequências dos bins com fs = 10 Hz (Δf = fs/N = 2,5 Hz):
+  • X[0] → 0 Hz (DC)
+  • X[1] → 2,5 Hz
+  • X[2] → 5 Hz (Nyquist)
+  • X[3] → 7,5 Hz, que é equivalente a −2,5 Hz na convenção de frequências assinadas
+
+Observação: como apenas o bin DC é diferente de zero, o sinal no tempo é constante.",18.4542,16.46452713,1.98965645,782.55,75,1557,1632
+PT,NÃO,2. Transforms and Signal Representation,14.0,"Usando a condição de ortogonalidade das funções de base, derive o par de equações da série de Fourier. Para fazer isso, lembre-se de como o produto interno entre sinais complexos é definido usando o conjugado e o fator de normalização porque as bases não são ortonormais.",gpt-5,"Considere um sinal periódico x(t) de período T, com frequência fundamental ω0 = 2π/T. Usaremos as funções de base complexas φk(t) = e^{jkω0 t}.
+
+1) Produto interno (complexo) e ortogonalidade
+- Defina o produto interno sobre um período como
+  <f, g> = ∫_{t0}^{t0+T} f(t) g*(t) dt,
+  onde * denota conjugado complexo.
+- Com essa definição,
+  <φk, φm> = ∫_{t0}^{t0+T} e^{jkω0 t} e^{-jmω0 t} dt
+           = ∫_{t0}^{t0+T} e^{j(k−m)ω0 t} dt
+           = T, se k = m; e 0, se k ≠ m.
+  Logo, as bases são ortogonais, porém não ortonormais, pois ||φk||^2 = <φk, φk> = T.
+
+2) Síntese (expansão em série)
+- Supomos que x(t) admite a expansão
+  x(t) = ∑_{k=−∞}^{∞} c_k e^{jkω0 t}.
+
+3) Análise (cálculo dos coeficientes)
+- Projete x(t) em φm(t) usando o produto interno:
+  <x, φm> = <∑_k c_k φk, φm> = ∑_k c_k <φk, φm> = c_m <φm, φm> = c_m T.
+- Portanto,
+  c_m = (1/T) ∫_{t0}^{t0+T} x(t) e^{-jmω0 t} dt.
+
+4) Par de equações da série de Fourier (forma complexa)
+- Análise: c_k = (1/T) ∫_{t0}^{t0+T} x(t) e^{-jkω0 t} dt.
+- Síntese: x(t) = ∑_{k=−∞}^{∞} c_k e^{jkω0 t}.
+
+Observações
+- O instante inicial t0 é arbitrário; qualquer intervalo de comprimento T serve.
+- Se preferir definir o produto interno normalizado como (1/T)∫ f(t) g*(t) dt, então as bases se tornam ortonormais e os coeficientes são simplesmente c_k = <x, φk> (nessa métrica).",23.2059,18.37548995,4.83036542,497.68,67,2404,2471
+PT,NÃO,2. Transforms and Signal Representation,15.0,Quais são os coeficientes da série de Fourier para o sinal $x(t)=2 + 3 \cos(2 \pi 100 t) + 8 \sin(2 \pi 300 t + \pi) + \cos(2 \pi 50 t - \pi)$?,gpt-5,"Vamos tomar f0 = 50 Hz (ω0 = 2π·50), pois as frequências presentes (50, 100, 300 Hz) são múltiplos de 50 Hz. Note que:
+- cos(2π·50 t − π) = −cos(2π·50 t)
+- sin(2π·300 t + π) = −sin(2π·300 t)
+
+Logo, x(t) = 2 − cos(ω0 t) + 3 cos(2ω0 t) − 8 sin(6ω0 t).
+
+Coeficientes trigonométricos (x(t) = a0/2 + Σk≥1 [ak cos(kω0 t) + bk sin(kω0 t)]):
+- a0 = 4
+- a1 = −1, b1 = 0
+- a2 = 3, b2 = 0
+- a6 = 0, b6 = −8
+- Demais ak, bk = 0
+
+Coeficientes exponenciais (x(t) = Σk Ck e^{jkω0 t}):
+- C0 = 2
+- C1 = C−1 = −1/2
+- C2 = C−2 = 3/2
+- C6 = 4j, C−6 = −4j
+- Demais Ck = 0",24.7502,22.42721105,2.32300615,1122.68,69,2608,2677
+PT,NÃO,2. Transforms and Signal Representation,16.0,"A série bilateral de Fourier de um sinal $x(t)$ com período $T_0=0.01$ ~s tem coeficientes diferentes de zero $c_0=3$, $c_1=2e^{-j4}$, $c_4=5$, $c_{-1}=2e^{j4}$ e $c_{-4}=5$. Para que serve a expressão $x(t)$?",gpt-5,"Interpretando o enunciado como “qual é a expressão de x(t) no tempo”, a partir dos coeficientes da série de Fourier:
+
+ω0 = 2π/T0 = 2π/0,01 = 200π rad/s
+
+x(t) = c0 + c1 e^{jω0 t} + c_{-1} e^{-jω0 t} + c4 e^{j4ω0 t} + c_{-4} e^{-j4ω0 t}
+     = 3 + 2e^{-j4} e^{jω0 t} + 2e^{j4} e^{-jω0 t} + 5 e^{j4ω0 t} + 5 e^{-j4ω0 t}
+     = 3 + 4 cos(ω0 t − 4) + 10 cos(4ω0 t)
+
+Substituindo ω0:
+x(t) = 3 + 4 cos(200π t − 4) + 10 cos(800π t), com T0 = 10 ms.",11.046,9.60804057,1.437958,833.82,95,1199,1294
+PT,NÃO,2. Transforms and Signal Representation,17.0,"Qual é a transformada de Fourier de: a) $x(t) = \rect(t)$, b) $y(t) = 4\rect(t-6)$ ec) $z(t) = 5\rect( (t-4)/3)$?",gpt-5,"Usarei a CTFT em f (Hz): X(f) = ∫ x(t) e^{-j 2π f t} dt, e a convenção sinc(x) = sin(π x)/(π x). O par básico é: rect(t/τ) ↔ τ sinc(τ f). Deslocamento no tempo t0 multiplica por e^{-j 2π f t0}.
+
+a) x(t) = rect(t)
+X(f) = sinc(f)
+
+b) y(t) = 4 rect(t − 6)
+Y(f) = 4 e^{-j 2π f 6} sinc(f)
+
+c) z(t) = 5 rect((t − 4)/3)
+Z(f) = 5 · [3 sinc(3 f)] · e^{-j 2π f 4} = 15 e^{-j 2π f 4} sinc(3 f)",17.5413,15.97407937,1.56721282,1109.61,62,1739,1801
+PT,NÃO,2. Transforms and Signal Representation,18.0,"Qual é a transformada de Fourier de: a) $x(t) = \sinc(t)$, b) $y(t) = 4\sinc(t-6)$ ec) $z(t) = 5\sinc( (t-4)/3)$?",gpt-5,"Vou usar a convenção de transformada de Fourier X(f) = ∫ x(t) e^{-j 2π f t} dt e a sinc normalizada sinc(t) = sin(π t)/(π t). Também, rect(u) = 1 para |u| < 1/2 e 0 caso contrário.
+
+Com isso:
+a) x(t) = sinc(t)
+   X(f) = rect(f)
+
+b) y(t) = 4 sinc(t − 6)
+   Y(f) = 4 e^{-j 2π f 6} rect(f)
+
+c) z(t) = 5 sinc((t − 4)/3)
+   Z(f) = 5 · 3 e^{-j 2π f 4} rect(3 f) = 15 e^{-j 8π f} rect(3 f)",24.3016,22.84983373,1.45178008,1453.39,63,2110,2173
+PT,NÃO,2. Transforms and Signal Representation,19.0,"Prove as expressões: a) para a DTFT de $x[n]=0.9^n u[n] + 0.8^n u[n]$ eb) pela sua transformada Z, indicando o ROC.",gpt-5,"Vamos usar u[n] como o degrau unitário.
+
+a) DTFT de x[n] = 0.9^n u[n] + 0.8^n u[n]
+Pela definição, X(e^{jω}) = Σ_{n=-∞}^{∞} x[n] e^{-jωn} = Σ_{n=0}^{∞} (0.9^n + 0.8^n) e^{-jωn}.
+Separando e usando a soma geométrica Σ_{n=0}^{∞} r^n = 1/(1−r) para |r|<1:
+- Σ_{n=0}^{∞} (0.9 e^{-jω})^n = 1 / (1 − 0.9 e^{-jω})
+- Σ_{n=0}^{∞} (0.8 e^{-jω})^n = 1 / (1 − 0.8 e^{-jω})
+Logo,
+X(e^{jω}) = 1 / (1 − 0.9 e^{-jω}) + 1 / (1 − 0.8 e^{-jω}).
+
+b) Transformada Z e ROC
+A transformada Z é X(z) = Σ_{n=−∞}^{∞} x[n] z^{-n} = Σ_{n=0}^{∞} (0.9^n + 0.8^n) z^{-n}.
+Novamente, somas geométricas:
+- Σ_{n=0}^{∞} (0.9 z^{-1})^n = 1 / (1 − 0.9 z^{-1}) = z / (z − 0.9)
+- Σ_{n=0}^{∞} (0.8 z^{-1})^n = 1 / (1 − 0.8 z^{-1}) = z / (z − 0.8)
+Assim,
+X(z) = 1/(1 − 0.9 z^{-1}) + 1/(1 − 0.8 z^{-1}) = z/(z − 0.9) + z/(z − 0.8).
+
+- Polos: z = 0.9 e z = 0.8.
+- Como x[n] é à direita (u[n]), o ROC é exterior ao polo de maior módulo: ROC = |z| > 0.9.
+
+A DTFT existe porque a circunferência unitária |z|=1 está dentro do ROC (1 > 0.9). Avaliando X(z) na circunferência unitária, z = e^{jω}, recupera-se o resultado da alínea (a):
+X(e^{jω}) = 1 / (1 − 0.9 e^{-jω}) + 1 / (1 − 0.8 e^{-jω}).",24.7966,20.39972329,4.39684248,591.11,54,2599,2653
+PT,NÃO,2. Transforms and Signal Representation,19.0,"Prove as expressões: a) para a DTFT de $x[n]=0.9^n u[n] + 0.8^n u[n]$ eb) pela sua transformada Z, indicando o ROC.",gpt-5,"Vamos considerar x[n] = (0.9^n + 0.8^n) u[n].
+
+a) DTFT de x[n]
+- Definição: X(e^{jω}) = Σ_{n=-∞}^{∞} x[n] e^{-jω n} = Σ_{n=0}^{∞} (0.9^n + 0.8^n) e^{-jω n}.
+- Separando e usando soma geométrica Σ_{n=0}^{∞} r^n = 1/(1 − r), para |r| < 1:
+  X(e^{jω}) = Σ_{n=0}^{∞} (0.9 e^{-jω})^n + Σ_{n=0}^{∞} (0.8 e^{-jω})^n
+             = 1/(1 − 0.9 e^{-jω}) + 1/(1 − 0.8 e^{-jω}),
+  pois |0.9 e^{-jω}| = 0.9 < 1 e |0.8 e^{-jω}| = 0.8 < 1.
+
+b) Transformada Z e ROC
+- Definição: X(z) = Σ_{n=-∞}^{∞} x[n] z^{-n} = Σ_{n=0}^{∞} (0.9^n + 0.8^n) z^{-n}.
+- Separando e aplicando a série geométrica:
+  X(z) = Σ_{n=0}^{∞} (0.9 z^{-1})^n + Σ_{n=0}^{∞} (0.8 z^{-1})^n
+       = 1/(1 − 0.9 z^{-1}) + 1/(1 − 0.8 z^{-1})
+       = z/(z − 0.9) + z/(z − 0.8).
+- ROC (região de convergência): interseção das ROCs de cada termo.
+  • Para 1/(1 − 0.9 z^{-1}): |z| > 0.9.
+  • Para 1/(1 − 0.8 z^{-1}): |z| > 0.8.
+  • Logo, ROC total: |z| > 0.9 (fora do polo de maior módulo).
+- Como a circunferência unitária |z| = 1 está dentro do ROC, a DTFT existe e é obtida avaliando em z = e^{jω}:
+  X(e^{jω}) = X(z)|_{z=e^{jω}} = 1/(1 − 0.9 e^{-jω}) + 1/(1 − 0.8 e^{-jω}),
+  coincidindo com o resultado do item (a).
+
+Resumo:
+- DTFT: X(e^{jω}) = 1/(1 − 0.9 e^{-jω}) + 1/(1 − 0.8 e^{-jω}).
+- Z-transform: X(z) = z/(z − 0.9) + z/(z − 0.8), ROC: |z| > 0.9.",27.0636,20.11322927,6.95041466,393.5,54,2735,2789
+PT,NÃO,2. Transforms and Signal Representation,20.0,"Considerando o intervalo $\dw \in \left[-\pi,\pi\right[$, o DTFT $H(e^{j \dw})$ de um sinal é 1 quando $- \dw_c \le \dw \le \dw_c$ e 0 caso contrário (ou seja,\,e., um filtro passa-baixo ideal). Encontre seu DTFT inverso $h[n]$ indicando todas as etapas desta prova.",gpt-5,"Vamos denotar a frequência discreta por ω (no intervalo ω ∈ [−π, π) ). O DTFT inverso é dado por
+h[n] = (1/2π) ∫_{−π}^{π} H(e^{jω}) e^{jω n} dω.
+
+Como H(e^{jω}) = 1 para |ω| ≤ ωc e 0 caso contrário, a integral se reduz a
+h[n] = (1/2π) ∫_{−ωc}^{ωc} e^{jω n} dω.
+
+Agora avaliamos a integral separando os casos n ≠ 0 e n = 0.
+
+- Para n ≠ 0:
+  ∫ e^{jω n} dω = e^{jω n}/(j n), então
+  h[n] = (1/2π) [ e^{jω n}/(j n) ]_{ω=−ωc}^{ω=ωc}
+       = (1/2π) ( e^{jωc n} − e^{−jωc n} )/(j n)
+       = (1/2π) (2j sin(ωc n))/(j n)
+       = (1/π) sin(ωc n)/n.
+
+- Para n = 0:
+  h[0] = (1/2π) ∫_{−ωc}^{ωc} 1 dω = (1/2π) (2ωc) = ωc/π.
+
+Conclusão (resposta final):
+- h[n] = sin(ωc n)/(π n), para n ≠ 0
+- h[0] = ωc/π
+
+Observações:
+- h[n] é real, par (h[n] = h[−n]) e de duração infinita (não causal).
+- Pode-se escrever também h[n] = (ωc/π) sinc(ωc n), usando sinc(x) = sin(x)/x.",17.3345,14.19740486,3.13713694,546.36,97,1714,1811
+PT,NÃO,2. Transforms and Signal Representation,21.0,Prove isso $X(e^{j \dw})=\sum_{k=-\infty}^{\infty} 2 \pi \delta(\dw - \dw_0 + 2 \pi k)$ é o DTFT de $x[n]=e^{j \dw_0 n}$ e indicar quando a propriedade de peneiração de impulso é usada.,gpt-5,"Vamos provar que o DTFT de x[n] = e^{j ω0 n} é
+X(e^{jω}) = ∑_{k=-∞}^{∞} 2π δ(ω − ω0 + 2πk),
+e indicar onde entra a propriedade de peneiração (sifting) do impulso.
+
+Definições do DTFT:
+- X(e^{jω}) = ∑_{n=-∞}^{∞} x[n] e^{-jωn}, 2π-periódico em ω.
+- x[n] = (1/2π) ∫_{−π}^{π} X(e^{jω}) e^{jωn} dω.
+
+Prova 1 (verificando pela inversa do DTFT)
+1) Suponha X(e^{jω}) = 2π ∑_{k} δ(ω − ω0 + 2πk). Então
+x[n] = (1/2π) ∫_{−π}^{π} X(e^{jω}) e^{jωn} dω
+= (1/2π) ∫_{−π}^{π} 2π ∑_{k} δ(ω − ω0 + 2πk) e^{jωn} dω
+= ∑_{k} ∫_{−π}^{π} δ(ω − ω0 + 2πk) e^{jωn} dω.
+
+2) Como a integral é sobre um intervalo de largura 2π, apenas um termo do somatório (digamos k = k*) cai dentro de (−π, π]. Assim,
+x[n] = e^{j(ω0 − 2πk*)n} = e^{jω0 n} e^{−j2πk* n} = e^{jω0 n},
+pois e^{−j2πk* n} = 1 para n ∈ ℤ.
+
+Onde usamos a propriedade de peneiração:
+- No passo ∫ δ(ω − ωc) f(ω) dω = f(ωc). É exatamente a “peneiração” pelo impulso.
+
+Prova 2 (direta, pela soma geométrica em sentido de distribuições)
+1) Pelo DTFT direto,
+X(e^{jω}) = ∑_{n=−∞}^{∞} e^{jω0 n} e^{−jω n} = ∑_{n} e^{-j(ω − ω0)n}.
+
+2) Usa-se a identidade (comb de Dirac em frequência)
+∑_{n=−∞}^{∞} e^{-jα n} = 2π ∑_{k=−∞}^{∞} δ(α − 2πk),
+com α = ω − ω0, obtendo
+X(e^{jω}) = 2π ∑_{k} δ(ω − ω0 − 2πk) = 2π ∑_{k} δ(ω − ω0 + 2πk).
+
+Como justificar a identidade acima e onde entra a peneiração:
+- Ela é o par de Séries de Fourier do trem de impulsos periódico s(α) = ∑_{k} δ(α − 2πk).
+- Seus coeficientes são c[n] = (1/2π) ∫_{−π}^{π} s(α) e^{-jnα} dα. Como s(α) tem um impulso em α = 0 dentro do intervalo, c[n] = (1/2π) e^{-jn·0} = 1/(2π).
+- Logo s(α) = (1/2π) ∑_{n} e^{jnα} ⇔ ∑_{n} e^{-jnα} = 2π ∑_{k} δ(α − 2πk).
+- A propriedade de peneiração é usada ao calcular c[n]: ∫ δ(α) e^{-jnα} dα = e^{-jn·0}.
+
+Resumo:
+- A igualdade X(e^{jω}) = 2π ∑_{k} δ(ω − ω0 + 2πk) é verificada aplicando a inversa do DTFT e a periodicidade 2π.
+- A propriedade de peneiração do impulso é usada:
+  (i) ao avaliar a integral com δ na inversa do DTFT;
+  (ii) (alternativamente) ao derivar a identidade do comb de Dirac via coeficientes de Séries de Fourier.",25.9994,17.48489833,8.514467,308.3,81,2625,2706
+PT,NÃO,2. Transforms and Signal Representation,24.0,"Um sinal do lado direito tem transformada de Laplace $X(s)=5/(s^2+2s+10)$, com ROC $\sigma > -1$. Calcule: a) $X(s)|_{s=2}$, b) a transformada de Fourier correspondente $X(\aw)$ se existir e c) se $X(\aw)$ existe, $|X(\aw)|$ para $\aw=3$ rad/s.",gpt-5,"a) X(2) = 5/(2^2 + 2·2 + 10) = 5/18.
+
+b) A FT existe porque a reta σ=0 (jω) está na ROC (0 > −1). Logo,
+X(jω) = 5/[(jω)^2 + 2jω + 10] = 5/[10 − ω^2 + j(2ω)].
+
+c) |X(jω)| = 5 / sqrt[(10 − ω^2)^2 + (2ω)^2]. Para ω = 3 rad/s:
+|X(j3)| = 5 / sqrt(1^2 + 6^2) = 5/√37 ≈ 0,822.",19.8012,18.37793756,1.42328119,1377.8,98,1961,2059
+PT,NÃO,2. Transforms and Signal Representation,25.0,"Um sinal $x(t)$ tem transformada de Laplace $X(s)=(3s+2)/((s-1)(s-3))$, com ROC $\sigma <1$. Encontrar $x(t)$.",gpt-5,"Fatorando em frações parciais:
+X(s) = (3s+2)/[(s-1)(s-3)] = (-5/2)/(s-1) + (11/2)/(s-3).
+
+Como a ROC é σ < 1 (à esquerda do polo mais à esquerda), o sinal é anti-causal: cada termo 1/(s-a) corresponde a −e^{a t} u(−t).
+
+Logo,
+x(t) = (5/2) e^{t} u(-t) − (11/2) e^{3t} u(-t)
+     = [ (5/2) e^{t} − (11/2) e^{3t} ] u(-t).",27.2829,25.87980413,1.4030726,1714.1,52,2405,2457
+PT,NÃO,2. Transforms and Signal Representation,26.0,"Um sinal $x[n]$ tem transformadaZ $X(z)=(5z^2+4z+3)/((z-0.7)(z-0.8))$, com ROC $|z|> 0.8$. Encontrar $x[n]$.",gpt-5,"Como o ROC é |z| > 0.8, x[n] é à direita (causal). Fatorando o denominador: (z − 0.7)(z − 0.8) = z^2 − 1.5z + 0.56.
+
+Dividindo polinômios:
+X(z) = (5z^2 + 4z + 3)/(z^2 − 1.5z + 0.56) = 5 + (11.5z + 0.2)/[(z − 0.7)(z − 0.8)].
+
+Frações parciais do termo próprio:
+(11.5z + 0.2)/[(z − 0.7)(z − 0.8)] = A/(z − 0.7) + B/(z − 0.8),
+A + B = 11.5, 0.8A + 0.7B = −0.2 ⇒ A = −82.5, B = 94.
+
+Portanto,
+X(z) = 5 − 82.5/(z − 0.7) + 94/(z − 0.8).
+
+Pares de transformadas:
+c ↔ c δ[n],
+c/(z − a) ↔ c a^{n−1} u[n−1], ROC |z| > |a|.
+
+Logo,
+x[n] = 5 δ[n] − 82.5 (0.7)^{n−1} u[n−1] + 94 (0.8)^{n−1} u[n−1].
+
+Equivalente e compacto:
+x[n] = 5 δ[n] + u[n−1] [94·0.8^{n−1} − 82.5·0.7^{n−1}].",71.4989,67.15527558,4.34360647,1301.45,65,5653,5718
+PT,NÃO,2. Transforms and Signal Representation,27.0,Encontre a transformada Z e o ROC associado do sinal $x[n]=-3^n u[-n-1]$. Este sinal tem DTFT?,gpt-5,"Interpretando -3^n como −(3^n):
+
+- Suporte: u[-n−1]=1 para n ≤ −1, logo x[n] = −3^n para n ≤ −1 e 0 caso contrário.
+- Transformada Z:
+  X(z) = Σ_{n=−∞}^{−1} (−3^n) z^{-n}
+       = −Σ_{n=−∞}^{−1} 3^n z^{-n}
+       = −Σ_{m=1}^{∞} (z/3)^m
+       = −(z/3)/(1−z/3)
+       = z/(z−3)
+- ROC: |z| < 3 (círculo interior ao polo em z=3).
+- DTFT: existe, pois a circunferência unidade (|z|=1) está dentro do ROC; equivalentemente, x[n] é absolutamente somável. Assim,
+  X(e^{jω}) = e^{jω}/(e^{jω} − 3).
+
+Observação: se a intenção fosse x[n] = (−3)^n u[−n−1], então X(z) = −z/(z+3), com o mesmo ROC |z| < 3; ainda assim o DTFT existe: X(e^{jω}) = −e^{jω}/(e^{jω}+3).",51.3657,48.60245109,2.76321912,1407.78,38,3890,3928
+PT,NÃO,2. Transforms and Signal Representation,28.0,"Qual é a transformadaZ $X(z)$ do sinal $x[n]=4\delta[n] + 5 \delta[n-11]$? Quais são os valores $X(z)$ para $z=0, -1$ e $z=8e^{j \pi}$? Se o DTFT de $x[n]$ existe, quais são seus valores para $\dw=0, \pi$ e $2 \pi$ legal?",gpt-5,"- Transformada-Z: X(z) = 4 + 5 z^{-11}
+  - ROC: todo o plano-z exceto z = 0 (|z| > 0)
+
+- Valores pedidos:
+  - X(0): não existe (z = 0 está fora da ROC; a soma diverge)
+  - X(-1) = 4 + 5(-1)^{-11} = 4 − 5 = −1
+  - X(8 e^{jπ}) = 4 + 5 (8 e^{jπ})^{-11} = 4 − 5/8^{11} = 4 − 5/8589934592 ≈ 3.9999999994189
+
+- DTFT (existe, pois x[n] é de duração finita):
+  - X(e^{jω}) = 4 + 5 e^{-j11ω}
+  - ω = 0: X(e^{j0}) = 9
+  - ω = π: X(e^{jπ}) = 4 + 5 e^{-j11π} = 4 − 5 = −1
+  - ω = 2π: X(e^{j2π}) = 4 + 5 e^{-j22π} = 9 (2π-periódico)",19.6306,16.78776288,2.84287024,506.53,101,1440,1541
+PT,NÃO,3. Analog and Digital Systems,1.0,"Quando a entrada $x_1[n]=\delta[n] + \delta[n-1]$ é aplicado a um\emph{linear}sistema, a saída observadaé $y_1[n]=4\delta[n-1] + \delta[n-2]$. Informe a expressão da saída $y_2[n]$ quando a entradaé $x_2[n]=3\delta[n] + 3\delta[n-1]$.",gpt-5,"Como o sistema é linear e x2[n] = 3 x1[n], a saída escala pelo mesmo fator:
+y2[n] = 3 y1[n] = 3(4δ[n−1] + δ[n−2]) = 12δ[n−1] + 3δ[n−2].",6.5001,5.84500837,0.65506482,702.22,102,460,562
+PT,NÃO,3. Analog and Digital Systems,2.0,"Quando a entrada $x_1[n]=\delta[n]$ é aplicado a um sistema LTI, a saídaé $y_1[n]=3\delta[n] + 2\delta[n-1] + \delta[n-2]$. Qual é a saída $y_2[n]$ quando a entradaé $x_2[n]=5\delta[n] + 2\delta[n-1]$?",gpt-5,"Como o sistema é LTI, a resposta ao impulso é h[n] = y1[n] = 3δ[n] + 2δ[n−1] + δ[n−2].
+
+Para x2[n] = 5δ[n] + 2δ[n−1], a saída é
+y2[n] = x2[n] * h[n] = 5h[n] + 2h[n−1]
+= 5(3δ[n] + 2δ[n−1] + δ[n−2]) + 2(3δ[n−1] + 2δ[n−2] + δ[n−3])
+= 15δ[n] + 16δ[n−1] + 9δ[n−2] + 2δ[n−3].",12.9832,9.05586362,3.92733264,191.22,96,751,847
+PT,NÃO,3. Analog and Digital Systems,3.0,"Quando a entrada $x_1[n]=\delta[n]$ é aplicado a um sistema, a saídaé $y_1[n]=3\delta[n] + 2\delta[n-1] + \delta[n-2]$, e quando a entradaé $x_2[n]=2\delta[n-1]$, a saídaé $y_2[n]=6\delta[n-1] + 2\delta[n-2] + 2\delta[n-3]$. Este sistema pode ser LTI?",gpt-5,"Não.
+
+Se o sistema fosse LTI, a resposta ao impulso seria h[n] = y1[n] = 3δ[n] + 2δ[n−1] + δ[n−2]. Para a entrada x2[n] = 2δ[n−1], a saída deveria ser
+y2[n] = 2 h[n−1] = 6δ[n−1] + 4δ[n−2] + 2δ[n−3].
+
+Mas foi dada y2[n] = 6δ[n−1] + 2δ[n−2] + 2δ[n−3]. Como o coeficiente de δ[n−2] não coincide (4 ≠ 2), as saídas não são consistentes com um sistema LTI. Portanto, o sistema não pode ser LTI.",11.3292,9.33096027,1.99828029,410.35,118,820,938
+PT,NÃO,3. Analog and Digital Systems,4.0,Um sistema invariante no tempo tem saída $y_1(t) = \delta(t-1) - \delta(t-4)$ quando a entradaé $x_1(t)=\delta(t)$. Informe a expressão da saída $y_2(t)$ quando a entradaé $x_2(t) = \delta(t-3)$.,gpt-5,"Como o sistema é invariante no tempo, a resposta a uma entrada deslocada é a saída original igualmente deslocada. Logo,
+y2(t) = y1(t − 3) = δ(t − 4) − δ(t − 7).",10.823,10.22194934,0.60107255,1380.86,79,830,909
+PT,NÃO,3. Analog and Digital Systems,5.0,"As relações de entrada-saída que descrevem três sistemas dados são: 1) $y[n]=C (x[n])^2$, onde $C=2 e^{j \pi/2}$, 2) $y[n]=(n-1)x[n]$ e 3) $y[n]=3x[n-1]+2^{\pi} x[n-3]$. Classifique se esses sistemas são ou não: a) causais, b) lineares, c) sem memória, d) estáveis ​​no sentido BIBO e e) invariantes no tempo.",gpt-5,"Para cada sistema:
+
+1) y[n] = C (x[n])^2, com C = 2 e^{jπ/2} = 2j
+- Causal: sim (depende apenas de x[n]).
+- Linear: não (é quadrático).
+- Sem memória: sim (só usa x[n]).
+- Estável BIBO: sim (|x[n]| ≤ B ⇒ |y[n]| ≤ |C| B^2 = 2 B^2).
+- Invariante no tempo: sim (não depende explicitamente de n).
+
+2) y[n] = (n − 1) x[n]
+- Causal: sim (só usa x[n]).
+- Linear: sim (multiplicação por ganho dependente de n).
+- Sem memória: sim.
+- Estável BIBO: não (por exemplo, x[n] = 1 ⇒ y[n] = n − 1, que é ilimitado).
+- Invariante no tempo: não (coeficiente depende de n).
+
+3) y[n] = 3 x[n − 1] + 2^{π} x[n − 3]
+- Causal: sim (usa apenas amostras passadas).
+- Linear: sim.
+- Sem memória: não (depende de x em n−1 e n−3).
+- Estável BIBO: sim (FIR; h[n] = 3δ[n−1] + 2^{π}δ[n−3] é absolutamente somável).
+- Invariante no tempo: sim (atrasos e ganhos constantes).",21.4264,17.93060517,3.49582124,500.88,130,1751,1881
+PT,NÃO,3. Analog and Digital Systems,6.0,"Um LTI de tempo discreto é caracterizado pela equação de diferença $y[n+2] = 5x[n+2] + 2x[n+n_0]$, onde $x[n]$ e $y[n]$ são os sinais de entrada e saída, respectivamente. Informe um valor para $n_0$ isso torna o sistema causal.",gpt-5,"n0 ≤ 2. 
+
+Justificativa rápida: definindo m = n+2, temos y[m] = 5x[m] + 2x[m + (n0 − 2)]. Para o sistema ser causal, o índice do x não pode estar no futuro, então m + (n0 − 2) ≤ m ⇒ n0 − 2 ≤ 0 ⇒ n0 ≤ 2. Por exemplo, n0 = 2 torna o sistema causal.",12.105,11.05650973,1.04846931,958.54,82,1005,1087
+PT,NÃO,3. Analog and Digital Systems,8.0,"Quatro sinais de tempo contínuo: $x_1(t)=e^{j4t}$, $x_2(t)=e^{-j4t}$, $x_3(t)=\cos(4t)$ e $x_4(t)=e^{(-1+j4)t}$, são transmitidos individualmente através de um sistema causal $H(s) = \frac{1}{s+10}$. Quais são as respectivas saídas $y_1(t),\ldots,y_4(t)$?",gpt-5,"Como o sistema é LTI com H(s)=1/(s+10), exponenciais complexas e senos/cossenos são autofunções: a saída é H(α) e^{α t} (superpondo nos casos reais).
+
+Saídas (entrada definida para todo t):
+- y1(t) = H(j4) e^{j4t} = [1/(10 + j4)] e^{j4t}
+- y2(t) = H(−j4) e^{−j4t} = [1/(10 − j4)] e^{−j4t}
+- y3(t) = (1/2)[H(j4)e^{j4t} + H(−j4)e^{−j4t}] = (1/√116) cos(4t − arctan(0,4))
+- y4(t) = H(−1 + j4) e^{(−1 + j4)t} = [1/(9 + j4)] e^{(−1 + j4)t}
+
+Observação sobre entradas causais x_i(t)u(t):
+- y1(t) = [e^{j4t} − e^{−10t}] / (10 + j4) · u(t)
+- y2(t) = [e^{−j4t} − e^{−10t}] / (10 − j4) · u(t)
+- y3(t) = (1/√116) cos(4t − arctan(0,4)) u(t) − (5/58) e^{−10t} u(t)
+- y4(t) = [e^{(−1 + j4)t} − e^{−10t}] / (9 + j4) · u(t)",39.0429,36.44161057,2.6012671,1944.05,115,5057,5172
+PT,NÃO,3. Analog and Digital Systems,9.0,"Quatro sinais de tempo discreto: $x_1[n]=5e^{j2n}$, $x_2[n]=e^{-j2n}$, $x_3[n]=\cos(2n)$ e $x_4[n]=\left(3e^{j2}\right)^n$, são transmitidos individualmente através do sistema causal $H(z) = \frac{1}{1-0.6 z^{-1}}$. Quais são as respectivas saídas $y_1[n],\ldots,y_4[n]$?",gpt-5,"Ideia-chave: para um sistema LTI discreto, x[n] = z0^n é autofunção e a saída é y[n] = H(z0) z0^n (com o sistema em repouso). Para z0 = e^{jω}, isso reduz a y[n] = H(e^{jω}) e^{jω n}, onde H(e^{jω}) = 1/(1 − 0.6 e^{-jω}).
+
+Assim:
+
+- x1[n] = 5 e^{j2n}:
+  y1[n] = 5 H(e^{j2}) e^{j2n} = 5 e^{j2n}/(1 − 0.6 e^{-j2})
+
+- x2[n] = e^{-j2n}:
+  y2[n] = H(e^{-j2}) e^{-j2n} = e^{-j2n}/(1 − 0.6 e^{j2})
+
+- x3[n] = cos(2n) = (e^{j2n} + e^{-j2n})/2:
+  y3[n] = 0.5 H(e^{j2}) e^{j2n} + 0.5 H(e^{-j2}) e^{-j2n}
+        = |H(e^{j2})| cos(2n + φ), com φ = arg H(e^{j2}) = −atan2(0.6 sin 2, 1 − 0.6 cos 2)
+
+- x4[n] = (3 e^{j2})^n:
+  y4[n] = H(3 e^{j2}) (3 e^{j2})^n = (3 e^{j2})^n / (1 − 0.6 (3 e^{j2})^{-1})
+        = (3 e^{j2})^n / (1 − 0.2 e^{-j2})
+
+Observações úteis:
+- H(e^{jω}) = 1/(1 − 0.6 e^{-jω}) = 1/(1 − 0.6 cos ω + j 0.6 sin ω).
+- Para ω = 2, |H(e^{j2})| ≈ 0.7334 e φ ≈ −0.409 rad, então y3[n] ≈ 0.7334 cos(2n − 0.409).",55.1554,52.03069925,3.12469482,1724.97,125,5390,5515
+PT,NÃO,3. Analog and Digital Systems,12.0,Um sinal de banda limitada $x(t)$ foi amostrado obedecendo ao teorema da amostragem com $\fs=10$ ~Hz e o resultadoé $x_s(t) = 4 \delta(t) + 3 \delta(t-0.1) - 2 \delta(t-0.4)$. Forneça a expressão exata de $x(t)$. Dica: esta expressão é dada em termos de sincronismos escalonados e deslocados.,gpt-5,"fs = 10 Hz ⇒ Ts = 0.1 s. Pela interpolação ideal (sinc), 
+x(t) = Σ_n x(nTs) sinc((t − nTs)/Ts),
+com sinc(u) = sin(πu)/(πu).
+
+De x_s(t) = 4 δ(t) + 3 δ(t − 0.1) − 2 δ(t − 0.4) obtemos
+x(0)=4, x(0.1)=3, x(0.4)=−2 e os demais x(nTs)=0.
+
+Logo,
+x(t) = 4 sinc(t/0.1) + 3 sinc((t − 0.1)/0.1) − 2 sinc((t − 0.4)/0.1).
+
+Equivalente:
+x(t) = 4 sinc(10 t) + 3 sinc(10 t − 1) − 2 sinc(10 t − 4),
+onde sinc(u) = sin(πu)/(πu).",34.9061,26.9708302,7.93529916,319.21,109,2533,2642
+PT,NÃO,3. Analog and Digital Systems,16.0,Um filtro passa-baixa analógico não causal tem uma magnitude ideal com ganho unitário para frequências $-5$ para 5~rad/s e zero caso contrário. A fase deste filtro é linear e dada por $e^{-j8 \aw}$. Qual é a saída deste filtro quando a entradaé $x(t)=\sum_{k=0}^{\infty} 0.5^k \sin(1.5 k t)$?,gpt-5,"Como |H(jω)|=1 para |ω|≤5 e fase H(jω)=e^{-j8ω}, o filtro:
+- passa componentes com |ω|≤5 sem alterar a amplitude
+- aplica um atraso de 8 s: y(t)=x(t−8) nas frequências passantes
+- anula componentes com |ω|>5
+
+Na entrada x(t)=∑_{k=0}^∞ 0.5^k sin(1.5 k t), as frequências são ω_k=1.5k rad/s. Passam apenas k=1,2,3 (pois 1.5k≤5). Logo:
+
+y(t) = ∑_{k=1}^{3} 0.5^k sin[1.5 k (t−8)]
+     = 0.5 sin(1.5 (t−8)) + 0.25 sin(3 (t−8)) + 0.125 sin(4.5 (t−8)).",22.0832,19.6645813,2.41858077,754.16,100,1824,1924
+PT,NÃO,3. Analog and Digital Systems,17.0,\item Um filtro FIR com fase linear tem uma resposta ao impulso $h[n]=3\delta[n]-5\delta[n-1]+7\delta[n-2]-5\delta[n-3]+3\delta[n-4]$. Encontre a função do sistema $H(z)$.,gpt-5,"H(z) = 3 − 5 z^{-1} + 7 z^{-2} − 5 z^{-3} + 3 z^{-4}.
+
+(ROC: todo o plano-z exceto z = 0.)",21.3601,20.63004994,0.73003769,956.12,68,698,766
+PT,NÃO,3. Analog and Digital Systems,23.0,Um filtro $H(s) = \frac{125}{s^3+10s^2+50s+125}$ tem uma frequência de corte de 5~rad/s. Obtenha um filtro $G(s)$ que corresponde a uma versão $H(s)$ escalado em frequência com uma frequência de corte de 3~rad/s. $G(s)$ também deve ter um ganho de 3~dB em CC.,gpt-5,"Como H(s) é um Butterworth de 3ª ordem com ωc = 5 rad/s, a versão escalada para ωc = 3 rad/s obtém-se substituindo s → (5/3)s (ou, equivalentemente, trocando ωc de 5 para 3). Para ter ganho de 3 dB em CC, multiplicamos por √2.
+
+Resultado:
+G(s) = (27√2) / (s^3 + 6s^2 + 18s + 27)
+
+Equivalente: G(s) = √2 · H((5/3)s). O ganho em CC é |G(0)| = √2 (≈ 1,414), ou 3 dB.",39.5962,38.38178205,1.21442771,2980.0,96,3619,3715
+PT,NÃO,3. Analog and Digital Systems,25.0,"Dado um filtro $H(s)=(0.1s^2+71)/(s^2+11s+71)$ e assumindo $\fs=50$ ~Hz, encontre $H(z)$ usando a transformada bilinear.",gpt-5,"Usando T = 1/fs = 1/50 = 0,02 s e a transformada bilinear s = (2/T)·(1 − z^{-1})/(1 + z^{-1}) = 100·(1 − z^{-1})/(1 + z^{-1}), substitui-se em H(s):
+
+H(s) = (0,1 s^2 + 71)/(s^2 + 11 s + 71)
+
+⇒ H(z) = (1000 w^2 + 71)/(10000 w^2 + 1100 w + 71), com w = (1 − z^{-1})/(1 + z^{-1})
+
+Simplificando para polinômios em z^{-1}:
+
+H(z) = (1071 − 1858 z^{-1} + 1071 z^{-2}) / (11171 − 19858 z^{-1} + 8971 z^{-2})
+
+Forma normalizada (denominador monic):
+H(z) = (0,095873 − 0,166324 z^{-1} + 0,095873 z^{-2}) / (1 − 1,77764 z^{-1} + 0,803062 z^{-2})
+
+(sem pré-distorção de frequência)",102.2143,99.87545323,2.33888245,3539.3,56,8278,8334
+PT,NÃO,3. Analog and Digital Systems,27.0,"O filtro $H_s(s)=(0.1s^2+71)/(s^2+11s+71)$ deveria ser convertido para $H_z(z)$ usando o bilinear tal que o valor de $H_s(j\aw)$ no $\aw=10$ ~rad/s é o mesmo valor $H_z(e^{j\dw})$ terá em $\dw=\pi/4$ ~ótimo. a) encontre o valor de $\fs$ que permite converter diretamente $H_s(s)$ em $H_z(z)$ sem a etapa tradicional de pré-deformação, b) assumindo um valor arbitrário de $F'_s=0.5$ ~Hz, encontre a versão pré-deformada de $H_s(s)$ que irá gerar o correto $H_z(z)$ via bilinear com $F'_s$.",gpt-5,"Ideia-chave: na transformação bilinear, a relação entre a frequência analógica ω (rad/s) e a frequência digital Ω (rad/amostra) é
+Ω = 2 arctan( ω / (2 f_s) )  ⇔  ω = 2 f_s tan(Ω/2).
+
+a) f_s que dispensa pré-deformação
+Desejamos mapear ω0 = 10 rad/s para Ω0 = π/4:
+π/4 = 2 arctan(10/(2 f_s)) ⇒ tan(π/8) = 10/(2 f_s).
+Como tan(π/8) = √2 − 1,
+f_s = 10 / [2(√2 − 1)] = 5(√2 + 1) ≈ 12.0711 Hz.
+
+b) Pré-deformação para F′_s = 0.5 Hz
+Com F′_s dado, a frequência analógica que corresponde a Ω0 é
+ω_pre = 2 F′_s tan(Ω0/2) = 2(0.5) tan(π/8) = √2 − 1 ≈ 0.41421356 rad/s.
+
+Para que H_pre(j ω_pre) = H_s(j 10), basta “esticar” o eixo de frequências por κ = ω0/ω_pre:
+κ = 10/(√2 − 1) = 10(√2 + 1) ≈ 24.1421356.
+
+A versão pré-deformada é obtida por s → κ s em H_s(s):
+H_pre(s) = H_s(κ s)
+= [0.1 (κ s)^2 + 71] / [(κ s)^2 + 11(κ s) + 71].
+
+Valores exatos em termos de √2:
+- κ = 10(√2 + 1), κ^2 = 100(3 + 2√2).
+- Numerador: [0.1 κ^2] s^2 + 71 = [10(3 + 2√2)] s^2 + 71.
+- Denominador: [κ^2] s^2 + [11 κ] s + 71 = [100(3 + 2√2)] s^2 + [110(√2 + 1)] s + 71.
+
+Valores numéricos:
+H_pre(s) = (58.28427125 s^2 + 71) / (582.84271247 s^2 + 265.56349186 s + 71).
+
+Com essa H_pre(s), aplicando a bilinear com F′_s = 0.5 Hz, o valor em Ω = π/4 coincidirá com H_s(j 10).",52.4685,47.6501677,4.81833434,1120.93,180,5401,5581
+PT,NÃO,3. Analog and Digital Systems,12.0,"Estude as vantagens e desvantagens ao comparar as respostas de Butterworth, Chebyshev e Bessel.",gpt-5,"A seguir está um estudo comparando as respostas clássicas de filtros analógicos do tipo protótipo: Butterworth, Chebyshev (Tipos I e II) e Bessel, destacando vantagens, desvantagens, e quando escolher cada um.
+
+Visão geral rápida
+- Butterworth: magnitude “maximamente plana” no passa‑baixas; compromisso equilibrado entre seletividade e resposta temporal.
+- Chebyshev: magnitude com ondulação (equiripple) que permite transição mais estreita para a mesma ordem; duas variantes (Tipo I e II).
+- Bessel (Thomson): atraso de grupo “maximamente plano” (fase quase linear) e melhor preservação de forma de onda; seletividade fraca.
+
+Butterworth
+Vantagens
+- Passa‑faixa monotônico e sem ondulação (magnitude maximamente plana em DC).
+- Boa relação compromisso entre seletividade (inclinação) e resposta ao degrau (overshoot moderado).
+- Seções com Q moderado; implementação relativamente robusta a tolerâncias de componentes.
+- Escolha segura quando se quer áudio/medição com amplitude plana e sem exigência extrema de fase.
+
+Desvantagens
+- Transição menos íngreme do que Chebyshev para a mesma ordem; pode exigir ordem maior para mesma atenuação em banda de rejeição.
+- Fase não linear; atraso de grupo varia com a frequência (pior do que Bessel).
+- Pode apresentar overshoot e ringing em sinais temporais (embora moderados).
+
+Chebyshev
+Tipo I (ondulação no passa‑faixa, rejeição monotônica)
+Vantagens
+- Maior seletividade: para a mesma ordem, a faixa de transição é a menor entre os três.
+- Atende especificações de amplitude (ripple no passa‑faixa e atenuação no rejeita‑faixa) com ordem tipicamente menor que Butterworth.
+- Útil quando ondulação controlada no passa‑faixa é aceitável e é crítico reduzir a largura de transição.
+
+Desvantagens
+- Ondulação no passa‑faixa pode ser indesejável em áudio, medição e alguns enlaces de comunicação.
+- Fase mais não linear e atraso de grupo mais distorcido; maior overshoot e ringing na resposta temporal.
+- Seções com Q elevado aumentam sensibilidade a tolerâncias, ruído e limitações de op‑amps.
+
+Tipo II (inverso, passa‑faixa monotônico, ondulação no rejeita‑faixa)
+Vantagens
+- Passa‑faixa sem ondulação (magnitude monotônica) e transição mais íngreme que Butterworth.
+- Útil quando ondulação no rejeita‑faixa é aceitável, mas deseja‑se passa‑faixa mais limpo que no Chebyshev I.
+
+Desvantagens
+- Ainda apresenta fase não linear e resposta temporal com mais overshoot/ringing que Butterworth.
+- Ondulações no rejeita‑faixa podem ser problemáticas para interferências específicas.
+
+Bessel (Thomson)
+Vantagens
+- Atraso de grupo maximamente plano e fase quase linear na região útil; melhor preservação de forma de onda.
+- Melhor resposta ao degrau/impulso: overshoot e ringing mínimos; ideal para sinais de tempo, degraus, e sistemas de controle.
+- Seções tendem a Q mais baixo que Chebyshev, reduzindo sensibilidade prática.
+
+Desvantagens
+- Seletividade fraca: transição larga e atenuação em rejeita‑faixa cresce mais lentamente; requer ordens altas para especificações de amplitude.
+- Largura efetiva do passa‑faixa menor (atenua mais cedo) comparado a Butterworth para mesma “frequência nominal”.
+- Não é indicado quando é prioritária forte rejeição próxima à banda útil.
+
+Comparações diretas (regra prática)
+- Seletividade (menor transição para mesma ordem): Chebyshev > Butterworth > Bessel.
+- Linearidade de fase / atraso de grupo: Bessel > Butterworth > Chebyshev.
+- Resposta temporal (overshoot/ringing): Bessel (melhor) < Butterworth < Chebyshev (pior).
+- Ordem necessária para atender mesma atenuação: Chebyshev (menor) < Butterworth < Bessel (maior).
+- Robustez a tolerâncias (tipicamente): Bessel ≳ Butterworth > Chebyshev (devido a Qs mais altos no Chebyshev).
+
+Escolha por aplicação
+- Áudio de alta fidelidade, instrumentação geral: Butterworth.
+- Antialias/antirruído quando a faixa de transição é crítica e ondulação é aceitável: Chebyshev I; se ondulação no passa‑faixa não é aceitável, considerar Chebyshev II (ou mesmo Elíptico/Cauer se máxima seletividade for necessária, aceitando ondulação em ambas as bandas).
+- Controle de malha, aquisição de degrau, preservação de forma de pulso, sincronismo/tempo: Bessel.
+- Comunicações digitais (tolerância a ISI): prefira Bessel quando a fase é crítica; se a prioridade é largura de canal/mascaramento, Chebyshev.
+
+Observações de implementação
+- Cascateie em biquads e controle Q/ganho de cada estágio para estabilidade e margem de headroom.
+- Chebyshev tende a exigir op‑amps com maior GBW/Q e maior precisão de componentes.
+- Em digital (IIR via bilinear, por exemplo), a “quase linearidade” de fase do Bessel analógico não se preserva de forma significativa; para fase realmente linear em discreto use FIR de fase linear. Butterworth/Chebyshev ainda são válidos quando a prioridade é magnitude e custo computacional baixo.
+
+Resumo
+- Precisa de passa‑faixa plano e compromisso razoável? Butterworth.
+- Precisa de transição estreita e aceita ondulação? Chebyshev (I ou II conforme a banda onde aceita ondular).
+- Precisa preservar forma de onda/tempo e minimizar distorção de fase? Bessel.",34.7841,22.11988521,12.66418719,253.71,29,3213,3242
+PT,NÃO,4. Spectral Estimation Techniques,2.0,"Um cosseno $x[n]=A \cos(\dw_1 n)$ é multiplicado por uma janela retangular de $N=8$ amostras, de $n=0,\ldots,7$ e o sinal em janela $x_w[n]$ tem seu espectro estimado por uma FFT com $N$pontos. A resolução FFTé $\Delta \dw = (2\pi)/N$ ótimo. Usando o DTFT de $x_w[n]$, quais são os valores de FFT para $X[k]|_{k=3}$ supondo: a) $\dw_1=3 \Delta \dw$ está centralizado no quarto compartimento e b) $\dw_1=2.5 \Delta \dw$ está na metade do terceiro e quarto compartimentos?",gpt-5,"Ideia: com janela retangular w[n]=1, 0≤n≤N−1, o DTFT é
+W(Ω) = e^{-jΩ (N−1)/2} · sin(NΩ/2)/sin(Ω/2).
+Para x[n]=A cos(ω1 n), o DTFT do sinal em janela é
+X_w(ω) = (A/2)[W(ω−ω1) + W(ω+ω1)].
+A FFT de N pontos amostra X_w(ω) em ω=ω_k=2πk/N.
+
+Dados: N=8, Δω=2π/N=π/4, k=3 ⇒ ω_k=3Δω=3π/4.
+
+a) ω1 = 3Δω = ω_k (tom na grade)
+X[3] = (A/2)[W(0) + W(2ω_k)]
+W(0)=N=8 e W(2ω_k)=W(3π/2)=0 (nó do Dirichlet).
+Logo, X[3] = (A/2)·8 = 4A (real).
+
+b) ω1 = 2.5Δω = 5π/8 (meio entre k=2 e k=3)
+X[3] = (A/2)[W(ω_k−ω1) + W(ω_k+ω1)]
+= (A/2)[W(π/8) + W(11π/8)]
+com
+W(π/8) = e^{−j7π/16}/sin(π/16),
+W(11π/8) = − e^{−j13π/16}/sin(11π/16).
+Portanto,
+X[3] = (A/2)[ e^{−j7π/16}/sin(π/16) − e^{−j13π/16}/sin(11π/16) ].
+
+Valor numérico:
+sin(π/16)≈0.1950903, sin(11π/16)=sin(5π/16)≈0.8290376.
+X[3] ≈ A(1.0018 − j2.1766),
+|X[3]| ≈ 2.395 A e ∠X[3] ≈ −65.6°.",110.0141,98.7835803,11.23054171,866.12,173,9727,9900
+PT,NÃO,4. Spectral Estimation Techniques,3.0,"Dado o sinal $x(t)= 12 \sinc(6 t)$ em volts, quais são: a) energia total do sinal eb) energia dentro da banda de frequência $[-1, 12]$ ~Hz?",gpt-5,"Resposta assumindo as convenções usuais em Sinais e Sistemas:
+- sinc(t) = sin(π t)/(π t)
+- Transformada de Fourier: X(f) = ∫ x(t) e^{-j2πft} dt
+- Parseval: E = ∫ |x(t)|² dt = ∫ |X(f)|² df
+
+1) Transformada
+x(t) = 12 sinc(6t) ⇒ X(f) = 12·(1/6) rect(f/6) = 2 rect(f/6)
+Logo, |X(f)|² = 4 rect(f/6), com suporte em f ∈ [-3, 3] Hz.
+
+2) Energia total
+E_total = ∫_{-∞}^{∞} |X(f)|² df = 4 · largura = 4 · 6 = 24
+(Unidades: V²·s, ou joules se R = 1 Ω.)
+
+3) Energia na banda [-1, 12] Hz
+Interseção com o suporte é [-1, 3] (largura 4 Hz).
+E_{[-1,12]} = ∫_{-1}^{3} 4 df = 4 · 4 = 16
+
+Resultados:
+a) Energia total: 24
+b) Energia em [-1, 12] Hz: 16",23.3729,21.11874628,2.25413537,954.69,54,2152,2206
+PT,NÃO,4. Spectral Estimation Techniques,4.0,"Qual é o espectro MS $\hat S_{\textrm{ms}}[k]$ de $x[n] = 3 \cos( (\pi / 4) n)$ volts? Usando os valores de $\hat S_{\textrm{ms}}[k]$, como se pode obter a potência média de $x[n]$ em watts?",gpt-5,"Para x[n] = 3 cos(πn/4) (em volts):
+
+- Escolha N igual a um período: N = 8 (pois 2π/(π/4) = 8).
+- DFT de um período: X[k] é não nulo apenas em k = 1 e k = 7, com X[1] = X[7] = (A/2)N = (3/2)·8 = 12.
+- Definindo o espectro MS como Ŝ_ms[k] = |X[k]|² / N² (contribuição de média dos quadrados por linha), obtém-se:
+  - Ŝ_ms[1] = Ŝ_ms[7] = 144 / 64 = 9/4 = 2,25 (V²)
+  - Ŝ_ms[k] = 0 para os demais k.
+
+Potência média a partir de Ŝ_ms[k]:
+- A potência média (valor médio quadrático) é a soma das linhas do espectro MS:
+  P_v = Σ_k Ŝ_ms[k] = 2·(9/4) = 9/2 = 4,5 (V²).
+- Em watts, P = P_v / R. Para R = 1 Ω (assumido se não for dado), P = 4,5 W.
+- Se a resistência não for 1 Ω, então P = 4,5 / R watts.",50.89,46.053231,4.83676219,608.26,82,2942,3024
+PT,NÃO,4. Spectral Estimation Techniques,5.0,"Assumir $X[k]$ éo $N$-ponto FFT de um sinal periódico $x[n]$ do período $\Nperiod=8$ amostras. Quando $N=8$, $X[k]$ é $[0,3+4j,0,6,0,6,0,3-4j]$. Informar: a) o espectro estimado do MS $\hat S_{\textrm{ms}}[k]$ de $x[n]$, b) a potência do sinal $\calP$ ec) o novo $\hat S_{\textrm{ms}}[k]$ em caso $N=16$ amostras de $x[n]$ foram usados, juntamente com uma FFT de 16 pontos.",gpt-5,"Vamos usar a convenção DFT: X[k] = ∑_{n=0}^{N-1} x[n] e^{-j2πkn/N} e x[n] = (1/N) ∑_{k=0}^{N-1} X[k] e^{j2πkn/N}. Para sinal periódico de período N0=8, os coeficientes da DTFS são a_k = X[k]/N e o espectro de média quadrática (MS) é S_ms[k] = |a_k|^2 = |X[k]/N|^2.
+
+Dados (N=8): X = [0, 3+4j, 0, 6, 0, 6, 0, 3−4j].
+|X[k]|^2: [0, 25, 0, 36, 0, 36, 0, 25].
+
+a) Espectro MS estimado (N=8):
+Ŝ_ms[k] = (1/8^2)|X[k]|^2 = (1/64)[0, 25, 0, 36, 0, 36, 0, 25]
+= [0, 25/64, 0, 36/64, 0, 36/64, 0, 25/64].
+
+b) Potência do sinal:
+P = ∑_{k=0}^{7} Ŝ_ms[k] = (25+36+36+25)/64 = 122/64 = 61/32 ≈ 1,90625.
+
+c) Usando N=16 amostras e FFT de 16 pontos:
+Para duas épocas do período 8: X_16[2r] = 2 X_8[r] e X_16[k] = 0 para k ímpar.
+Então Ŝ_ms,16[k] = |X_16[k]/16|^2 = (1/256)|X_16[k]|^2 = (1/64)|X_8[r]|^2 nos bins pares k=2r, e 0 nos ímpares.
+
+Logo, o novo Ŝ_ms[k] (k=0…15) é zero em todos os bins ímpares e:
+- k=2 → 25/64
+- k=6 → 36/64
+- k=10 → 36/64
+- k=14 → 25/64
+demais k → 0
+
+Isto é:
+[0, 0, 25/64, 0, 0, 0, 36/64, 0, 0, 0, 36/64, 0, 0, 0, 25/64, 0].",55.5911,50.0961442,5.49497437,760.7,169,4180,4349
+PT,NÃO,4. Spectral Estimation Techniques,6.0,"Assumir $X=[8,8,8,8]$ éo $4$-ponto FFT de um sinal de tempo discreto $x[n]$. Quais são os valores de: a) DTFS, b) espectro MS $\hat S_{\textrm{ms}}[k]$, c) o periodograma $\hat S[k]$ (usando{\matlab}convenção de $BW=2\pi$ ), d) o PSD estimado $\hat S(e^{j \dw})$ e e) a potência do sinal $\calP$.",gpt-5,"Dados X[k]=[8,8,8,8] com N=4:
+
+- (Auxiliar) x[n] em um período: x=[8,0,0,0] (pois x[n]=(1/N)∑_k X[k]e^{j2πkn/N})
+
+a) DTFS (coeficientes c_k): c_k = X[k]/N = 8/4 = 2, para k=0,1,2,3 → [2,2,2,2]
+
+b) Espectro MS S_ms[k]: S_ms[k] = |c_k|^2 = 4, para k=0,1,2,3 → [4,4,4,4]
+
+c) Periodograma Ŝ[k] (MATLAB, BW=2π): Ŝ[k] = (1/(2πN)) |X[k]|^2 = (1/(2π·4))·64 = 8/π, para todos k → [8/π, 8/π, 8/π, 8/π] ≈ [2.5465,…]
+
+d) PSD estimado Ŝ(e^{jω}) (contínuo em ω): constante em ω, Ŝ(e^{jω}) = 8/π, para ω ∈ [−π,π)
+
+e) Potência do sinal P: P = (1/N)∑_{n=0}^{N−1}|x[n]|^2 = (1/4)·64 = 16
+   (equivalentemente, P = ∑_k |c_k|^2 = 4+4+4+4 = 16)",110.7659,96.17232251,14.59362698,468.15,130,6832,6962
+PT,NÃO,4. Spectral Estimation Techniques,7.0,"a) O que é o PSD $S(e^{j \dw})$ de uma exponencial complexa $x[n]=e^{j \dw_1 n}$, com $\dw_1=\pi/4$ ~rad após multiplicação por uma janela retangular de $N=10$ amostras? b) Quando o periodograma $\hat S[k]$ deste sinal é estimado com uma FFT de $N=10$ pontos, quais são os valores de $\hat S[0]$ e $\hat S[1]$?",gpt-5,"a) Para x[n] = e^{j ω1 n} com ω1 = π/4, após janela retangular w[n] = 1 (0 ≤ n ≤ N−1), N=10:
+- Xw(e^{jω}) = ∑_{n=0}^{N−1} e^{jω1 n} e^{-jω n} = W(e^{j(ω−ω1)}),
+- onde W(e^{jω}) = e^{-jω(N−1)/2} sin(Nω/2)/sin(ω/2).
+Portanto, o “PSD” (no sentido do espectro do sinal janela­do) é um pico alargado (Dirichlet) centrado em ω1:
+S(e^{jω}) ∝ |Xw(e^{jω})|^2 = |W(e^{j(ω−ω1)})|^2 = [sin(N(ω−ω1)/2)/sin((ω−ω1)/2)]^2.
+
+b) Periodograma via FFT de N=10 pontos (assumindo Ŝ[k] = (1/N)|X[k]|^2, com X[k] = ∑_{n=0}^{N−1} x[n] e^{-j2πkn/N}):
+- Defina Δ = 2πk/N − ω1. Então |X[k]| = |sin(NΔ/2)/sin(Δ/2)|.
+
+Para k=0:
+- Δ0 = 0 − π/4 = −π/4,
+- |X[0]|^2 = [sin(10·(−π/4)/2)/sin((−π/4)/2)]^2 = [sin(−5π/4)/sin(−π/8)]^2 = (0.70710678/0.38268343)^2 = 3.41421356,
+- Ŝ[0] = (1/10)·3.41421356 ≈ 0.34142136.
+
+Para k=1:
+- Δ1 = 2π/10 − π/4 = π/5 − π/4 = −π/20,
+- |X[1]|^2 = [sin(10·(−π/20)/2)/sin((−π/20)/2)]^2 = [sin(−π/4)/sin(−π/40)]^2 = (0.70710678/0.07845910)^2 ≈ 81.2566,
+- Ŝ[1] ≈ 81.2566/10 ≈ 8.12566.
+
+Resumo:
+- S(e^{jω}) = [sin(10(ω−π/4)/2)/sin((ω−π/4)/2)]^2 (até constante de escala).
+- Ŝ[0] ≈ 0.3414 e Ŝ[1] ≈ 8.1257 (com normalização Ŝ[k] = (1/N)|X[k]|^2).",85.5753,77.96571708,7.60959935,893.48,121,6799,6920
+PT,NÃO,4. Spectral Estimation Techniques,8.0,"O periodograma de uma sinusóide imersa em AWGN foi calculado com um $8$-aponte FFT como $[2,2,2,6,2,6,2,2]$ em watts/Hz, assumindo $\fs=500$ ~Hz. O ruído e a senóide não são correlacionados, de modo que, nas caixas senoides, a potência é a soma da potência senoidal e da potência do ruído naquela caixa. Informe: a) a potência média senoidal, b) a potência média do ruído, c) a SNR em dB.",gpt-5,"- Δf = fs/N = 500/8 = 62.5 Hz
+- Ruído (PSD de base): 2 W/Hz em todos os 8 bins ⇒ P_ruído = 8 × 2 × 62.5 = 1000 W
+- Senóide (excesso nos bins): (6 − 2) = 4 W/Hz em 2 bins ⇒ P_senóide = 2 × 4 × 62.5 = 500 W
+- SNR = P_senóide / P_ruído = 500/1000 = 0.5 ⇒ SNR_dB = 10 log10(0.5) ≈ −3.01 dB
+
+Resposta:
+a) 500 W
+b) 1000 W
+c) −3.01 dB",19.559,18.2988627,1.26010251,1671.29,135,2106,2241
+PT,NÃO,4. Spectral Estimation Techniques,13.0,"O PSD unilateral de um sinal de ruído branco em tempo contínuo $\nu(t)$ é $\no=4$ ~W/Hz. O sinal $\nu(t)$ é a entrada para um filtro passa-baixa com coeficientes de valor real, ganho $g=3$ e fase zero dentro da banda passante de 0 a 200~Hz (este filtro não é realizável). A saída do filtro $x(t)$ é convertido em um sinal de tempo discreto $x[n]$ usando um processo C/D com frequência de amostragem $\fs=1$ ~kHz. Os valores médios de potência de $x(t)$ e $x[n]$ são iguais e denotados como $\calP$. Informar: a) o valor $\calP$ em watts.",gpt-5,"P = 7200 W
+
+Justification (curta):
+- PSD unilateral de entrada: Sν^o(f) = 4 W/Hz.
+- Filtro ideal passa‑baixa com ganho g = 3 ⇒ |H(f)|^2 = 9 para 0–200 Hz.
+- PSD unilateral de saída: Sx^o(f) = 9 × 4 = 36 W/Hz para 0 ≤ f ≤ 200 Hz.
+- Potência média: P = ∫_0^{200} 36 df = 36 × 200 = 7200 W.
+- Amostragem a 1 kHz (fs > 2×200 Hz) não altera a variância: Px(t) = Px[n] = 7200 W.",27.4269,25.88255763,1.54436493,1644.69,172,2540,2712
+PT,NÃO,4. Spectral Estimation Techniques,2.0,"Um processo aleatório em tempo discreto pode $\calX[n]$ tem poder infinito? Se sim, em que condições? Essas condições podem ser alcançadas na prática?",gpt-5,"Sim. Em teoria, um processo aleatório discreto pode ter potência (média de |X[n]|^2) infinita. Isso ocorre quando a segunda ordem “explode” de alguma forma. Principais casos:
+
+1) Marginais com segundo momento infinito
+- Se E{|X[n]|^2} = ∞ para algum n (ou para todos), a potência é infinita.
+- Exemplo: X[n] i.i.d. com caudas pesadas sem segundo momento (Cauchy ou estável-α com α<2). 
+
+2) Não‑estacionariedade com crescimento do segundo momento
+- Mesmo que cada E{|X[n]|^2} seja finita, se ela cresce com n de forma que a média no tempo diverge, a potência temporal média é infinita.
+- Exemplo: passeio aleatório (X[n]=X[n−1]+W[n], Var(X[n])≈nσ^2). A média 1/N ∑_{n=0}^{N−1} E{|X[n]|^2} cresce ~ σ^2 N/2 → ∞.
+
+3) Densidade espectral de potência não integrável
+- Para processos WSS, P = (1/2π)∫_{−π}^{π} S_X(e^{jω}) dω + soma das linhas espectrais. Se essa integral diverge, a potência é infinita.
+- Isso acontece quando há singularidades não integráveis, por exemplo S_X(e^{jω}) ~ C/|ω|^α com α ≥ 1 perto de ω=0 (1/f^α “puro”), ou quando há polos na unidade (ex.: raiz unitária em AR → efetivamente o caso do passeio aleatório).
+- Observação: um valor médio diferente de zero só adiciona uma linha espectral finita em ω=0 (contribuição μ^2), não tornando a potência infinita.
+
+Essas condições podem ser alcançadas na prática?
+- Exatamente, não. Sistemas físicos e digitais têm dinâmica e amplitude finitas, largura de banda limitada e janelas de observação finitas. Sempre há cortes de baixa/alta frequência e saturações que tornam a potência efetivamente finita.
+- Contudo, pode-se aproximar esses casos: 
+  - Ruído impulsivo de cauda pesada é modelado por leis estáveis, mas na prática as caudas são truncadas.
+  - Processos integrados (passeio aleatório, drift) mostram crescimento de variância no tempo; em janelas longas a potência aparente pode ser arbitrariamente grande.
+  - “1/f” real sempre tem corte em baixas frequências; sem esse corte o modelo teórico implicaria potência infinita.
+
+Resumo: sim, teoricamente, se o segundo momento for infinito, crescer sem limite no tempo, ou se a Densidade Espectral de Potência não for integrável no intervalo [−π, π]. Na prática, esses casos aparecem apenas como aproximações idealizadas; medições reais sempre resultam em potência finita devido a limitações físicas.",37.2635,29.87349987,7.38998914,434.64,41,3212,3253
+EN,NÃO,1. Analog and Digital,1.0,"Both continuous-time $x(t)$ and the discrete-time $x[n]$ signals consist of pulses with a limited duration (finite support). Their amplitudes are equal to three for $0 \le t \le 4$ and $0 \le n \le 4$, respectively, and zero otherwise. a) What are the values of $x(t)$ when $t=1.5$, $3$ and $6$? b) What are the values of $x[n]$ when $n=1.5$, $3$ and $6$?",gpt-5,"a) Continuous-time pulse:
+- x(1.5) = 3
+- x(3) = 3
+- x(6) = 0
+
+b) Discrete-time sequence (defined only for integer n):
+- x[1.5]: not defined (n must be an integer)
+- x[3] = 3
+- x[6] = 0",8.1147,7.45380664,0.66084504,1201.49,124,794,918
+EN,NÃO,1. Analog and Digital,2.0,An ADC uses $b=8$ bits per sample and sampling frequency $\fs=100$~Msps. a) What is the respective bit rate in bits per second? b) How many megabytes are needed to store 1 hour of a signal digitized with this ADC and stored in a binary ``raw'' format (without compression or a file header)?,gpt-5,"a) Bit rate Rb = b × fs = 8 × 100×10^6 = 8×10^8 b/s = 800 Mb/s.
+
+b) In 1 hour (3600 s): total bits = 800×10^6 × 3600 = 2.88×10^12 bits = 3.6×10^11 bytes.
+- In decimal megabytes (1 MB = 10^6 bytes): 360,000 MB = 360 GB.
+- In binary mebibytes (1 MiB = 2^20 bytes): ≈ 343,323 MiB (≈ 335.5 GiB).",19.9859,18.97254014,1.01336765,1157.53,80,1173,1253
+EN,NÃO,1. Analog and Digital,5.0,"The analog signal $x(t)=2t$~V is digitized using a 2-bits ADC with sampling frequency $\fs=100$~Hz to create a digital signal $x_q[n]$. Assuming the first sample is obtained at $t=0$~s, inform: a)  the values of the first four samples (just use here sampling, without quantization) and b) the values of $x_q[n]$ for $n=0,\ldots,3$ given that the ADC uses rounding and its output levels are $\{-2\Delta, -\Delta, 0, \Delta\}$, with $\Delta=0.025$~V.",gpt-5,"a) Sampling at fs = 100 Hz gives t_n = n/100 s.
+- x[0] = 2·0 = 0 V
+- x[1] = 2·0.01 = 0.02 V
+- x[2] = 2·0.02 = 0.04 V
+- x[3] = 2·0.03 = 0.06 V
+
+b) With rounding to the nearest of {-2Δ, -Δ, 0, Δ} where Δ = 0.025 V, decision thresholds are at -0.0375, -0.0125, 0.0125 V.
+- x_q[0] = 0 V  (0 maps to 0)
+- x_q[1] = 0.025 V  (0.02 ≥ 0.0125 → Δ)
+- x_q[2] = 0.025 V  (0.04 → Δ)
+- x_q[3] = 0.025 V  (0.06 → Δ)
+
+So: x_q[n] for n=0..3 = {0, 0.025, 0.025, 0.025} V.",15.7243,13.80275702,1.92154384,838.91,149,1612,1761
+EN,NÃO,1. Analog and Digital,13.0,"An analog signal $x(t)$ was periodically sampled with sampling period $\ts=2$~s to obtain the sampled signal $x_s(t)=2 \delta(t+4) - 5 \delta(t-2) + 7 \delta(t-6)$. The sampling theorem was obeyed. a) What is the analytic expression of $x(t)$? b) Is this the only possible answer? For example, is $2 \rect(t+4) - 5 \rect(t-2) + 7 \rect(t-6)$ a possible expression for $x(t)$ given that $\ts=2$~s and the sampling theorem was obeyed? Why?",gpt-5,"a) For uniform impulse sampling, xs(t) = Σk x(kTs) δ(t − kTs). With Ts = 2 s, the given xs(t) implies
+- x(−4) = 2, x(2) = −5, x(6) = 7
+- x(2n) = 0 for all other integers n.
+
+Since the sampling theorem is obeyed (bandlimited to < 1/(2Ts) = 0.25 Hz), x(t) is uniquely reconstructed by sinc interpolation:
+x(t) = 2 sinc((t + 4)/2) − 5 sinc((t − 2)/2) + 7 sinc((t − 6)/2),
+where sinc(u) = sin(πu)/(πu).
+
+b) Under the sampling-theorem assumption (bandlimited to < 0.25 Hz), this is the only possible x(t); the samples uniquely determine the signal.
+
+The signal 2 rect(t + 4) − 5 rect(t − 2) + 7 rect(t − 6) is not a valid candidate under that assumption because rectangular pulses are not bandlimited (they have infinite bandwidth), so sampling them at Fs = 1/Ts = 0.5 Hz would violate the sampling theorem (aliasing would occur). While that rectangular signal happens to produce the same discrete sample values at t = …, −4, −2, 0, 2, 4, 6, …, it is not bandlimited and hence cannot be the original x(t) if the sampling theorem was obeyed. Without the bandlimited assumption, infinitely many different continuous-time signals (including the rect sum) could share the same samples.",48.9344,45.13382387,3.80053449,1090.11,148,4143,4291
+EN,NÃO,1. Analog and Digital,15.0,"An $b=8$-bits ADC uses two's complement to output binary numbers that correspond to integers in the range $[-128, 127]$. The ADC's quantizer is uniform with a step size $\Delta=10$~mV. a) For the following input values $x[n] = [0, 1, -1.28, 1.28, 2]$, indicate the output $x_b[n]=\tilde Q_c\{x[n]\}$ in binary, its corresponding value as an integer $x_d[n]$, the decoded output $x_q[n]$ and the quantization error. b) Repeat the procedure assuming the ADC uses a numbering scheme based on an offset $2^{b-1}=128$.",gpt-5,"Given Δ = 10 mV = 0.01 V.
+
+Use a mid‑tread uniform quantizer with saturation:
+- Signed code (two’s complement): k = clip(round(x/Δ), −128, 127), x_q = kΔ, e = x − x_q.
+- Offset-binary code: y = k + 128 (0…255), x_q = (y − 128)Δ, e = x − x_q.
+
+a) Two’s complement (signed, −128…127)
+- x = 0 V
+  - x_b: 00000000
+  - x_d: 0
+  - x_q: 0.00 V
+  - error: 0.00 V
+- x = 1.00 V
+  - x_b: 01100100
+  - x_d: 100
+  - x_q: 1.00 V
+  - error: 0.00 V
+- x = −1.28 V
+  - x_b: 10000000
+  - x_d: −128
+  - x_q: −1.28 V
+  - error: 0.00 V
+- x = 1.28 V (clips)
+  - x_b: 01111111
+  - x_d: 127
+  - x_q: 1.27 V
+  - error: +0.01 V
+- x = 2.00 V (clips)
+  - x_b: 01111111
+  - x_d: 127
+  - x_q: 1.27 V
+  - error: +0.73 V
+
+b) Offset-binary (0…255, offset = 128)
+- x = 0 V
+  - x_b: 10000000
+  - integer (offset): 128
+  - x_q: 0.00 V
+  - error: 0.00 V
+- x = 1.00 V
+  - x_b: 11100100
+  - integer (offset): 228
+  - x_q: 1.00 V
+  - error: 0.00 V
+- x = −1.28 V
+  - x_b: 00000000
+  - integer (offset): 0
+  - x_q: −1.28 V
+  - error: 0.00 V
+- x = 1.28 V (clips)
+  - x_b: 11111111
+  - integer (offset): 255
+  - x_q: 1.27 V
+  - error: +0.01 V
+- x = 2.00 V (clips)
+  - x_b: 11111111
+  - integer (offset): 255
+  - x_q: 1.27 V
+  - error: +0.73 V",45.2318,39.16598678,6.06582475,608.82,164,3693,3857
+EN,NÃO,1. Analog and Digital,16.0,"A sinusoid $x[n]=\sin((\pi/3)n)$ was quantized with $b=3$ bits per sample using a step size $\Delta=0.25$ and $\hat X_{\textrm{min}}=-1$. This quantization generated the digital signal $x_q[n]$. The corresponding binary values $x_b[n]=\tilde Q_c\{x[n]\}$ were stored in a file using a numbering scheme with offset $2^{b-1}=4$, but this file was wrongly interpreted with a routine that generated $y_q[n]$ assuming a two's complement scheme. Inform the 6 values of a period of the original $x[n]$, the properly quantized $x_q[n]$ and the erroneously interpreted $y_q[n]$.",gpt-5,"- x[n] over one period (n = 0…5): [0, √3/2, √3/2, 0, −√3/2, −√3/2] ≈ [0, 0.8660, 0.8660, 0, −0.8660, −0.8660]
+
+- Properly quantized x_q[n] (Δ = 0.25, X̂_min = −1; mid-rise levels −0.875,…,0.875):
+  [0.125, 0.875, 0.875, 0.125, −0.875, −0.875]
+  (codes stored in offset-binary: [100, 111, 111, 100, 000, 000])
+
+- Erroneously interpreted y_q[n] (same Δ, X̂_min but decoding bits as 2’s complement: 100→−4, 111→−1, 000→0):
+  [−1.875, −1.125, −1.125, −1.875, −0.875, −0.875]",68.7411,66.73667192,2.00447559,3319.07,173,6653,6826
+EN,NÃO,1. Analog and Digital,17.0,"The goal is to design a uniform scalar quantizer for a discrete-time signal $x[n]$. It is given that $x[n]$ is approximately uniformly distributed with mean equal to 2 and standard deviation equal to 3. a) Describe a 3-bits quantizer that minimizes the quantization error, explaining your design decisions. b) Calculate the signal to noise ratio (in dB) for the case of a 8 bits quantizer operating with the same input signal.",gpt-5,"a) 3-bit uniform quantizer (L = 8 levels) matched to the input
+
+Assume x[n] is (approximately) Uniform[a,b] with mean µ = 2 and standard deviation σ = 3. For a uniform distribution:
+- Width W = b − a = σ√12 = 3√12 = 6√3 ≈ 10.3923
+- Endpoints: a = µ − W/2 = 2 − 3√3 ≈ −3.1962, b = µ + W/2 = 2 + 3√3 ≈ 7.1962
+
+To minimize MSE for a uniform pdf (Lloyd–Max solution), use a uniform midrise quantizer spanning exactly [a, b]:
+- Step size: Δ3 = W/L = (6√3)/8 ≈ 1.2990
+- Decision thresholds: tk = a + kΔ3, k = 0,…,8
+  ≈ {−3.1962, −1.8971, −0.5981, 0.7010, 2.0000, 3.2990, 4.5981, 5.8971, 7.1962}
+- Reconstruction levels (outputs): yk = a + (k + 0.5)Δ3, k = 0,…,7
+  ≈ {−2.5466, −1.2476, 0.05144, 1.3505, 2.6495, 3.9486, 5.2476, 6.5466}
+- Mapping: k = clip(floor((x − a)/Δ3), 0, 7), output yk.
+
+Design rationale: With a uniform input, the MSE is minimized by (i) eliminating overload (range exactly [a,b]) and (ii) placing reconstruction points at cell midpoints with equal-sized cells.
+
+b) SNR for an 8-bit quantizer (L = 256) with the same input
+
+- Step size: Δ8 = W/256
+- Quantization noise variance (no overload, high-resolution model): σq^2 = Δ8^2/12 = (W^2)/(12·256^2)
+- Signal variance: σx^2 = 9
+
+Thus SNR = σx^2/σq^2 = (W^2/12) / (W^2/(12·256^2)) = 256^2.
+In dB: SNR = 10 log10(256^2) = 20 log10(256) ≈ 48.16 dB.
+
+(Note: This uses signal variance, i.e., excludes the DC mean. Including the mean would add about 1.59 dB, giving ≈49.75 dB.)",53.4474,48.56100488,4.88639092,1028.78,105,5027,5132
+EN,NÃO,1. Analog and Digital,20.0,"Consider you want to quantize a sinusoid with peak amplitude that is equal to 10 volts using $b=10$ bits. Find general expressions for the quantization SNR in terms of $b$, using both linear and dB scales. If instead of a sinusoid your signal (to be quantized) had a Gaussian PDF with mean $\mu=3$ and standard deviation $\sigma=2$, find similar expressions for the SNR assuming the signal dynamic range is $6 \sigma$ around the mean.",gpt-5,"Assume a uniform b-bit quantizer whose full-scale range matches the signal range (no overload) and white quantization noise with variance Δ^2/12.
+
+1) Sinusoid, peak amplitude A = 10 V (i.e., range ±A)
+- Step: Δ = 2A / 2^b
+- Signal power (RMS^2): Ps = A^2/2
+- Noise power: Pq = Δ^2/12 = (4A^2)/(12·2^{2b})
+- SNR (linear): SNR = Ps/Pq = (A^2/2)/((4A^2)/(12·2^{2b})) = (3/2)·2^{2b}
+- SNR (dB): SNR_dB = 10 log10(3/2) + 20 b log10(2) ≈ 1.76 + 6.02 b
+
+For b = 10: SNR ≈ 1.573×10^6 (≈ 61.97 dB).
+
+2) Gaussian signal, mean μ = 3, standard deviation σ = 2, dynamic range = 6σ about the mean
+- Full-scale half-range: A = 3σ
+- Step: Δ = 6σ / 2^b
+- Noise power: Pq = Δ^2/12 = 3 σ^2 / 2^{2b}
+- Taking “signal power” as the variance (AC power), Ps = σ^2:
+  - SNR (linear): SNR = σ^2 / (3 σ^2 / 2^{2b}) = 2^{2b} / 3
+  - SNR (dB): SNR_dB = 20 b log10(2) − 10 log10(3) ≈ 6.02 b − 4.77
+
+For b = 10: SNR ≈ 3.495×10^5 (≈ 55.44 dB).
+
+Notes:
+- These results assume no clipping; with a 6σ range, about 0.27% of Gaussian samples lie outside and would introduce overload error if not handled.
+- If you instead include the DC component in “signal power,” replace Ps by E[x^2] = μ^2 + σ^2, yielding SNR = ((μ^2 + σ^2)/(3 σ^2))·2^{2b} and SNR_dB = 6.02 b + 10 log10((1 + μ^2/σ^2)/3). For μ = 3, σ = 2, this adds ≈ 0.34 dB to the slope-intercept form.",42.4364,34.99430752,7.44211459,525.93,111,3914,4025
+EN,NÃO,1. Analog and Digital,22.0,"A data acquisition system uses an ADC of 12 bits. To improve its resolution, a signal conditioning board is developed, based on an automatic gain control (AGC) circuit with programmable gain. This gain can assume 16 distinct values and is represented by 4 bits. Assuming the overall system now represents a sample with $12+4=16$ bits, what is the expected improvement in the quantization SNR in dB due to the adoption of the AGC?",gpt-5,"About 24 dB.
+
+Reason: Each extra bit improves ideal quantization SNR by ≈6.02 dB. Going from 12 to 16 effective bits gives ΔSNR ≈ 6.02 × 4 = 24.08 dB (from ~74 dB to ~98 dB for a full-scale sine).",18.141,17.66182446,0.47920108,2172.37,102,1041,1143
+EN,NÃO,1. Analog and Digital,23.0,"An eight-bits ADC uses two's complement and the Q2.5 format. The input signal is always within the quantizer's granular region (no saturation). The quantizer is uniform, uses rounding and its output levels match the signal dynamic range given by $[-3, 3]$~V. a) What is the expected mean and variance of the quantization error assuming the linear model for quantization is valid? b) What is the estimated SQNR? c) What is the new SNR if Q3.4 is adopted and what could be an advantage of Q3.4 over Q2.5?",gpt-5,"a) For a uniform rounding quantizer, under the linear model the quantization error e is modeled as e ~ Uniform[-Δ/2, Δ/2], so:
+- Mean: E{e} = 0
+- Variance: Var{e} = Δ^2/12
+
+With Q2.5 (two’s complement, 5 fractional bits) and taking 1 Q-unit = 1 V, the LSB is Δ = 2^-5 = 0.03125 V. Hence:
+- Var{e} = (0.03125^2)/12 ≈ 8.138×10^-5 V^2
+- Std{e} ≈ 9.02 mV
+
+b) Estimated SQNR (full-scale sine of peak A = 3 V → signal power Ps = A^2/2 = 4.5 V^2):
+SQNR = 10·log10(Ps / (Δ^2/12)) ≈ 10·log10(4.5 / 8.138×10^-5) ≈ 47.4 dB
+(Equivalently, ENOB over ±3 V is log2(6/Δ) = log2(192) ≈ 7.585 → 6.02·ENOB + 1.76 ≈ 47.4 dB.)
+
+c) With Q3.4 the LSB doubles: Δ' = 2^-4 = 0.0625 V, so the quantization noise power increases by 4× and the SQNR drops by ≈6.02 dB:
+SQNR' ≈ 47.4 − 6.02 ≈ 41.4 dB.
+
+One advantage of Q3.4 over Q2.5: it provides one extra integer bit (larger representable dynamic range in code units, e.g., up to about ±8 instead of ±4), giving more headroom and reducing overflow risk in subsequent fixed-point processing (at the cost of 1 bit less resolution).",107.3768,103.63234949,3.74446774,2526.66,134,9461,9595
+EN,NÃO,1. Analog and Digital,28.0,"You do not know much about a signal $x[n]$, but it is given that $x[0]=3$. Can $x[n]$ be an odd signal? Why?",gpt-5,"No. For an odd signal, x[-n] = -x[n] for all n. Setting n = 0 gives x[0] = -x[0], which implies x[0] = 0. Since x[0] = 3 ≠ 0, x[n] cannot be an odd signal.",4.7848,4.33664465,0.4481411,743.07,44,333,377
+EN,NÃO,1. Analog and Digital,29.0,"For the following signals, calculate the energy $E_\infty$ and power $P_\infty$. Do they have a finite total energy or a finite average power? a) $x(t)=5 \cos(2 \pi 300 t + \pi/4)$, b) $x(t)=3 e^{-2 t} u(t)$ and c) $x(t)=t$.",gpt-5,"Definitions
+- Energy: E∞ = ∫_{-∞}^{∞} |x(t)|^2 dt
+- Average power: P∞ = lim_{T→∞} (1/(2T)) ∫_{-T}^{T} |x(t)|^2 dt
+
+a) x(t) = 5 cos(2π·300 t + π/4)
+- E∞ = ∞ (non-decaying sinusoid)
+- P∞ = (5^2)/2 = 25/2 = 12.5
+- Classification: finite average power (power signal), not finite energy.
+
+b) x(t) = 3 e^{-2 t} u(t)
+- E∞ = ∫_0^∞ 9 e^{-4t} dt = 9/4 = 2.25
+- P∞ = lim_{T→∞} (1/(2T)) ∫_{-T}^{T} |x(t)|^2 dt = (1/(2T))·(9/4) → 0
+- Classification: finite energy (energy signal), zero average power.
+
+c) x(t) = t
+- E∞ = ∫_{-∞}^{∞} t^2 dt = ∞
+- P∞ = lim_{T→∞} (1/(2T)) ∫_{-T}^{T} t^2 dt = lim_{T→∞} (1/(2T))·(2/3)T^3 = (1/3)T^2 → ∞
+- Classification: neither finite energy nor finite average power.",14.494,10.74320269,3.75075293,364.73,88,1368,1456
+EN,NÃO,1. Analog and Digital,30.0,What can be said about the total energy and average power of any periodic signal?,gpt-5,"- Total energy: Infinite for any nonzero periodic signal. Because each period contains a positive amount of energy and the periods repeat forever, the integral ∫_{-∞}^{∞} |x(t)|^2 dt (or sum in discrete time) diverges.
+
+- Average power: Finite and equal to the mean-square over one period:
+  - Continuous time: P = (1/T0) ∫_{t0}^{t0+T0} |x(t)|^2 dt
+  - Discrete time: P = (1/N0) ∑_{n=0}^{N0-1} |x[n]|^2
+  It is nonzero for any nonzero periodic signal with finite energy per period.
+
+- Hence, periodic signals are power signals, not energy signals.
+
+- Trivial exception: The identically zero signal has E = 0 and P = 0. (Signals involving ideal impulses require distribution theory; their “energy/power” in the usual sense may be undefined.)",21.4586,19.47982764,1.97872281,821.24,22,1625,1647
+EN,NÃO,1. Analog and Digital,31.0,"a) The set $\calM = \{-7,-5,-3,-1,1,3,5,7\}$ describes the output values of a given quantizer, in volts.	Assuming all elements have the same probability, what is the average energy in joules of these values? b) Consider the same values compose a discrete-time sequence $x[n]=[-7,-5,-3,-1,1,3,5,7]$. What is the average power in watts of $x[n]$ over its support of eight non-zero samples? c) Given that the equation for both cases a) and b) is the same, discuss why the results are expressed in distinct units (joules and watts).",gpt-5,"a) Average energy:
+- Mean-square of the levels = (1/8)(49+25+9+1+1+9+25+49) = 21 V^2.
+- Interpreting energy across a 1 Ω load for a 1 s interval (the usual DSP convention): E = (Ts/R)·E[V^2] = (1/1)·21 = 21 J.
+
+b) Average power over the 8 samples:
+- P_avg = (1/N) Σ |x[n]|^2 = 168/8 = 21.
+- Across 1 Ω, this is 21 W.
+
+c) Why different units with the same equation:
+- Both computations use the mean of the squared amplitude. Converting to physical units needs a resistance and a time scale.
+- Energy integrates power over time: E = P·t. With Ts = 1 s per sample and R = 1 Ω, the expected v^2 becomes joules in (a).
+- Power is the time-average rate: P = (1/R)·average(v^2). Thus (b) gives watts.
+- In general: E = (Ts/R)·mean(v^2) and P = (1/R)·mean(v^2). For Ts = 1 s, they have the same numeric value but different units (J vs W).",19.4983,17.01484919,2.4834044,762.66,156,1894,2050
+EN,NÃO,1. Analog and Digital,32.0,"For each of the following signals, determine whether or not it is periodic and in positive case, its fundamental period $N_0$: a) $x[n]=u[n] + u[-n-1]$, b) $x[n]=\cos(\frac \pi 8 n)$, c) $x[n]=\cos(\frac {11} {128} n + \pi/3)$ and d) $x[n]=\cos( (\pi/4) n^2)$?",gpt-5,"a) x[n] = u[n] + u[-n-1]
+- Since u[n]=1 for n≥0 and u[-n-1]=1 for n≤−1, their sum is 1 for all n. Constant sequence ⇒ periodic. Fundamental period N0 = 1.
+
+b) x[n] = cos((π/8) n)
+- Ω0 = π/8. Need Ω0 N = 2π m ⇒ N = 16 m. Smallest positive N: N0 = 16. Periodic.
+
+c) x[n] = cos((11/128) n + π/3)
+- Ω0 = 11/128. Need Ω0 N = 2π m ⇒ N = (256π/11) m, impossible since π is irrational. Not periodic.
+
+d) x[n] = cos((π/4) n^2)
+- Require (π/4)((n+N)^2 − n^2) = 2π k_n ⇒ (π/4)(2nN + N^2) = 2π k_n ⇒ 2nN + N^2 ≡ 0 (mod 8) for all n.
+- This holds iff N is a multiple of 4. Smallest such N: N0 = 4. Periodic.",21.9025,20.08979797,1.8126564,1252.31,110,2270,2380
+EN,NÃO,2. Transforms and Signal Representation,1.0,"Given two vectors $[4, 3]$ and $[-5, 2]$, find their norms, inner product and angle between them.",gpt-5,"- Norms:
+  - ||[4, 3]|| = sqrt(4^2 + 3^2) = 5
+  - ||[-5, 2]|| = sqrt((-5)^2 + 2^2) = sqrt(29) ≈ 5.3852
+- Inner product: [4, 3] · [-5, 2] = 4(−5) + 3(2) = −14
+- Angle θ between them:
+  - cos θ = (−14) / (5·sqrt(29))
+  - θ = arccos(−14 / (5 sqrt(29))) ≈ 121.31° ≈ 2.117 rad",19.0826,18.14510465,0.93744564,1674.76,37,1570,1607
+EN,NÃO,2. Transforms and Signal Representation,2.0,"Given two vectors $\bx=[4, 0]$ and $\by=[-5, 2]$, find the projections $\bp_{yx}$ and $\bp_{xy}$ and the respective error vectors $\be_{yx}$ and $\be_{xy}$.",gpt-5,"- Projection of y onto x: p_yx = ((y·x)/(x·x)) x = (-20/16)[4,0] = [-5, 0]
+- Error vector: e_yx = y − p_yx = [-5, 2] − [-5, 0] = [0, 2]
+
+- Projection of x onto y: p_xy = ((x·y)/(y·y)) y = (-20/29)[-5, 2] = [100/29, −40/29]
+- Error vector: e_xy = x − p_xy = [4, 0] − [100/29, −40/29] = [16/29, 40/29]",9.6581,8.47279119,1.18533063,678.29,60,804,864
+EN,NÃO,2. Transforms and Signal Representation,3.0,"Is the matrix $\bA =
+    \begin{bmatrix}
+    1 & -5 \\
+    3 & 4 \\
+    \end{bmatrix}
+$ unitary? Design a unitary matrix $\bB$ that is similar to $\bA$ in the sense that its first basis (column) is a vector in the same direction as $[1,~3]^T$.",gpt-5,"No. A is not unitary because its columns are not orthonormal. For example, the first column [1, 3]^T has norm √10 ≠ 1 (equivalently, A^T A = [[10, 7], [7, 41]] ≠ I).
+
+A unitary matrix whose first column is along [1, 3]^T is obtained by normalizing [1, 3]^T and choosing any unit vector orthogonal to it, e.g.
+B = (1/√10) [ [1, -3],
+               [3,  1] ].
+Columns are orthonormal: [1, 3]^T/√10 and [-3, 1]^T/√10, so B is unitary.",18.9802,17.56625056,1.41397643,1117.42,91,1580,1671
+EN,NÃO,2. Transforms and Signal Representation,4.0,"Assume a 2-d vector space has non orthogonal basis given by $\overline i=[2, 1]$ and $\overline j=[0, 3]$. Find the coefficients $\alpha$ and $\beta$ that allow to represent the vector $\bx=[4,1]$ as the linear combination $\bx = \alpha \overline i + \beta \overline j$.",gpt-5,"We want α and β such that:
+[4, 1] = α[2, 1] + β[0, 3].
+
+This gives the system:
+2α + 0β = 4
+α + 3β = 1
+
+From the first equation: α = 2.
+Then 2 + 3β = 1 ⇒ 3β = −1 ⇒ β = −1/3.
+
+Answer: α = 2, β = −1/3.",7.1872,6.26134324,0.92582941,397.48,89,368,457
+EN,NÃO,2. Transforms and Signal Representation,5.0,"Use the Gram-Schmidt procedure to find an orthonormal basis to represent the vectors in the set $\calC = \{ [0, 0, 1], [0, 1, 0], [0, 0, 8], [0, 5, 0], [4, 1, 2], [0, 0, 3]\}$. Show also that any vector in $\calC$ can be written as a linear combination of the obtained basis vectors.",gpt-5,"Let the inner product be the usual dot product on R^3. Apply Gram–Schmidt to the vectors in the given order.
+
+v1 = (0,0,1)
+- q1 = v1 / ||v1|| = (0,0,1)
+
+v2 = (0,1,0)
+- w2 = v2 − (v2·q1)q1 = (0,1,0) − 0 = (0,1,0)
+- q2 = w2 / ||w2|| = (0,1,0)
+
+v3 = (0,0,8)
+- w3 = v3 − (v3·q1)q1 − (v3·q2)q2 = (0,0,8) − 8(0,0,1) − 0 = (0,0,0)
+- discard
+
+v4 = (0,5,0)
+- w4 = v4 − (v4·q1)q1 − (v4·q2)q2 = (0,5,0) − 0 − 5(0,1,0) = (0,0,0)
+- discard
+
+v5 = (4,1,2)
+- w5 = v5 − (v5·q1)q1 − (v5·q2)q2 = (4,1,2) − 2(0,0,1) − 1(0,1,0) = (4,0,0)
+- q3 = w5 / ||w5|| = (1,0,0)
+
+v6 = (0,0,3)
+- w6 = v6 − (v6·q1)q1 − (v6·q2)q2 − (v6·q3)q3 = (0,0,3) − 3(0,0,1) − 0 − 0 = (0,0,0)
+- discard
+
+Thus an orthonormal basis for span(C) is
+q1 = (0,0,1), q2 = (0,1,0), q3 = (1,0,0).
+
+Each vector in C as a linear combination of {q1, q2, q3}:
+- (0,0,1) = 1·q1
+- (0,1,0) = 1·q2
+- (0,0,8) = 8·q1
+- (0,5,0) = 5·q2
+- (4,1,2) = 4·q3 + 1·q2 + 2·q1
+- (0,0,3) = 3·q1
+
+Hence the set {q1, q2, q3} is an orthonormal basis that represents all vectors in C.",20.0219,15.4815681,4.54034233,462.3,111,2099,2210
+EN,NÃO,2. Transforms and Signal Representation,10.0,What are the forward $\bA$ and inverse $\bA^H$ matrices for a 3-point orthonormal DFT?,gpt-5,"Let ω = e^(−j 2π/3) = −1/2 − j√3/2 and ω^2 = e^(−j 4π/3) = −1/2 + j√3/2.
+
+Forward (unitary) 3-point DFT matrix A (k,n = 0,1,2):
+A_{k,n} = (1/√3) e^(−j 2π kn/3)
+= (1/√3) *
+[ [1, 1, 1],
+  [1, ω, ω^2],
+  [1, ω^2, ω] ]
+
+Inverse is the Hermitian transpose:
+A^H_{n,k} = (1/√3) e^(+j 2π kn/3)
+= (1/√3) *
+[ [1, 1, 1],
+  [1, ω̄, ω̄^2],
+  [1, ω̄^2, ω̄] ]
+where ω̄ = e^(+j 2π/3) = −1/2 + j√3/2.
+
+Explicitly (numerical entries):
+A = (1/√3) *
+[ [1, 1, 1],
+  [1, −1/2 − j√3/2, −1/2 + j√3/2],
+  [1, −1/2 + j√3/2, −1/2 − j√3/2] ]
+
+A^H = (1/√3) *
+[ [1, 1, 1],
+  [1, −1/2 + j√3/2, −1/2 − j√3/2],
+  [1, −1/2 − j√3/2, −1/2 + j√3/2] ]",29.67,26.57304358,3.0969646,977.73,34,3028,3062
+EN,NÃO,2. Transforms and Signal Representation,12.0,"Given that $\bX=[8,0,0,0]$ was obtained with a 4-point orthonormal DFT, find its inverse $\bx$. For the same spectrum, assuming that $\fs=10$ Hz, to which frequencies correspond the elements of $\bX$?",gpt-5,"- Inverse (time-domain) sequence:
+  Since the 4-point DFT is orthonormal, x_n = (1/√N) Σ_k X_k e^{j2πkn/N}. With N=4 and X=[8,0,0,0], we get x_n = (1/2)*8 = 4 for n=0,1,2,3.
+  So x = [4, 4, 4, 4].
+
+- Frequency corresponding to each X_k (fs = 10 Hz, N = 4):
+  Δf = fs/N = 2.5 Hz, so
+  k=0 → 0 Hz (DC)
+  k=1 → 2.5 Hz
+  k=2 → 5 Hz (Nyquist)
+  k=3 → 7.5 Hz (equivalently −2.5 Hz in centered/negative-frequency view)",18.0498,16.35160375,1.69821739,1023.43,66,1738,1804
+EN,NÃO,2. Transforms and Signal Representation,14.0,"Using the orthogonality condition of the basis functions derive the pair of Fourier series equations. To do that, recall how the inner product between complex signals is defined using the conjugate, and the normalization factor because the basis are not orthonormal.",gpt-5,"Let x(t) be T-periodic with fundamental ω0 = 2π/T, and let the complex exponential basis be ϕk(t) = e^{jkω0 t}.
+
+1) Inner product (complex case)
+Define the inner product over one period by
+⟨f,g⟩ = ∫_{t0}^{t0+T} f(t) g*(t) dt
+(using the conjugate on the second argument).
+
+2) Orthogonality and normalization
+⟨ϕm, ϕn⟩ = ∫_{t0}^{t0+T} e^{jmω0 t} e^{-jnω0 t} dt
+= ∫_{t0}^{t0+T} e^{j(m−n)ω0 t} dt
+= T if m = n, and 0 otherwise
+= T δmn.
+Thus the basis {ϕk} is orthogonal but not orthonormal; its norm squared is ⟨ϕk, ϕk⟩ = T.
+
+3) Synthesis (assumed expansion)
+x(t) = Σ_{k=-∞}^{∞} c_k e^{jkω0 t}.
+
+4) Analysis (projection using orthogonality)
+Take inner product with ϕm:
+⟨x, ϕm⟩ = Σ_k c_k ⟨ϕk, ϕm⟩ = Σ_k c_k T δkm = T c_m.
+Hence
+c_m = ⟨x, ϕm⟩ / ⟨ϕm, ϕm⟩ = (1/T) ∫_{t0}^{t0+T} x(t) e^{-jmω0 t} dt.
+
+Result: the Fourier series pair
+- Synthesis: x(t) = Σ_{k=-∞}^{∞} c_k e^{jkω0 t}
+- Analysis: c_k = (1/T) ∫_{t0}^{t0+T} x(t) e^{-jkω0 t} dt
+
+Note: If you instead normalize the inner product as ⟨f,g⟩_N = (1/T) ∫ f(t) g*(t) dt, then the basis becomes orthonormal and c_k = ⟨x, ϕk⟩_N directly.",22.391,18.37150931,4.01944923,574.21,56,2308,2364
+EN,NÃO,2. Transforms and Signal Representation,15.0,What are the Fourier series coefficients for the signal $x(t)=2 + 3 \cos(2 \pi 100 t) + 8 \sin(2 \pi 300 t + \pi) + \cos(2 \pi 50 t - \pi)$?,gpt-5,"Fundamental frequency: f0 = 50 Hz, ω0 = 2πf0 = 100π rad/s, period T0 = 1/50 s.
+
+Simplify the signal:
+x(t) = 2 + 3 cos(2ω0 t) + 8 sin(6ω0 t + π) + cos(ω0 t − π)
+     = 2 − cos(ω0 t) + 3 cos(2ω0 t) − 8 sin(6ω0 t)
+
+Complex exponential FS, x(t) = Σ c_k e^{jkω0 t}:
+- c0 = 2
+- c±1 = −1/2
+- c±2 = 3/2
+- c6 = 4j, c−6 = −4j
+- all other c_k = 0
+
+Trigonometric FS, x(t) = a0 + Σ_{k=1}^∞ [a_k cos(kω0 t) + b_k sin(kω0 t)]:
+- a0 = 2
+- a1 = −1, a2 = 3; all other a_k = 0
+- b6 = −8; all other b_k = 0
+
+(Note: If using the convention x(t) = a0/2 + Σ[…], then a0 = 4, with the same a_k and b_k for k ≥ 1.)",20.3838,18.52087784,1.86289954,1093.99,64,2038,2102
+EN,NÃO,2. Transforms and Signal Representation,16.0,"The bilateral Fourier series of a signal $x(t)$ with period $T_0=0.01$~s has non-zero coefficients $c_0=3$, $c_1=2e^{-j4}$, $c_4=5$, $c_{-1}=2e^{j4}$ and $c_{-4}=5$. What is the expression for $x(t)$?",gpt-5,"x(t) = 3 + 4 cos(200π t − 4) + 10 cos(800π t)
+
+since ω0 = 2π/T0 = 200π rad/s, and
+- c1, c−1 → 4 cos(ω0 t − 4)
+- c4, c−4 → 10 cos(4ω0 t)
+- c0 → 3.",14.6676,13.9306519,0.73692632,1608.03,91,1185,1276
+EN,NÃO,2. Transforms and Signal Representation,17.0,"What is the Fourier transform of: a) $x(t) = \rect(t)$, b) $y(t) = 4\rect(t-6)$ and c) $z(t) = 5\rect( (t-4)/3)$?",gpt-5,"Assume the continuous-time Fourier transform X(f) = ∫ x(t) e^{-j 2π f t} dt (frequency in Hz) and rect(t) = 1 for |t| < 1/2, 0 otherwise. Define sinc(u) = sin(π u)/(π u).
+
+Useful pair: rect((t − t0)/T) ↔ T e^{-j 2π f t0} sinc(T f)
+
+Then:
+a) x(t) = rect(t)  ⇒  X(f) = sinc(f)
+
+b) y(t) = 4 rect(t − 6)  ⇒  Y(f) = 4 e^{-j 2π f·6} sinc(f)
+
+c) z(t) = 5 rect((t − 4)/3)  ⇒  Z(f) = 15 e^{-j 2π f·4} sinc(3 f)",33.101,29.80795217,3.29306865,663.51,61,2185,2246
+EN,NÃO,2. Transforms and Signal Representation,18.0,"What is the Fourier transform of: a) $x(t) = \sinc(t)$, b) $y(t) = 4\sinc(t-6)$ and c) $z(t) = 5\sinc( (t-4)/3)$?",gpt-5,"Assume the Fourier transform X(f) = ∫ x(t) e^{-j2πft} dt and sinc(t) = sin(πt)/(πt). Then F{sinc(t)} = rect(f), where rect(f) = 1 for |f| ≤ 1/2 and 0 otherwise.
+
+a) x(t) = sinc(t)
+- X(f) = rect(f)
+
+b) y(t) = 4 sinc(t − 6)
+- Y(f) = 4 e^{-j2πf·6} rect(f) = 4 e^{-j12πf} rect(f)
+
+c) z(t) = 5 sinc((t − 4)/3)
+- Z(f) = 5 · 3 e^{-j2πf·4} rect(3f) = 15 e^{-j8πf} rect(3f)
+- Equivalently: Z(f) = 15 e^{-j8πf} for |f| ≤ 1/6, and 0 otherwise.",21.9382,20.45479488,1.48345184,1490.44,62,2211,2273
+EN,NÃO,2. Transforms and Signal Representation,19.0,"Prove the expressions: a) for the DTFT of $x[n]=0.9^n u[n] + 0.8^n u[n]$ and b) for its Z transform, indicating the ROC.",gpt-5,"Let x[n] = 0.9^n u[n] + 0.8^n u[n], with u[n] the unit step.
+
+a) DTFT
+X(e^{jω}) = Σ_{n=-∞}^{∞} x[n] e^{-jω n} = Σ_{n=0}^{∞} (0.9^n + 0.8^n) e^{-jω n}
+= Σ_{n=0}^{∞} (0.9 e^{-jω})^n + Σ_{n=0}^{∞} (0.8 e^{-jω})^n.
+
+Each sum is geometric and converges since |0.9 e^{-jω}| = 0.9 < 1 and |0.8 e^{-jω}| = 0.8 < 1. Thus
+X(e^{jω}) = 1/(1 − 0.9 e^{-jω}) + 1/(1 − 0.8 e^{-jω}),
+for all real ω. Equivalently,
+X(e^{jω}) = [2 − 1.7 e^{-jω}] / [(1 − 0.9 e^{-jω})(1 − 0.8 e^{-jω})].
+
+b) Z-transform and ROC
+X(z) = Σ_{n=0}^{∞} (0.9^n + 0.8^n) z^{-n}
+= Σ_{n=0}^{∞} (0.9 z^{-1})^n + Σ_{n=0}^{∞} (0.8 z^{-1})^n
+= 1/(1 − 0.9 z^{-1}) + 1/(1 − 0.8 z^{-1}).
+
+Equivalently, X(z) = z/(z − 0.9) + z/(z − 0.8), with poles at z = 0.9 and z = 0.8. Because each term is right-sided, the ROC is the intersection of |z| > 0.9 and |z| > 0.8, i.e., ROC: |z| > 0.9.
+
+Since the unit circle |z| = 1 lies in the ROC, the DTFT exists and equals X(e^{jω}) = X(z) evaluated at z = e^{jω}.",18.9359,15.54656625,3.3893683,622.24,53,2109,2162
+EN,NÃO,2. Transforms and Signal Representation,19.0,"Prove the expressions: a) for the DTFT of $x[n]=0.9^n u[n] + 0.8^n u[n]$ and b) for its Z transform, indicating the ROC.",gpt-5,"Let u[n] be the unit-step sequence. Use linearity and the geometric-series identity
+Σ_{n=0}^∞ r^n = 1/(1 − r), which holds for |r| < 1.
+
+a) DTFT
+X(e^{jω}) = Σ_{n=−∞}^{∞} x[n] e^{−jωn}
+= Σ_{n=0}^{∞} (0.9^n + 0.8^n) e^{−jωn}
+= Σ_{n=0}^{∞} (0.9 e^{−jω})^n + Σ_{n=0}^{∞} (0.8 e^{−jω})^n
+= 1/(1 − 0.9 e^{−jω}) + 1/(1 − 0.8 e^{−jω}).
+
+Since |0.9 e^{−jω}| = 0.9 < 1 and |0.8 e^{−jω}| = 0.8 < 1 for all ω, both series converge for all ω, so the DTFT exists for all ω.
+
+b) Z-transform and ROC
+X(z) = Σ_{n=−∞}^{∞} x[n] z^{−n}
+= Σ_{n=0}^{∞} (0.9^n + 0.8^n) z^{−n}
+= Σ_{n=0}^{∞} (0.9 z^{−1})^n + Σ_{n=0}^{∞} (0.8 z^{−1})^n
+= 1/(1 − 0.9 z^{−1}) + 1/(1 − 0.8 z^{−1})
+= z/(z − 0.9) + z/(z − 0.8).
+
+ROCs of the two right-sided terms are |z| > 0.9 and |z| > 0.8, respectively. The overall ROC is the intersection:
+ROC: |z| > 0.9.
+
+Since the unit circle |z| = 1 lies in the ROC, the DTFT is obtained by evaluating X(z) on z = e^{jω}, yielding the expression in part (a).",18.7821,15.14564538,3.63644934,538.71,53,1959,2012
+EN,NÃO,2. Transforms and Signal Representation,20.0,"Considering the range $\dw \in \left[-\pi,\pi\right[$, the DTFT $H(e^{j \dw})$ of a signal is 1 when $- \dw_c \le \dw \le \dw_c$ and 0 otherwise (i.\,e., an ideal low-pass filter). Find its inverse DTFT $h[n]$ indicating all steps in this proof.",gpt-5,"Let H(e^{jω}) be the ideal low-pass response on ω ∈ [−π, π): H(e^{jω}) = 1 for |ω| ≤ ωc, and 0 otherwise, with 0 < ωc ≤ π.
+
+1) Inverse DTFT definition
+h[n] = (1/2π) ∫_{−π}^{π} H(e^{jω}) e^{jω n} dω.
+
+Since H(e^{jω}) = 1 only on [−ωc, ωc] and 0 elsewhere,
+h[n] = (1/2π) ∫_{−ωc}^{ωc} e^{jω n} dω.
+
+2) Evaluate the integral
+- For n ≠ 0:
+  ∫_{−ωc}^{ωc} e^{jω n} dω
+  = ∫_{−ωc}^{ωc} (cos(ω n) + j sin(ω n)) dω
+  = 2 ∫_{0}^{ωc} cos(ω n) dω   (the sine term is odd and integrates to 0)
+  = 2 [sin(ω n)/n]_{0}^{ωc}
+  = 2 sin(ωc n)/n.
+
+  Therefore,
+  h[n] = (1/2π) · 2 sin(ωc n)/n = sin(ωc n)/(π n), for n ≠ 0.
+
+- For n = 0:
+  h[0] = (1/2π) ∫_{−ωc}^{ωc} 1 dω = (1/2π) · 2ωc = ωc/π.
+
+3) Result
+h[n] = { ωc/π, n = 0;  sin(ωc n)/(π n), n ≠ 0 }.
+
+Equivalently, using sinc(x) = sin(x)/x:
+h[n] = (ωc/π) sinc(ωc n), with the understanding that sinc(0) = 1.",21.0655,16.90790939,4.1575532,508.95,91,2116,2207
+EN,NÃO,2. Transforms and Signal Representation,21.0,Prove that $X(e^{j \dw})=\sum_{k=-\infty}^{\infty} 2 \pi \delta(\dw - \dw_0 + 2 \pi k)$ is the DTFT of $x[n]=e^{j \dw_0 n}$ and indicate when the impulse sifting property is used.,gpt-5,"Let ω denote the frequency variable (your dw). The DTFT pair is defined by
+- X(e^{jω}) = Σ_{n=-∞}^{∞} x[n] e^{-jω n}
+- x[n] = (1/2π) ∫_{-π}^{π} X(e^{jω}) e^{jω n} dω
+
+Forward transform:
+For x[n] = e^{jω0 n},
+X(e^{jω}) = Σ_{n=-∞}^{∞} e^{jω0 n} e^{-jω n} = Σ_{n=-∞}^{∞} e^{-jn(ω − ω0)}.
+
+Use the standard identity (Fourier series of a 2π-periodic impulse train)
+Σ_{n=-∞}^{∞} e^{j n Ω} = 2π Σ_{k=-∞}^{∞} δ(Ω − 2π k).
+With Ω = ω0 − ω (so that e^{-jn(ω − ω0)} = e^{j n Ω}), we get
+X(e^{jω}) = 2π Σ_{k=-∞}^{∞} δ(ω0 − ω − 2π k) = 2π Σ_{k=-∞}^{∞} δ(ω − ω0 + 2π k),
+which is the claimed result.
+
+Where the impulse sifting property is used:
+To verify by the inverse DTFT,
+x[n] = (1/2π) ∫_{-π}^{π} 2π Σ_{k} δ(ω − ω0 + 2π k) e^{jω n} dω.
+Because the integral is over any 2π-length interval, exactly one impulse in the sum lies in [−π, π), so by the sifting property of δ,
+x[n] = e^{j(ω0 − 2π k0) n} = e^{jω0 n},
+since e^{-j 2π k0 n} = 1 for integer n. The sifting property is specifically used in evaluating the integral of δ(ω − ω0 + 2π k) times e^{jω n}.",41.4433,37.43308592,4.01024413,993.46,79,3984,4063
+EN,NÃO,2. Transforms and Signal Representation,24.0,"A right-sided signal has Laplace transform $X(s)=5/(s^2+2s+10)$, with ROC $\sigma > -1$. Calculate: a) $X(s)|_{s=2}$, b) the corresponding Fourier transform $X(\aw)$ if it exists and c) if $X(\aw)$ exists, $|X(\aw)|$ for $\aw=3$ rad/s.",gpt-5,"Given X(s) = 5/(s^2 + 2s + 10), poles at s = -1 ± j3; ROC: Re{s} > -1, so the jω-axis (σ = 0) is included.
+
+a) X(2) = 5/(2^2 + 2·2 + 10) = 5/18 ≈ 0.2778
+
+b) Since jω is in the ROC, the Fourier transform exists:
+X(ω) = X(s)|_{s=jω} = 5/(10 − ω^2 + j2ω)
+
+c) |X(ω)| = 5 / sqrt((10 − ω^2)^2 + (2ω)^2)
+At ω = 3 rad/s:
+|X(3)| = 5 / sqrt((10 − 9)^2 + 6^2) = 5/√37 ≈ 0.8216",20.2394,18.44566941,1.79377198,1008.49,93,1809,1902
+EN,NÃO,2. Transforms and Signal Representation,25.0,"A signal $x(t)$ has Laplace transform $X(s)=(3s+2)/((s-1)(s-3))$, with ROC $\sigma < 1$. Find $x(t)$.",gpt-5,"Poles at s=1 and s=3. With ROC Re(s) < 1 (to the left of the leftmost pole), x(t) is left-sided. Do partial fractions:
+(3s+2)/((s-1)(s-3)) = (-5/2)/(s-1) + (11/2)/(s-3).
+
+For ROC to the left of a pole a, L^{-1}{1/(s-a)} = -e^{a t} u(-t). Hence
+x(t) = -(−5/2)e^{t}u(-t) − (11/2)e^{3t}u(-t)
+= [(5/2)e^{t} − (11/2)e^{3t}] u(-t).
+
+Equivalently:
+x(t) = (5/2)e^{t} − (11/2)e^{3t}, for t ≤ 0; and 0 for t > 0.",36.4689,34.65707374,1.81182551,1176.16,50,2131,2181
+EN,NÃO,2. Transforms and Signal Representation,26.0,"A signal $x[n]$ has Z transform $X(z)=(5z^2+4z+3)/((z-0.7)(z-0.8))$, with ROC $|z|> 0.8$. Find $x[n]$.",gpt-5,"Given ROC |z| > 0.8 (right-sided), do partial fractions in z:
+
+X(z) = (5z^2 + 4z + 3)/((z − 0.7)(z − 0.8)) = 5 − 82.5/(z − 0.7) + 94/(z − 0.8).
+
+Use inverse Z-transform pairs (for |z| > |a|): 1/(z − a) ↔ a^(n−1) u[n−1], and 1 ↔ δ[n].
+
+Therefore,
+x[n] = 5 δ[n] − 82.5 (0.7)^(n−1) u[n−1] + 94 (0.8)^(n−1) u[n−1].
+
+Equivalently,
+x[0] = 5, and for n ≥ 1: x[n] = 94 (0.8)^(n−1) − 82.5 (0.7)^(n−1].",87.8283,87.17496538,0.65334749,13282.37,63,8678,8741
+EN,NÃO,2. Transforms and Signal Representation,27.0,Find the Z transform and associated ROC of the signal $x[n]=-3^n u[-n-1]$. Does this signal have a DTFT?,gpt-5,"x[n] = -3^n u[-n-1] is nonzero for n ≤ -1.
+
+Z-transform:
+X(z) = ∑_{n=-∞}^{∞} x[n] z^{-n}
+= -∑_{n=-∞}^{-1} 3^n z^{-n}
+= -∑_{m=1}^{∞} (z/3)^m
+= - (z/3)/(1 - z/3)
+= z/(z - 3)
+
+ROC: |z| < 3 (left-sided sequence; interior of the pole at z = 3).
+
+DTFT: Yes. The unit circle |z| = 1 lies in the ROC, and x[n] is absolutely summable (∑_{n=-∞}^{-1} |3^n| = 1/2). Hence the DTFT exists and
+X(e^{jω}) = X(z)|_{z=e^{jω}} = e^{jω}/(e^{jω} - 3) = 1/(1 - 3 e^{-jω}).",35.8483,34.27593446,1.57241011,2472.0,38,3887,3925
+EN,NÃO,2. Transforms and Signal Representation,28.0,"What is the Z transform $X(z)$ of the signal $x[n]=4\delta[n] + 5 \delta[n-11]$? What are the values of $X(z)$ for $z=0, -1$ and $z=8e^{j \pi}$? If the DTFT of $x[n]$ exists, what are its values for $\dw=0, \pi$ and $2 \pi$ rad?",gpt-5,"- Z-transform:
+  X(z) = 4 + 5 z^{-11}
+  ROC: all z except z = 0 (pole at 0).
+
+- Values:
+  - X(0): undefined (diverges to ∞ due to z^{-11} term).
+  - X(-1): 4 + 5(-1)^{-11} = 4 − 5 = −1.
+  - X(8e^{jπ}) = X(−8): 4 + 5(−8)^{-11} = 4 − 5/8^{11} ≈ 3.999999999418.
+
+- DTFT (exists since x[n] is finite-length): X(e^{jω}) = 4 + 5 e^{-j11ω}.
+  - ω = 0: X(e^{j0}) = 9.
+  - ω = π: X(e^{jπ}) = 4 + 5 e^{-j11π} = 4 − 5 = −1.
+  - ω = 2π: X(e^{j2π}) = 9.",23.2092,21.38410258,1.82509255,1185.69,101,2164,2265
+EN,NÃO,3. Analog and Digital Systems,1.0,"When the input $x_1[n]=\delta[n] + \delta[n-1]$ is applied to a \emph{linear} system, the observed output is $y_1[n]=4\delta[n-1] + \delta[n-2]$. Inform the expression of the output $y_2[n]$ when the input is $x_2[n]=3\delta[n] + 3\delta[n-1]$.",gpt-5,"Because the system is linear and x2[n] = 3 x1[n], the output scales accordingly:
+y2[n] = 3 y1[n] = 3(4δ[n−1] + δ[n−2]) = 12δ[n−1] + 3δ[n−2].",6.4992,5.06942463,1.42977381,230.81,102,330,432
+EN,NÃO,3. Analog and Digital Systems,2.0,"When the input $x_1[n]=\delta[n]$ is applied to a LTI system, the output is $y_1[n]=3\delta[n] + 2\delta[n-1] + \delta[n-2]$. What is the output $y_2[n]$ when the input is $x_2[n]=5\delta[n] + 2\delta[n-1]$?",gpt-5,"h[n] = y1[n] = 3δ[n] + 2δ[n−1] + δ[n−2].  
+For x2[n] = 5δ[n] + 2δ[n−1], by LTI and convolution: y2[n] = 5h[n] + 2h[n−1]
+= 15δ[n] + 16δ[n−1] + 9δ[n−2] + 2δ[n−3].",5.1466,4.46485019,0.68173337,819.97,96,559,655
+EN,NÃO,3. Analog and Digital Systems,3.0,"When the input $x_1[n]=\delta[n]$ is applied to a system, the output is $y_1[n]=3\delta[n] + 2\delta[n-1] + \delta[n-2]$, and when the input is $x_2[n]=2\delta[n-1]$, the output is $y_2[n]=6\delta[n-1] + 2\delta[n-2] + 2\delta[n-3]$. Can this system be LTI?",gpt-5,"No. For an LTI system, the response to δ[n] is the impulse response h[n], so h[n] = y1[n] = 3δ[n] + 2δ[n−1] + δ[n−2]. Then for x2[n] = 2δ[n−1], the LTI output must be y2[n] = 2h[n−1] = 6δ[n−1] + 4δ[n−2] + 2δ[n−3]. The given y2[n] = 6δ[n−1] + 2δ[n−2] + 2δ[n−3] does not match (the δ[n−2] coefficient is 2 instead of 4). Hence the system cannot be LTI.",11.0765,9.23429704,1.84218884,614.49,118,1132,1250
+EN,NÃO,3. Analog and Digital Systems,4.0,A time-invariant system has output $y_1(t) = \delta(t-1) - \delta(t-4)$ when the input is $x_1(t)=\delta(t)$. Inform the expression of the output $y_2(t)$ when the input is $x_2(t) = \delta(t-3)$.,gpt-5,"y2(t) = y1(t − 3) = δ(t − 4) − δ(t − 7)
+
+Reason: x2(t) = δ(t − 3) = x1(t − 3). By time invariance, shifting the input by 3 shifts the output by 3.",6.4701,5.94428802,0.52582288,1114.44,78,586,664
+EN,NÃO,3. Analog and Digital Systems,5.0,"The input-output relations that describe three given systems are: 1) $y[n]=C (x[n])^2$, where $C=2 e^{j \pi/2}$, 2) $y[n]=(n-1)x[n]$ and 3) $y[n]=3x[n-1]+2^{\pi} x[n-3]$. Classify whether or not these systems are: a) causal, b) linear, c) memoryless, d) stable in BIBO sense and e) time-invariant.",gpt-5,"System 1: y[n] = C (x[n])^2, C = 2e^{jπ/2}
+- Causal: Yes (depends only on x[n])
+- Linear: No (squaring is nonlinear)
+- Memoryless: Yes (only x[n] at n)
+- BIBO stable: Yes (|y[n]| ≤ |C|·|x[n]|^2; bounded for bounded x)
+- Time-invariant: Yes (shift in input yields same shift in output)
+
+System 2: y[n] = (n − 1) x[n]
+- Causal: Yes (depends only on x[n])
+- Linear: Yes (scaling by time-varying gain preserves superposition)
+- Memoryless: Yes (only x[n] at n)
+- BIBO stable: No (e.g., x[n] = 1 ⇒ y[n] = n − 1, unbounded)
+- Time-invariant: No (gain depends on n)
+
+System 3: y[n] = 3 x[n − 1] + 2^{π} x[n − 3]
+- Causal: Yes (depends on past values x[n−1], x[n−3])
+- Linear: Yes (linear combination of input samples)
+- Memoryless: No (depends on past samples)
+- BIBO stable: Yes (FIR with finite sum of absolute coefficients)
+- Time-invariant: Yes (fixed delays and constant coefficients)",14.4219,12.14359832,2.27828789,617.13,122,1406,1528
+EN,NÃO,3. Analog and Digital Systems,6.0,"A discrete-time LTI is characterized by the difference equation $ y[n+2] = 5x[n+2] + 2x[n+n_0]$, where $x[n]$ and $y[n]$ are the input and output signals, respectively. Inform a value for $n_0$ that makes the system causal.",gpt-5,"n0 ≤ 2. 
+
+Reason: Rewrite with k = n+2 → y[k] = 5x[k] + 2x[k + (n0 − 2)]. For causality, the input indices used must satisfy k + (n0 − 2) ≤ k ⇒ n0 − 2 ≤ 0 ⇒ n0 ≤ 2. For example, n0 = 2 makes the system causal (y[k] = 7x[k]).",8.5415,7.72239447,0.81911898,1146.35,77,939,1016
+EN,NÃO,3. Analog and Digital Systems,8.0,"Four continuous-time signals: $x_1(t)=e^{j4t}$, $x_2(t)=e^{-j4t}$, $x_3(t)=\cos(4t)$ and $x_4(t)=e^{(-1+j4)t}$, are individually transmitted over a causal system $H(s) = \frac{1}{s+10}$. What are the respective outputs $y_1(t),\ldots,y_4(t)$?",gpt-5,"For the causal LTI system H(s) = 1/(s+10) with impulse response h(t) = e^{-10t} u(t), a complex exponential e^{s0 t} is an eigenfunction with output H(s0) e^{s0 t}. Hence:
+
+- y1(t) for x1(t) = e^{j4t}:
+  y1(t) = H(j4) e^{j4t} = [1/(10 + j4)] e^{j4t}.
+
+- y2(t) for x2(t) = e^{-j4t}:
+  y2(t) = H(-j4) e^{-j4t} = [1/(10 − j4)] e^{-j4t}.
+
+- y3(t) for x3(t) = cos(4t):
+  Using cos(4t) = (1/2)(e^{j4t} + e^{-j4t}),
+  y3(t) = (1/2)[H(j4)e^{j4t} + H(-j4)e^{-j4t}]
+        = |H(j4)| cos(4t + ∠H(j4))
+        = (1/√116) cos(4t − arctan(0.4)).
+  Equivalent real form: y3(t) = (1/116)[10 cos(4t) + 4 sin(4t)].
+
+- y4(t) for x4(t) = e^{(-1 + j4)t}:
+  y4(t) = H(−1 + j4) e^{(−1 + j4)t} = [1/(9 + j4)] e^{(−1 + j4)t}.
+
+Numerically: |H(j4)| = 1/√116 ≈ 0.09245, ∠H(j4) = −atan(0.4) ≈ −0.3805 rad.",35.8198,33.1918292,2.62800765,1548.32,107,4069,4176
+EN,NÃO,3. Analog and Digital Systems,9.0,"Four discrete-time signals: $x_1[n]=5e^{j2n}$, $x_2[n]=e^{-j2n}$, $x_3[n]=\cos(2n)$ and $x_4[n]=\left(3e^{j2}\right)^n$, are individually transmitted over the causal system $H(z) = \frac{1}{1-0.6 z^{-1}}$. What are the respective outputs $y_1[n],\ldots,y_4[n]$?",gpt-5,"Key fact: For a causal LTI system with H(z) = 1/(1 − 0.6 z^{-1}) and impulse response h[n] = (0.6)^n u[n], any exponential x[n] = z0^n yields y[n] = H(z0) z0^n, provided |z0| > 0.6.
+
+Thus:
+
+- For x1[n] = 5 e^{j2n}:
+  y1[n] = 5 H(e^{j2}) e^{j2n} = 5 e^{j2n} / (1 − 0.6 e^{-j2}).
+
+- For x2[n] = e^{-j2n}:
+  y2[n] = H(e^{-j2}) e^{-j2n} = e^{-j2n} / (1 − 0.6 e^{j2}).
+
+- For x3[n] = cos(2n) = (e^{j2n} + e^{-j2n})/2:
+  y3[n] = [H(e^{j2}) e^{j2n} + H(e^{-j2}) e^{-j2n}]/2
+        = |H(e^{j2})| cos(2n + ∠H(e^{j2})),
+  where H(e^{j2}) = 1/(1 − 0.6 e^{-j2}),
+        |H(e^{j2})| = 1 / sqrt(1 + 0.6^2 − 2·0.6 cos 2),
+        ∠H(e^{j2}) = −atan2(0.6 sin 2, 1 − 0.6 cos 2).
+
+- For x4[n] = (3 e^{j2})^n:
+  y4[n] = H(3 e^{j2}) (3 e^{j2})^n = (3 e^{j2})^n / (1 − 0.2 e^{-j2}).",77.4482,67.54588628,9.9023304,606.93,118,6010,6128
+EN,NÃO,3. Analog and Digital Systems,12.0,A band-limited signal $x(t)$ was sampled obeying the sampling theorem with $\fs=10$~Hz and the result is $x_s(t) = 4 \delta(t) + 3 \delta(t-0.1) - 2 \delta(t-0.4)$. Provide the exact expression of $x(t)$. Hint: this expression is given in terms of scaled and shifted sincs.,gpt-5,"x(t) = 4 sinc(10 t) + 3 sinc(10 t − 1) − 2 sinc(10 t − 4)
+
+where sinc(u) = sin(πu)/(πu). 
+
+(Equivalently: x(t) = 4 sinc(t/0.1) + 3 sinc((t−0.1)/0.1) − 2 sinc((t−0.4)/0.1).)",33.3097,32.17207813,1.13767147,1386.16,94,1577,1671
+EN,NÃO,3. Analog and Digital Systems,16.0,A non-causal analog lowpass filter has an ideal magnitude with unitary gain for frequencies $-5$ to 5~rad/s and zero otherwise. The phase of this filter is linear and given by $e^{-j8 \aw}$. What is the output of this filter when the input is $x(t)=\sum_{k=0}^{\infty} 0.5^k \sin(1.5 k t)$?,gpt-5,"Passband is |ω| ≤ 5 rad/s with H(jω) = e^{-j8ω} (unit gain, delay 8 s). The input has components at ωk = 1.5k rad/s. Only k = 1, 2, 3 lie within the passband (1.5, 3, 4.5 < 5); higher k are removed. Each passed sinusoid is delayed by 8 s with unchanged amplitude.
+
+Therefore,
+y(t) = ∑_{k=1}^{3} 0.5^k sin(1.5 k (t − 8))
+= 0.5 sin(1.5(t − 8)) + 0.25 sin(3(t − 8)) + 0.125 sin(4.5(t − 8)).",20.9612,19.09617829,1.86503863,853.6,99,1592,1691
+EN,NÃO,3. Analog and Digital Systems,17.0,\item A FIR filter with linear phase has an impulse response $h[n]=3\delta[n]-5\delta[n-1]+7\delta[n-2]-5\delta[n-3]+3\delta[n-4]$. Find its system function $H(z)$.,gpt-5,"H(z) is the Z-transform of h[n]:
+H(z) = 3 − 5 z^{-1} + 7 z^{-2} − 5 z^{-3} + 3 z^{-4}.
+
+Equivalently, H(z) = (3 z^4 − 5 z^3 + 7 z^2 − 5 z + 3) / z^4.
+
+Centered (linear-phase) form:
+H(z) = z^{-2} [7 − 5 (z + z^{-1}) + 3 (z^2 + z^{-2})] = z^{-2} [3 (z + z^{-1})^2 − 5 (z + z^{-1}) + 1].",47.4135,45.37920094,2.03432918,1369.98,65,2787,2852
+EN,NÃO,3. Analog and Digital Systems,23.0,A filter $H(s) = \frac{125}{s^3+10s^2+50s+125}$ has a cutoff frequency of 5~rad/s. Obtain a filter $G(s)$ that corresponds to a version of $H(s)$ scaled in frequency with a cutoff frequency of 3~rad/s. $G(s)$ should also have a gain of 3~dB at DC.,gpt-5,"Frequency-scale H(s) by a = ω_old/ω_new = 5/3, then set DC gain to +3 dB (multiply by √2):
+
+G(s) = √2 · H((5/3)s)
+
+= √2 · 125 / [ (125/27)s^3 + (250/9)s^2 + (250/3)s + 125 ]
+
+A cleaner equivalent form:
+
+G(s) = 27√2 / (s^3 + 6s^2 + 18s + 27)
+
+Checks:
+- Cutoff frequency: 3 rad/s (Butterworth form s^3 + 6s^2 + 18s + 27)
+- DC gain: G(0) = √2 ≈ +3 dB.",69.8146,67.7336762,2.08095193,1989.47,92,4140,4232
+EN,NÃO,3. Analog and Digital Systems,25.0,"Given a filter $H(s)=(0.1s^2+71)/(s^2+11s+71)$ and assuming $\fs=50$~Hz, find $H(z)$ using the bilinear transform.",gpt-5,"Use the bilinear transform s = (2/T) (1 − z⁻¹)/(1 + z⁻¹) with T = 1/fs = 1/50, so 2/T = 100.
+
+With H(s) = (0.1 s² + 71)/(s² + 11 s + 71), substitute s = 100 (1 − z⁻¹)/(1 + z⁻¹) and simplify to get
+
+H(z) = (1071 − 1858 z⁻¹ + 1071 z⁻²) / (11171 − 19858 z⁻¹ + 8971 z⁻²).
+
+Normalized (denominator monic):
+- b0 = 1071/11171 ≈ 0.09587324
+- b1 = −1858/11171 ≈ −0.16632352
+- b2 = 1071/11171 ≈ 0.09587324
+- a1 = −19858/11171 ≈ −1.77763853
+- a2 = 8971/11171 ≈ 0.80306198
+
+So H(z) ≈ (0.095873 − 0.166324 z⁻¹ + 0.095873 z⁻²) / (1 − 1.777639 z⁻¹ + 0.803062 z⁻²).",75.6562,71.64085293,4.01532364,1399.64,53,5620,5673
+EN,NÃO,3. Analog and Digital Systems,27.0,"The filter $H_s(s)=(0.1s^2+71)/(s^2+11s+71)$ should be converted to $H_z(z)$ using the bilinear such that the value of $H_s(j\aw)$ at $\aw=10$~rad/s is the same value $H_z(e^{j\dw})$ will have at $\dw=\pi/4$~rad. a) find the value of $\fs$ that allows to directly convert $H_s(s)$ into $H_z(z)$ without the traditional pre-warping step, b) assuming an arbitrary value of $F'_s=0.5$~Hz, find the pre-warped version of $H_s(s)$ that will generate the correct $H_z(z)$ via bilinear with $F'_s$.",gpt-5,"Given the bilinear mapping Ω = 2 Fs tan(ω/2):
+
+a) Choose Fs so that Ω0 = 10 rad/s maps to ω0 = π/4:
+10 = 2 Fs tan(π/8) ⇒ Fs = 5 / tan(π/8) = 5/(√2−1) = 5(√2+1) ≈ 12.0711 Hz.
+With this Fs you can apply the bilinear directly: s = 2 Fs (1 − z⁻¹)/(1 + z⁻¹).
+
+b) For an arbitrary sampling rate F′s = 0.5 Hz (T′ = 2 s), prewarp by scaling s → β s in Hs(s), where
+β = Ω0 / [2 F′s tan(ω0/2)] = 10 / [2·0.5·tan(π/8)] = 10/(√2−1) = 10(√2+1) ≈ 24.1421.
+
+Thus the prewarped analog transfer to use with the bilinear at F′s is
+Hpre(s) = Hs(β s) = (0.1 β² s² + 71) / (β² s² + 11 β s + 71),
+with β ≈ 24.1421, so numerically:
+Hpre(s) ≈ (58.2843 s² + 71) / (582.8427 s² + 265.5635 s + 71).
+
+Using Hpre(s) with the bilinear at F′s = 0.5 Hz yields the same Hz(z) as using Hs(s) directly with Fs ≈ 12.0711 Hz, since 2 F′s β = 2 Fs.",94.7462,88.4833045,6.26292801,868.76,178,5441,5619
+EN,NÃO,3. Analog and Digital Systems,12.0,"Study the advantages and disadvantages when comparing Butterworth, Chebyshev and Bessel responses.",gpt-5,"Here’s a concise, practical comparison of the three classic all‑pole low‑pass responses.
+
+Butterworth (maximally flat magnitude)
+- Core idea: Flattest possible passband magnitude (no ripple), monotonic passband and stopband.
+- Advantages:
+  - Smooth, ripple‑free passband; good “general purpose” magnitude fidelity.
+  - Reasonably sharp transition for an all‑pole filter (sharper than Bessel for a given order).
+  - Moderate Q poles → moderate sensitivity to component tolerances.
+- Disadvantages:
+  - Phase is not linear; group delay varies near cutoff → some overshoot/ringing to steps.
+  - Requires higher order than Chebyshev for the same transition width/stopband spec.
+- Typical uses:
+  - Audio and instrumentation when flat amplitude matters more than transient purity.
+  - Anti‑alias/reconstruction when moderate transition width is acceptable.
+
+Chebyshev (equiripple)
+- Core idea: Trades ripple for a faster magnitude roll‑off near cutoff than Butterworth.
+  - Type I: Ripple in passband, monotonic stopband.
+  - Type II (inverse Chebyshev): Monotonic passband, ripple in stopband (less commonly used).
+- Advantages:
+  - For a given order, steepest transition among these three (closest to elliptic).
+  - Meets stringent attenuation specs with fewer poles than Butterworth/Bessel.
+- Disadvantages:
+  - Nonlinear phase; group delay varies strongly near cutoff → most overshoot/ringing.
+  - Higher‑Q poles → more sensitive to component tolerances and op‑amp limitations.
+  - Type I: passband ripple may be unacceptable in amplitude‑critical paths.
+- Typical uses:
+  - Channel selection, anti‑aliasing with tight stopband, IF/baseband filtering where amplitude selectivity dominates transient fidelity.
+
+Bessel (maximally flat group delay/phase linearity)
+- Core idea: Flattest group delay in the passband → best time‑domain waveform preservation.
+- Advantages:
+  - Most linear phase and most constant group delay → minimal overshoot, best pulse fidelity.
+  - Low‑Q poles → robust to component spread; stable, well‑behaved time response.
+- Disadvantages:
+  - Slowest magnitude roll‑off; poorest stopband attenuation near cutoff for a given order.
+  - Often needs the highest order to meet magnitude specs.
+- Typical uses:
+  - Time‑domain/measurement front ends, control loops, audio crossovers, DAC reconstruction when transient fidelity is paramount.
+
+Cross‑comparison summary
+- Transition sharpness (fewest poles for given magnitude specs): Chebyshev > Butterworth > Bessel.
+- Passband flatness (magnitude): Butterworth is maximally flat and monotonic; Bessel is monotonic but not maximally flat in magnitude; Chebyshev Type I has ripple.
+- Phase linearity/group delay flatness (time fidelity): Bessel >> Butterworth > Chebyshev.
+- Step response overshoot/ringing: Bessel (least) < Butterworth < Chebyshev (most).
+- Sensitivity/implementation:
+  - Chebyshev: highest pole Q → most sensitive, tighter component/op‑amp demands.
+  - Butterworth: moderate Q → moderate sensitivity.
+  - Bessel: lowest Q → most tolerant and stable.
+- Noise bandwidth (for same −3 dB cutoff and order): Chebyshev (smallest) < Butterworth < Bessel (largest), due to relative roll‑off steepness.
+
+Practical selection tips
+- Prioritize transient fidelity/phase (minimal overshoot, pulse shape, control stability): choose Bessel.
+- Prioritize steep attenuation/compact design (tight transition/stopband): choose Chebyshev (Type I if passband ripple is acceptable; Type II if you prefer monotonic passband and can tolerate stopband ripple).
+- Need a balanced, ripple‑free passband with reasonable roll‑off: choose Butterworth.
+
+Note: All three are all‑pole; asymptotically they share 6N dB/octave slope for an Nth‑order low‑pass. The key differences are how quickly they approach that slope near cutoff and their phase/time‑domain behavior. For digital filters needing linear phase, consider FIR designs instead of IIR Bessel approximations.",33.2258,21.84818554,11.37764668,202.5,24,2304,2328
+EN,NÃO,4. Spectral Estimation Techniques,2.0,"A cosine $x[n]=A \cos(\dw_1 n)$ is multiplied by a rectangular window of $N=8$ samples, from $n=0,\ldots,7$ and the windowed signal $x_w[n]$ has its spectrum estimated by an FFT with $N$ points. The FFT resolution is $\Delta \dw = (2\pi)/N$ rad. Using the DTFT of $x_w[n]$, what are the FFT values for $X[k]|_{k=3}$ assuming: a) $\dw_1=3 \Delta \dw$  is centered in the fourth bin and b) $\dw_1=2.5 \Delta \dw$ is half-way the third and fourth bins?",gpt-5,"Assume the N-point DFT definition X[k] = Σ_{n=0}^{N-1} x[n] e^{-j 2πkn/N} (no 1/N scale), with N=8 and Δω = 2π/N = π/4.
+
+For x_w[n] = A cos(ω1 n), 0 ≤ n ≤ 7:
+X[k] = (A/2) Σ e^{-j(ωk−ω1)n} + (A/2) Σ e^{-j(ωk+ω1)n}
+= (A/2)[D(ωk−ω1) + D(ωk+ω1)],
+where D(Ω) = e^{-jΩ(N−1)/2} sin(NΩ/2)/sin(Ω/2).
+
+Evaluate at k=3 (ω3 = 3Δω = 3π/4):
+
+a) ω1 = 3Δω = 3π/4:
+- Ω1 = ω3 − ω1 = 0 ⇒ D(0) = N = 8
+- Ω2 = ω3 + ω1 = 3π/2 ⇒ sin(8·Ω2/2) = sin(6π) = 0 ⇒ D(Ω2)=0
+Thus X[3] = (A/2)(8 + 0) = 4A (real).
+
+b) ω1 = 2.5Δω = 5π/8:
+- Ω1 = ω3 − ω1 = π/8, Ω2 = ω3 + ω1 = 11π/8
+- D(π/8) = e^{-j7π/16} csc(π/16)
+- D(11π/8) = e^{-j13π/16} [−csc(11π/16)]
+Therefore
+X[3] = (A/2)[e^{-j7π/16} csc(π/16) − e^{-j13π/16} csc(11π/16)]
+= A[1 − j(cot(π/16) + cot(11π/16))/2]
+≈ A(1 − j 2.1796).
+
+Numerically:
+- a) X[3] = 4A
+- b) X[3] ≈ A(1 − j 2.1796); |X[3]| ≈ 2.3976A, ∠X[3] ≈ −65.3°",144.3353,140.04756641,4.28778052,2678.31,161,11484,11645
+EN,NÃO,4. Spectral Estimation Techniques,3.0,"Given the signal $x(t)= 12 \sinc(6 t)$ in volts, what are its: a) total signal energy and b) energy within the frequency band $[-1, 12]$~Hz?",gpt-5,"Answer assumes sinc(u) = sin(πu)/(πu) and Fourier transform X(f) = ∫ x(t)e^{-j2πft}dt.
+
+x(t) = 12 sinc(6t) ⇒ X(f) = 12·(1/6) rect(f/6) = 2 rect(f/6), i.e., X(f) = 2 for |f| ≤ 3 Hz and 0 otherwise.
+
+a) Total energy:
+E = ∫ |X(f)|^2 df = ∫_{-3}^{3} 4 df = 4·6 = 24 (V^2·s; equals J for 1 Ω).
+
+b) Energy in [-1, 12] Hz:
+Only overlaps with support [-3, 3] over [-1, 3], length 4 Hz:
+E[-1,12] = ∫_{-1}^{3} 4 df = 4·4 = 16 (V^2·s).",27.5486,25.8593328,1.68924427,1607.23,53,2715,2768
+EN,NÃO,4. Spectral Estimation Techniques,4.0,"What is the MS spectrum $\hat S_{\textrm{ms}}[k]$ of $x[n] = 3 \cos( (\pi / 4) n)$ volts? Using the values of $\hat S_{\textrm{ms}}[k]$, how can one obtain the average power of $x[n]$ in watts?",gpt-5,"- Period N0 = 8 because ω0 = π/4 and N0 = 2π/ω0 = 8.
+- DTFS coefficients: c1 = c7 = 3/2, and ck = 0 for all other k.
+- MS spectrum is Ŝms[k] = |ck|^2, so:
+  - Ŝms[1] = Ŝms[7] = (3/2)^2 = 9/4 V^2
+  - Ŝms[k] = 0 for k ≠ 1,7
+
+Average power is the sum of the MS spectrum:
+Pavg = Σk Ŝms[k] = 9/4 + 9/4 = 9/2 V^2.
+Into a 1 Ω load this is 9/2 W = 4.5 W. (For a load R, power would be (9/2)/R watts.)",41.205,38.85561562,2.34939575,1232.23,80,2895,2975
+EN,NÃO,4. Spectral Estimation Techniques,5.0,"Assume $X[k]$ is the $N$-point FFT of a periodic signal $x[n]$ of period $\Nperiod=8$ samples. When $N=8$, $X[k]$ is $[0,3+4j,0,6,0,6,0,3-4j]$. Inform: a) the estimated MS spectrum $\hat S_{\textrm{ms}}[k]$ of $x[n]$, b) the signal power $\cal P$ and c) the new $\hat S_{\textrm{ms}}[k]$ in case $N=16$ samples of $x[n]$ were used, together with a 16-point FFT.",gpt-5,"a) For a periodic signal, the MS (mean-square/line) spectrum from an N-point DFT is
+  hat S_ms[k] = |X[k]|^2 / N^2.
+With N=8 and X[k] = [0, 3+4j, 0, 6, 0, 6, 0, 3−4j]:
+  |X[k]|^2 = [0, 25, 0, 36, 0, 36, 0, 25]
+So
+  hat S_ms[k] = (1/64)[0, 25, 0, 36, 0, 36, 0, 25]
+i.e.
+  [0, 25/64, 0, 36/64, 0, 36/64, 0, 25/64].
+
+b) Signal power P is the sum of the MS spectrum:
+  P = sum_k hat S_ms[k] = (1/64)(25+36+36+25) = 122/64 = 61/32 ≈ 1.90625.
+
+c) Using N=16 (two periods of x[n]):
+  X_16[2m] = 2 X_8[m], and X_16[odd] = 0.
+Thus
+  hat S_ms,16[2m] = |X_16[2m]|^2 / 16^2 = |2 X_8[m]|^2 / 256 = |X_8[m]|^2 / 64 = hat S_ms,8[m],
+and hat S_ms,16[odd] = 0.
+Explicitly (k = 0…15):
+  [0, 0, 25/64, 0, 0, 0, 36/64, 0, 0, 0, 36/64, 0, 0, 0, 25/64, 0].
+The total power remains P = 61/32.",35.2785,32.18897724,3.0895288,1240.97,158,3834,3992
+EN,NÃO,4. Spectral Estimation Techniques,6.0,"Assume $X=[8,8,8,8]$ is the $4$-point FFT of a discrete-time signal $x[n]$. What are the values of its: a) DTFS, b) MS spectrum $\hat S_{\textrm{ms}}[k]$, c) the periodogram $\hat S[k]$ (using {\matlab} convention of $BW=2\pi$), d) the estimated PSD $\hat S(e^{j \dw})$ and e) the signal power $\cal P$.",gpt-5,"Given X = [8, 8, 8, 8] as the 4-point FFT (N=4):
+
+- a) DTFS coefficients c[k]:
+  c[k] = X[k]/N = 8/4 = 2, for k = 0,1,2,3.
+
+- b) MS spectrum Ŝ_ms[k] (|DTFS|^2):
+  Ŝ_ms[k] = |c[k]|^2 = 4, for k = 0,1,2,3.
+
+- c) Periodogram Ŝ[k] (MATLAB, BW = 2π):
+  Ŝ[k] = |X[k]|^2 / (2π N) = 64 / (8π) = 8/π, for k = 0,1,2,3.
+
+- d) Estimated PSD Ŝ(e^{jω}) (line spectrum):
+  Ŝ(e^{jω}) = 2π ∑_{k=0}^{3} |c[k]|^2 ∑_{m∈Z} δ(ω − 2πk/4 − 2πm)
+             = 8π ∑_{k=0}^{3} ∑_{m∈Z} δ(ω − kπ/2 − 2πm).
+
+- e) Signal power P:
+  P = (1/N) ∑_{n=0}^{N−1} |x[n]|^2 = ∑_{k=0}^{N−1} |c[k]|^2 = 4·4 = 16.
+
+Note: The corresponding time sequence over one period is x[0]=8, x[1]=x[2]=x[3]=0.",76.0149,70.83064556,5.18426013,1282.15,120,6647,6767
+EN,NÃO,4. Spectral Estimation Techniques,7.0,"a) What is the PSD $S(e^{j \dw})$ of a complex exponential $x[n]=e^{j \dw_1 n}$, with $\dw_1=\pi/4$~rad after multiplication by a rectangular window of $N=10$ samples? b) When the periodogram $\hat S[k]$ of this signal is estimated with a FFT of $N=10$ points, what are the values of $\hat S[0]$ and $\hat S[1]$?",gpt-5,"a) Let y[n] = x[n] w[n], with w[n] = 1 for n=0,…,N−1 and 0 otherwise (rectangular window), N=10, and x[n] = e^{j ω1 n}, ω1 = π/4. The DTFT is Y(e^{jω}) = ∑_{n=0}^{N−1} e^{j(ω1−ω)n}. The (continuous-frequency) periodogram/PSD is
+S(e^{jω}) = (1/N) |Y(e^{jω})|^2 = (1/10) [sin(5(ω − π/4)) / sin((ω − π/4)/2)]^2.
+This is the Dirichlet (spectral-leakage) pattern centered at ω = π/4.
+
+b) Using the N-point DFT X[k] = ∑_{n=0}^{N−1} x[n] e^{−j 2πkn/N}, the periodogram samples are
+Ŝ[k] = (1/N) |X[k]|^2 = (1/10) [sin(N(ω1 − 2πk/N)/2) / sin((ω1 − 2πk/N)/2)]^2.
+
+- For k = 0: Δω = π/4. Then |X[0]|^2 = [sin(5π/4)/sin(π/8)]^2 = 2 + √2 ≈ 3.41421356,
+  so Ŝ[0] = (2 + √2)/10 ≈ 0.341421356.
+
+- For k = 1: Δω = π/4 − 2π/10 = π/20. Then |X[1]|^2 = [sin(π/4)/sin(π/40)]^2 ≈ 81.2632,
+  so Ŝ[1] ≈ 8.12632.
+
+Note: If a different FFT/periodogram normalization is used, scale accordingly.",72.766,69.2251687,3.5408473,1843.34,114,6527,6641
+EN,NÃO,4. Spectral Estimation Techniques,8.0,"The periodogram of a sinusoid immersed in AWGN was calculated with an $8$-point FFT as $[2,2,2,6,2,6,2,2]$ in watts/Hz, assuming $\fs=500$~Hz. The noise and the sinusoid are uncorrelated, such that, at the sinusoid bins, the power is the sum of the sinusoid power and the noise power at that bin. Inform: a) the sinusoid average power, b) the noise average power, c) the SNR in dB.",gpt-5,"Given N=8 and fs=500 Hz, the bin width is Δf = fs/N = 62.5 Hz.
+
+- Noise floor = 2 W/Hz in every bin ⇒ noise power per bin = 2×62.5 = 125 W.
+  Total noise power = 8×125 = 1000 W.
+
+- Sinusoid lines at two bins: 6 W/Hz each. Sinusoid-only excess per line = 6−2 = 4 W/Hz.
+  Sinusoid power per line = 4×62.5 = 250 W; two lines ⇒ 500 W.
+
+Answers:
+a) Sinusoid average power: 500 W
+b) Noise average power: 1000 W
+c) SNR = 10·log10(500/1000) ≈ −3.01 dB (linear SNR = 0.5)",22.2148,20.54089618,1.67387915,1227.69,125,2055,2180
+EN,NÃO,4. Spectral Estimation Techniques,13.0,"The unilateral PSD of a continuous-time white noise signal $\nu(t)$ is $\no=4$~W/Hz. The signal $\nu(t)$ is the input to a lowpass filter with real-valued coefficients, gain $g=3$ and zero phase within the passband from 0 to 200~Hz (this filter is not realizable). The filter output $x(t)$ is converted to a discrete-time signal $x[n]$ using a C/D process with sampling frequency $\fs=1$~kHz. The average power values of $x(t)$ and $x[n]$ are the same and denoted as $\calP$. Inform: a) the value $\calP$ in watts.",gpt-5,"P = g^2 × N0 × B = 3^2 × 4 W/Hz × 200 Hz = 7200 W
+
+Explanation: The output power equals the integral of the (one-sided) output PSD over the passband. With |H(f)| = 3 for 0–200 Hz, S_x^+(f) = 9 × 4 = 36 W/Hz over 0–200 Hz, so P = ∫_0^{200} 36 df = 7200 W. Sampling at 1 kHz (Nyquist > 2×200 Hz) introduces no aliasing, so the discrete-time variance equals the continuous-time power.",22.4739,20.97066855,1.50326347,1208.04,155,1816,1971
+EN,NÃO,4. Spectral Estimation Techniques,2.0,"Can a discrete-time random process $\calX[n]$ have infinite power? If yes, under what conditions? Can these conditions be achieved in practice?",gpt-5,"Yes.
+
+How “power” is defined
+- For a WSS discrete-time random process, power P = E{|X[n]|^2} = R_X[0] = (1/2π)∫_{−π}^{π} S_X(e^{jω}) dω.
+- More generally, P = lim_{N→∞} (1/(2N+1)) Σ_{n=−N}^N E{|X[n]|^2}, if the limit exists.
+
+When it is infinite
+- Infinite-variance (heavy-tailed) marginals: If E{|X[n]|^2} = ∞ (e.g., i.i.d. α-stable noise with stability index α<2 such as Cauchy), then P = ∞.
+- Nonstationary growth: If E{|X[n]|^2} grows with n so that the long-term average diverges (e.g., a random walk X[n]=Σ_{k=0}^n W[k] with Var(W[k])=σ^2 gives E{|X[n]|^2}≈(n+1)σ^2), then P = ∞.
+- Spectral condition (for WSS): If the power spectral density is not integrable over [−π, π] (e.g., behaves like c/|ω|^p with p≥1 near ω=0), then P = ∞. Note: discrete spectral lines (Dirac deltas) contribute finite power; they do not cause divergence.
+
+Examples
+- α-stable white noise with α<2 → infinite power.
+- Random walk (discrete-time Brownian motion) → infinite long-term average power.
+- “True” 1/f^p noise with p≥1 → nonintegrable PSD → infinite power (and typically non-WSS).
+
+Can this happen in practice?
+- Not strictly: any physical/digital system has finite amplitude, bandwidth, and duration, so actual power is finite.
+- But you can approximate these conditions:
+  • Impulsive noise with heavy tails can be modeled by α-stable laws; real systems effectively truncate tails (saturation/clipping), making power finite.
+  • Random walks can be generated; their estimated average power grows without bound as the observation window increases, limited only by practical constraints.
+  • 1/f-type processes are observed but with low-frequency cutoffs, keeping total power finite.
+
+So, mathematically yes; physically, only approximated—never truly infinite.",40.6808,33.81835413,6.86244678,467.91,37,3211,3248

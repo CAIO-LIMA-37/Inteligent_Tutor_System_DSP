@@ -179,7 +179,7 @@ const StudentHelper = () => {
     const [conversation, setConversation] = useState<{ text: string; isAI: boolean; }[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [model, setModel] = useState('gpt-5-mini');
+    const [model, setModel] = useState('cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit'); //Modelo Local
     const [subject, setSubject] = useState(process.env.NEXT_PUBLIC_DEFAULT_SUBJECT || 'Machine Learning');
     const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -1015,44 +1015,17 @@ const StudentHelper = () => {
                                 <select
                                     value={model}
                                     onChange={(e) => setModel(e.target.value)}
-                                    className="rounded-lg px-2 py-1 text-xs border border-gray-400 h-[26px] w-full bg-secondary"
+                                    className="rounded-lg px-2 py-1 text-[11px] font-medium border border-gray-400 h-[26px] w-full bg-secondary text-black cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary"
+                                    title="Selecione o modelo de IA"
                                 >
-                                    {/* OpenAI Models */}
-                                    <optgroup label="OpenAI">
-                                        <option value="gpt-4.1-nano">GPT-4.1 Nano</option>
-                                        <option value="gpt-4.1-mini">GPT-4.1 Mini</option>
-                                        <option value="gpt-4.1">GPT-4.1</option>
-                                        <option value="gpt-5-nano">GPT-5 Nano</option>
-                                        <option value="gpt-5-mini">GPT-5 Mini</option>
-                                        <option value="gpt-5.1">GPT-5.1</option>
+                                    <optgroup label="Local (vLLM)">
+                                        <option value="cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit">Ministral 8B</option>
                                     </optgroup>
-
-                                    {/* Claude Models */}
-                                    <optgroup label="Anthropic Claude">
-                                        <option value="claude-haiku-4-5">Claude 4.5 Haiku</option>
-                                        <option value="claude-sonnet-4-5">Claude 4.5 Sonnet</option>
-                                        <option value="claude-opus-4-5">Claude 4.5 Opus</option>
+                                    <optgroup label="Nuvem (APIs)">
+                                        <option value="gpt-5">GPT-5 (OpenAI)</option>
+                                        <option value="deepseek-v4-pro">DeepSeek V4 Pro</option>
                                     </optgroup>
-
-                                    {/* DeepSeek Models */}
-                                    <optgroup label="DeepSeek">
-                                        <option value="deepseek-coder">DeepSeek Coder</option>
-                                        <option value="deepseek-chat">DeepSeek Chat</option>
-                                    </optgroup>
-
-                                    {/* Ollama Models (Adicionar aqui) */}
-                                    <optgroup label="Ollama Local">
-                                        <option value="phi3">Phi3 Local (3.8B)</option>
-                                        <option value="llama3.2">Llama 3.2 Local (3B)</option>
-                                        <option value="gemma2:2b">Gemma 2 Local (2B)</option>
-                                        <option value="qwen2.5:7b">Qwen 2.5 Local (7B)</option>
-                                        <option value="mistral:7b">Mistral Local(7B)</option>
-                                        <option value="granite3.1-dense:8b">Graniite 3.1 Local(8B)</option>
-                                        <option value="dolphin3:8b">Dolphin 3 Local(8B)</option>
-                                    </optgroup>
-                                    
-                                </select> 
-
+                                </select>
                             </div>
                         </form>
                     </div>

@@ -1,9 +1,8 @@
-"""RAG Orchestrator - Main pipeline for Retrieval-Augmented Generation."""
-
+"""RAG Orchestrator"""
 import asyncio
 import time
 import re
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, AsyncGenerator
 import logging
 
 from app.clients.intent_client import IntentClient
@@ -66,8 +65,8 @@ class RAGOrchestrator:
             messages = [{"role": "user", "content": prompt}]
             llm_result = await self.llm_service.generate(
                 messages=messages,
-                model=settings.query_enhancement_model,
-                temperature=0.3  # Lower temperature for more focused queries
+                model=settings.query_enhancement_model,        #AQUI
+                temperature=0.0  # Lower temperature for more focused queries
             )
             response = llm_result["text"]
 
@@ -98,6 +97,102 @@ class RAGOrchestrator:
             logger.warning(f"Query enhancement failed, using original query: {e}")
             return [{"query": query, "book": None}]
 
+    async def _build_rag_messages(
+        self,
+        query: str,
+        subject: str,
+        conversation_history: Optional[List[Dict]] = None,
+        book_filter: Optional[str] = None
+    ) -> List[Dict[str, str]]:
+        """
+        Função auxiliar para construir as mensagens do RAG.
+        Evita duplicação de código entre os métodos síncronos e de streaming.
+        """
+        intent_task = asyncio.create_task(self.intent_client.classify(query))
+        enhanced_queries_task = asyncio.create_task(
+            self._generate_enhanced_queries(query, subject, conversation_history)
+        )
+
+        intent_result = await intent_task
+        intent = intent_result.get("intent", "question_answering")
+        top_k = 4 if intent == "searching_for_information" else 3
+
+        enhanced_queries = await enhanced_queries_task
+
+        search_results = await self.search_service.search_with_enhanced_queries(
+            queries=enhanced_queries,
+            intent=intent,
+            top_k=top_k
+        )
+
+        if search_results:
+            logger.info("\n" + "="*60)
+            logger.info("INSPECIONANDO O PRIMEIRO CHUNK RECUPERADO DO QDRANT:")
+            logger.info(f"Chaves disponíveis: {list(search_results[0].keys())}")
+            logger.info(f"Objeto bruto: {search_results[0]}")
+            logger.info("="*60 + "\n")
+
+        system_prompt = get_rag_system_prompt(
+            intent=intent,
+            subject=subject,
+            context_chunks=search_results
+        )
+
+        messages = [{"role": "system", "content": system_prompt}]
+
+        if conversation_history:
+            for msg in conversation_history[-6:]:
+                if msg.get("role") in ["user", "assistant"]:
+                    messages.append({
+                        "role": msg["role"],
+                        "content": msg["content"]
+                    })
+
+        fontes_disponiveis = ""
+        if search_results:
+            seen_sources = set()
+            for chunk in search_results:
+                book = chunk.get("book_name", "Desconhecido")
+                chapter = chunk.get("chapter_title", "Desconhecido")
+                topic = chunk.get("topic", "Desconhecido")
+                page = chunk.get("page", "Não informada")
+                
+                source_sig = f"{book}-{chapter}-{topic}-{page}"
+                if source_sig not in seen_sources:
+                    seen_sources.add(source_sig)
+                    fontes_disponiveis += f"- Book: {book} | Chapter: {chapter} | Section: {topic} | Page: {page}\n"
+
+        enhanced_query = f"""{query}
+
+<instrucoes_criticas>
+Responda à pergunta acima utilizando EXCLUSIVAMENTE o contexto acadêmico fornecido pelo sistema.
+
+REGRAS DE MATEMÁTICA E FORMATAÇÃO:
+1. Sempre que utilizar fórmulas ou variáveis matemáticas, você DEVE utilizar a notação LaTeX padrão.
+2. Para equações em bloco (destacadas do texto), envolva a equação exatamente com cifrões duplos: $$ equacao $$
+3. Para variáveis no meio do texto, use um cifrão simples: $ variavel $
+4. NUNCA utilize colchetes [ ] ou chaves {{ }} para isolar equações.
+
+REGRAS DE REFERÊNCIA (OBRIGATÓRIO):
+Você deve finalizar sua resposta criando uma seção exata de referências. Utilize apenas os metadados abaixo:
+
+Fontes recuperadas para esta pergunta:
+{fontes_disponiveis if fontes_disponiveis else "Nenhuma fonte recuperada."}
+
+Copie rigorosamente o template abaixo no final da sua resposta e substitua os colchetes pelos dados reais das fontes. 
+
+Para aprofundar seus conhecimentos consulte a seguinte referência:
+Livro: [Insira o Nome do Livro]
+Capítulo: [Insira o Nome do Capítulo]
+Seção: [Insira a Seção]
+Páginas: [Insira a Página ou o intervalo de Páginas]
+</instrucoes_criticas>"""
+
+        messages.append({"role": "user", "content": enhanced_query})
+        
+        # Retornamos as mensagens e os search_results para compor a resposta do benchmark síncrono
+        return messages, search_results, intent
+
     async def process_query(
         self,
         query: str,
@@ -108,114 +203,23 @@ class RAGOrchestrator:
     ) -> Dict[str, Any]:
         """
         Process a user query through the RAG pipeline.
-
-        Args:
-            query: User's question
-            subject: Study subject
-            conversation_history: Previous messages for context
-            model: LLM model to use
-            book_filter: Optional book to filter search
-
-        Returns:
-            Dict containing response, intent, sources, and metadata
+        (Versão Síncrona Clássica para o Frontend)
         """
         start_time = time.time()
 
-        # Step 1: Classify intent
-        intent_task = asyncio.create_task(
-            self.intent_client.classify(query)
+        messages, search_results, intent = await self._build_rag_messages(
+            query, subject, conversation_history, book_filter
         )
 
-        # Step 2: Generate enhanced queries (concurrent with intent)
-        enhanced_queries_task = asyncio.create_task(
-            self._generate_enhanced_queries(query, subject, conversation_history)
-        )
-
-        # Wait for intent classification
-        intent_result = await intent_task
-        intent = intent_result.get("intent", "question_answering")
-
-        # Adjust top_k based on intent
-        top_k = 12 if intent == "searching_for_information" else 6
-
-        # Wait for enhanced queries
-        enhanced_queries = await enhanced_queries_task
-
-        # Step 3: Search with enhanced queries
-        search_results = await self.search_service.search_with_enhanced_queries(
-            queries=enhanced_queries,
-            intent=intent,
-            top_k=top_k
-        )
-
-        # Step 4: Build prompt with context
-        system_prompt = get_rag_system_prompt(
-            intent=intent,
-            subject=subject,
-            context_chunks=search_results
-        )
-
-        # [INSERÇÃO PONTUAL]: Deixa o modelo focar apenas na teoria.
-        system_prompt += """
-<instrucao_critica>
-Você é um assistente acadêmico rigoroso. 
-Construa sua resposta teórica EXCLUSIVAMENTE com base nos blocos de contexto (Retrievals) fornecidos. 
-Utilize formatação Markdown e equações LaTeX (com $) quando apropriado.
-NÃO inclua citações ou referências bibliográficas no texto. A bibliografia será adicionada pelo sistema.
-</instrucao_critica>
-"""
-
-        # Build messages
-        messages = [{"role": "system", "content": system_prompt}]
-
-        # Add conversation history (last few messages for context)
-        if conversation_history:
-            for msg in conversation_history[-6:]:  # Last 6 messages
-                if msg.get("role") in ["user", "assistant"]:
-                    messages.append({
-                        "role": msg["role"],
-                        "content": msg["content"]
-                    })
-
-        # Add current query
-        messages.append({"role": "user", "content": query})
-
-        # Step 5: Generate response
         tokens_used = None
         try:
             llm_result = await self.llm_service.generate(
                 messages=messages,
                 model=model,
-                temperature=0.7
+                temperature=0.0
             )
             response = llm_result["text"]
             tokens_used = llm_result.get("total_tokens")
-
-            # [NOVO]: Pós-processamento infalível da bibliografia
-            if search_results:
-                bib_section = "\n\n---\n**Para aprofundar esses conceitos, consulte as seguintes fontes:**\n"
-                
-                # Usa um Set para evitar que cite o mesmo livro e capítulo duas vezes
-                seen_sources = set()
-                
-                for chunk in search_results:
-                    book = chunk.get("book_name", "Desconhecido")
-                    chapter = chunk.get("chapter_title", "Desconhecido")
-                    topic = chunk.get("topic", "Desconhecido")
-                    
-                    # Cria uma assinatura única para a fonte
-                    source_sig = f"{book}-{chapter}-{topic}"
-                    
-                    if source_sig not in seen_sources:
-                        seen_sources.add(source_sig)
-                        bib_section += f"\n* **Livro:** {book}"
-                        if chapter and chapter != "Desconhecido":
-                            bib_section += f"\n  * **Capítulo:** {chapter}"
-                        if topic and topic != "Desconhecido":
-                            bib_section += f"\n  * **Seção:** {topic}"
-                        bib_section += "\n"
-
-                response += bib_section
 
         except Exception as e:
             logger.error(f"LLM generation failed: {e}")
@@ -237,7 +241,6 @@ NÃO inclua citações ou referências bibliográficas no texto. A bibliografia 
                 }
                 for chunk in search_results
             ],
-            # Full search results with IDs for chunk retrieval tracking (analytics)
             "search_results": search_results,
             "model_used": model or "gpt-5-nano",
             "processing_time_ms": processing_time
@@ -252,7 +255,6 @@ NÃO inclua citações ou referências bibliográficas no texto. A bibliografia 
     ) -> Dict[str, Any]:
         """
         Process a single query without conversation history.
-
         Simplified version for one-shot queries.
         """
         return await self.process_query(
@@ -262,3 +264,53 @@ NÃO inclua citações ou referências bibliográficas no texto. A bibliografia 
             model=model,
             book_filter=book_filter
         )
+
+    # MÉTODOS DE STREAMING ADICIONADOS PARA O BENCHMARK
+    async def process_query_stream(
+        self,
+        query: str,
+        subject: str = settings.default_subject,
+        conversation_history: Optional[List[Dict]] = None,
+        model: Optional[str] = None,
+        book_filter: Optional[str] = None
+    ) -> AsyncGenerator[str, None]:
+        """
+        Executa a pipeline do RAG, mas retorna a resposta como um fluxo de dados.
+        (Versão de Streaming Exclusiva para Testes)
+        """
+        # Montamos a pergunta e pegamos os vetores normalmente (processo síncrono rápido)
+        messages, _, _ = await self._build_rag_messages(
+            query, subject, conversation_history, book_filter
+        )
+
+        try:
+            # Em vez de chamar generate(), chamamos generate_stream() e iteramos os blocos
+            async for chunk in self.llm_service.generate_stream(
+                messages=messages,
+                model=model,
+                temperature=0.0
+            ):
+                yield chunk
+        except Exception as e:
+            logger.error(f"LLM streaming generation failed: {e}")
+            yield f"Erro durante o streaming do LLM: {str(e)}"
+
+    async def process_single_query_stream(
+        self,
+        query: str,
+        subject: str = settings.default_subject,
+        model: Optional[str] = None,
+        book_filter: Optional[str] = None
+    ) -> AsyncGenerator[str, None]:
+        """
+        Executa uma única query em formato de streaming.
+        """
+        # Reutiliza o método principal sem o histórico, aproveitando o yield assíncrono
+        async for chunk in self.process_query_stream(
+            query=query,
+            subject=subject,
+            conversation_history=None,
+            model=model,
+            book_filter=book_filter
+        ):
+            yield chunk

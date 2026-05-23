@@ -124,6 +124,8 @@ services:
       context: ./services/api-gateway
       dockerfile: Dockerfile
     container_name: academick-api
+    ports:          #ADICIONADO PARA TESTE
+      - "127.0.0.1:8000:8000" #ADICIONADO PARA TESTE
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-academick}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}@postgres:5432/${POSTGRES_DB:-academick}
       - REDIS_URL=redis://:${REDIS_PASSWORD:?REDIS_PASSWORD must be set in .env}@redis:6379/0
@@ -140,6 +142,11 @@ services:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - DEFAULT_MODEL=${DEFAULT_MODEL} #ADICIONADO
+      - QUERY_ENHANCEMENT_MODEL=${QUERY_ENHANCEMENT_MODEL} #ADICIONADO
+      - LLM_SEED=${LLM_SEED} #ADICIONADO
+      - LLM_TEMPERATURE=${LLM_TEMPERATURE} #ADICIONADO
+      - VLLM_BASE_URL=${VLLM_BASE_URL} #ADICIONADO
       - ENABLE_SNAPSHOT_MANAGEMENT=${ENABLE_SNAPSHOT_MANAGEMENT:-true}
       - ENABLE_PDF_UPLOAD=${ENABLE_PDF_UPLOAD:-true}
       - DOCS_ENABLED=${DOCS_ENABLED:-true}

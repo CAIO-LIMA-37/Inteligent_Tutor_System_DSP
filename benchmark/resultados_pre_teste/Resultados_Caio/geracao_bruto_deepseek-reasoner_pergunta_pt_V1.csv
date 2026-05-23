@@ -1,0 +1,57 @@
+Idioma,Interferencia_Tutor,Capitulo,Num_Questao,Pergunta,Modelo,Resposta_Gerada,Latencia_Total_s,TTFT_s,ITL_s,Throughput_tps,Tokens_In,Tokens_Out,Tokens_Total
+PT,NÃO,1. Analog and Digital,1.0,"Ambos em tempo contínuo $x(t)$ e o tempo discreto $x[n]$ os sinais consistem em pulsos com duração limitada (suporte finito). Suas amplitudes são iguais a três para $0 \le t \le4$ e $0 \le n \le4$, respectivamente, e zero caso contrário. a) Quais são os valores de $x(t)$ quando $t=1.5$, $3$ e $6$? b) Quais são os valores de $x[n]$ quando $n=1.5$, $3$ e $6$?",deepseek-reasoner,"a) Para o sinal de tempo contínuo \(x(t)\), definido como \(x(t) = 3\) para \(0 \le t \le 4\) e \(0\) caso contrário:  
+- \(t = 1.5\) está no intervalo \([0,4]\), logo \(x(1.5) = 3\).  
+- \(t = 3\) também está no intervalo, logo \(x(3) = 3\).  
+- \(t = 6\) está fora do intervalo, logo \(x(6) = 0\).
+
+b) Para o sinal de tempo discreto \(x[n]\), definido apenas para valores inteiros de \(n\), com \(x[n] = 3\) para \(0 \le n \le 4\) (com \(n\) inteiro) e \(0\) para outros inteiros:  
+- \(n = 1.5\) não é um inteiro, portanto \(x[1.5]\) não está definido (não pertence ao domínio do sinal).  
+- \(n = 3\) é inteiro e pertence ao intervalo \([0,4]\), logo \(x[3] = 3\).  
+- \(n = 6\) é inteiro mas está fora do intervalo, logo \(x[6] = 0\).",16.2974,14.4901,0.001,993.77,138,1797,1935
+PT,NÃO,1. Analog and Digital,2.0,Um ADC usa $b=8$ bits por amostra e frequência de amostragem $\fs=100$ ~Msps. a) Qual é a respectiva taxa de bits em bits por segundo? b) Quantos megabytes são necessários para armazenar 1 hora de um sinal digitalizado com este ADC e armazenado em formato binário?``cru''formato (sem compactação ou cabeçalho de arquivo)?,deepseek-reasoner,"a) A taxa de bits é dada pelo produto da frequência de amostragem pelo número de bits por amostra:
+
+\[
+\text{Taxa} = f_s \times b = 100 \times 10^6 \, \text{amostras/s} \times 8 \, \text{bits/amostra} = 800 \times 10^6 \, \text{bits/s} = 800 \, \text{Mbps}.
+\]
+
+b) Para armazenar 1 hora de sinal (3600 segundos), o total de bits é:
+
+\[
+\text{Bits totais} = 800 \times 10^6 \, \text{bits/s} \times 3600 \, \text{s} = 2,88 \times 10^{12} \, \text{bits}.
+\]
+
+Convertendo para bytes (1 byte = 8 bits):
+
+\[
+\text{Bytes totais} = \frac{2,88 \times 10^{12}}{8} = 360 \times 10^9 \, \text{bytes}.
+\]
+
+Considerando 1 megabyte (MB) = \(10^6\) bytes, temos:
+
+\[
+\text{Capacidade necessária} = 360 \times 10^9 \, \text{bytes} = 360\,000 \, \text{MB} \quad \text{ou} \quad 360 \, \text{GB}.
+\]",11.1576,9.1887,0.0017,589.68,100,1162,1262
+PT,NÃO,1. Analog and Digital,5.0,"O sinal analógico $x(t)=2t$ ~V é digitalizado usando um ADC de 2 bits com frequência de amostragem $\fs=100$ ~Hz para criar um sinal digital $x_q[n]$. Supondo que a primeira amostra seja obtida em $t=0$ ~s, informar: a) os valores das quatro primeiras amostras (use aqui apenas amostragem, sem quantização) e b) os valores de $x_q[n]$ para $n=0,\ldots,3$ dado que o ADC utiliza arredondamento e seus níveis de produção são $\{-2\Delta, -\Delta, 0, \Delta\}$, com $\Delta=0.025$ ~V.",deepseek-reasoner,"**a)** As amostras sem quantização são obtidas a partir de \(x(t)=2t\) com período de amostragem \(T_s = 1/f_s = 0,01\) s. Para \(n=0,1,2,3\):
+
+- \(n=0\): \(t=0\) s → \(x(0)=0\) V  
+- \(n=1\): \(t=0,01\) s → \(x(0,01)=0,02\) V  
+- \(n=2\): \(t=0,02\) s → \(x(0,02)=0,04\) V  
+- \(n=3\): \(t=0,03\) s → \(x(0,03)=0,06\) V  
+
+**b)** O ADC de 2 bits possui níveis de saída \(\{-2\Delta, -\Delta, 0, \Delta\}\) com \(\Delta = 0,025\) V. Utilizando arredondamento para o nível mais próximo:
+
+- \(x_q[0] = 0\) V (distância zero)  
+- \(x_q[1] = \Delta = 0,025\) V (0,02 V está mais próximo de 0,025 do que de 0)  
+- \(x_q[2] = \Delta = 0,025\) V (0,04 V está mais próximo de 0,025)  
+- \(x_q[3] = \Delta = 0,025\) V (0,06 V também arredonda para 0,025)  
+
+Portanto, os valores quantizados são: \(0,\;0,025,\;0,025,\;0,025\) V.",17.0478,14.6923,0.0011,881.75,165,2078,2243
+PT,NÃO,1. Analog and Digital,13.0,"Um sinal analógico $x(t)$ foi amostrado periodicamente com período de amostragem $\ts=2$ ~s para obter o sinal amostrado $x_s(t)=2 \delta(t+4) - 5 \delta(t-2) + 7 \delta(t-6)$. O teorema da amostragem foi obedecido. a) Qual é a expressão analítica de $x(t)$? b) Esta é a única resposta possível? Por exemplo,é $2 \rect(t+4) - 5 \rect(t-2) + 7 \rect(t-6)$ uma possível expressão para $x(t)$ dado que $\ts=2$ ~se o teorema da amostragem foi obedecido? Por que?",deepseek-reasoner,"**a)** A expressão analítica de \(x(t)\) é a reconstrução ideal a partir das amostras, utilizando a função sinc:
+
+\[
+x(t) = 2\, \text{sinc}\!\left(\frac{t+4}{2}\right) - 5\, \text{sinc}\!\left(\frac{t-2}{2}\right) + 7\, \text{sinc}\!\left(\frac{t-6}{2}\right),
+\]
+
+onde \(\text{sinc}(u) = \frac{\sin(\pi u)}{\pi u}\).
+
+**b)** Não, esta não é a única resposta possível? Na verdade, sob a condição de que o teorema da amostragem foi obedecido (sinal limitado em banda e frequência de amostragem acima da taxa de Nyquist), a expressão da parte (a) é a **única** resposta possível. O sinal proposto \(2\,\text{rect}(t+4) -5\,\text{rect}(t-2) +7\,\text{rect}(t-6)\) não é limitado em banda (possui componentes de frequência infinitas), o que viola a hipótese de que o teorema da amostragem foi obedecido. Portanto, ele não pode representar o sinal original \(x(t)\) nesse contexto.",30.5766,28.4928,0.0006,1627.39,173,3392,3565

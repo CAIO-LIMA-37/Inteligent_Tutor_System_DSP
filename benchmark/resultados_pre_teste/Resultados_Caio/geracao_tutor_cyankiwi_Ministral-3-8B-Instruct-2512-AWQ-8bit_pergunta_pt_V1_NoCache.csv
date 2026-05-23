@@ -1,0 +1,257 @@
+Idioma,Interferencia_Tutor,Capitulo,Num_Questao,Pergunta,Modelo,Resposta_Gerada,Latencia_Total_s,TTFT_s,ITL_s,Throughput_tps,Tokens_In,Tokens_Out,Tokens_Total
+PT,SIM,1. Analog and Digital,1.0,"Ambos em tempo contínuo $x(t)$ e o tempo discreto $x[n]$ os sinais consistem em pulsos com duração limitada (suporte finito). Suas amplitudes são iguais a três para $0 \le t \le4$ e $0 \le n \le4$, respectivamente, e zero caso contrário. a) Quais são os valores de $x(t)$ quando $t=1.5$, $3$ e $6$? b) Quais são os valores de $x[n]$ quando $n=1.5$, $3$ e $6$?",cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit,"Para responder à sua pergunta, precisamos entender como os sinais $x(t)$ e $x[n]$ são definidos no contexto fornecido. Os sinais são descritos como pulsos com suporte finito, ou seja, com duração limitada, e amplitude igual a 3 em seus intervalos de suporte.
+
+### Parte (a): Sinal contínuo $x(t)$
+O sinal $x(t)$ é definido como tendo amplitude igual a 3 para $0 \le t \le 4$ e zero em outros momentos. Isso significa que $x(t)$ pode ser representado usando a função **rect** (retângulo), que é uma função de pulso retangular normalizada.
+
+A função **rect** é definida como:
+$$ \text{rect}(t) = \begin{cases}
+1, & \text{se } |t| \le 0.5 \\
+0, & \text{caso contrário}
+\end{cases} $$
+
+Para o sinal $x(t)$, podemos expressá-lo como:
+$$ x(t) = 3 \cdot \text{rect}\left(\frac{t - 2}{4}\right) $$
+
+Isso porque o pulso está centrado em $t = 2$ e tem uma largura de 4 segundos (de $t = 0$ a $t = 4$).
+
+#### Valores de $x(t)$ para $t = 1.5$, $3$ e $6$:
+- **Para $t = 1.5$**:
+  Como $0 \le 1.5 \le 4$, $x(1.5) = 3$.
+
+- **Para $t = 3$**:
+  Como $0 \le 3 \le 4$, $x(3) = 3$.
+
+- **Para $t = 6$**:
+  Como $6 > 4$, $x(6) = 0$.
+
+---
+
+### Parte (b): Sinal discreto $x[n]$
+O sinal $x[n]$ é definido como tendo amplitude igual a 3 para $0 \le n \le 4$ e zero em outros momentos. Isso significa que $x[n]$ é um sinal discreto com valores não definidos para valores não inteiros de $n$.
+
+#### Valores de $x[n]$ para $n = 1.5$, $3$ e $6$:
+- **Para $n = 1.5$**:
+  Como $n$ não é um inteiro, $x[1.5]$ não está definido no contexto de um sinal discreto. Em sinais discretos, $n$ deve ser um número inteiro.
+
+- **Para $n = 3$**:
+  Como $0 \le 3 \le 4$, $x[3] = 3$.
+
+- **Para $n = 6$**:
+  Como $6 > 4$, $x[6] = 0$.
+
+---
+
+Para aprofundar seus conhecimentos sobre a função **rect** e a definição de sinais contínuos e discretos, consulte a seguinte referência:
+
+Livro: *ak_dsp_book*
+Capítulo: Analog and Digital Signals
+Seção: The rect function
+Páginas: Não informada
+
+Livro: *ak_dsp_book*
+Capítulo: Analog and Digital Signals
+Seção: Analog, Digital and Discrete-Time Signals
+Páginas: Não informada",16.5393,5.1576,0.0221,45.34,89,517,606
+PT,SIM,1. Analog and Digital,2.0,Um ADC usa $b=8$ bits por amostra e frequência de amostragem $\fs=100$ ~Msps. a) Qual é a respectiva taxa de bits em bits por segundo? b) Quantos megabytes são necessários para armazenar 1 hora de um sinal digitalizado com este ADC e armazenado em formato binário?``cru''formato (sem compactação ou cabeçalho de arquivo)?,cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit,"### Resposta:
+
+#### a) Taxa de bits em bits por segundo
+A taxa de bits ($b$) por amostra é de $8$ bits, e a frequência de amostragem ($\fs$) é de $100$ Msps ($100 \times 10^6$ amostras por segundo). A taxa de bits total ($R_b$) é calculada multiplicando a taxa de amostragem pela quantidade de bits por amostra:
+
+$$
+R_b = b \times \fs = 8 \times 100 \times 10^6 = 800 \times 10^6 \text{ bits/segundo}
+$$
+
+Portanto, a taxa de bits é de **800 Mbps (megabits por segundo)**.
+
+---
+
+#### b) Espaço necessário para armazenar 1 hora de sinal
+Para calcular o espaço necessário, primeiro convertemos $1$ hora em segundos:
+
+$$
+1 \text{ hora} = 3600 \text{ segundos}
+$$
+
+Em seguida, multiplicamos a taxa de bits ($R_b$) pelo tempo total em segundos:
+
+$$
+\text{Dados totais} = R_b \times 3600 = 800 \times 10^6 \times 3600 = 2880 \times 10^9 \text{ bits}
+$$
+
+Agora, convertemos bits para megabytes (1 byte = 8 bits, 1 MB = $1024 \times 1024$ bytes):
+
+$$
+\text{Dados em bytes} = \frac{2880 \times 10^9}{8} = 360 \times 10^9 \text{ bytes}
+$$
+
+$$
+\text{Dados em MB} = \frac{360 \times 10^9}{1024 \times 1024} \approx 343.67 \text{ MB}
+$$
+
+Portanto, são necessários aproximadamente **343,67 MB** para armazenar 1 hora de sinal.
+
+---
+
+### Referências:
+Para aprofundar seus conhecimentos consulte a seguinte referência:
+Livro: *ak_dsp_book*
+Capítulo: Analog and Digital Signals
+Seção: Exercises
+Páginas: 115",10.9533,3.2229,0.0223,44.76,80,347,427
+PT,SIM,1. Analog and Digital,5.0,"O sinal analógico $x(t)=2t$ ~V é digitalizado usando um ADC de 2 bits com frequência de amostragem $\fs=100$ ~Hz para criar um sinal digital $x_q[n]$. Supondo que a primeira amostra seja obtida em $t=0$ ~s, informar: a) os valores das quatro primeiras amostras (use aqui apenas amostragem, sem quantização) e b) os valores de $x_q[n]$ para $n=0,\ldots,3$ dado que o ADC utiliza arredondamento e seus níveis de produção são $\{-2\Delta, -\Delta, 0, \Delta\}$, com $\Delta=0.025$ ~V.",cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit,"Para resolver o problema, seguiremos os passos descritos no contexto fornecido, especialmente na **Seção: Digitizing signals** do livro *ak_dsp_book*, que aborda a amostragem e quantização de sinais analógicos.
+
+---
+
+### **a) Valores das quatro primeiras amostras (apenas amostragem, sem quantização)**
+
+O sinal analógico é dado por:
+$$ x(t) = 2t $$
+
+A frequência de amostragem é:
+$$ \fs = 100 \text{ Hz} $$
+
+O intervalo de amostragem é:
+$$ T_s = \frac{1}{\fs} = \frac{1}{100} = 0.01 \text{ s} $$
+
+As amostras são obtidas em:
+$$ t_n = n \cdot T_s = n \cdot 0.01 \text{ s}, \quad n = 0, 1, 2, \ldots $$
+
+Os valores das quatro primeiras amostras são calculados substituindo $t_n$ em $x(t)$:
+$$
+\begin{align*}
+x(0) &= 2 \cdot 0 = 0 \text{ V} \\
+x(0.01) &= 2 \cdot 0.01 = 0.02 \text{ V} \\
+x(0.02) &= 2 \cdot 0.02 = 0.04 \text{ V} \\
+x(0.03) &= 2 \cdot 0.03 = 0.06 \text{ V}
+\end{align*}
+$$
+
+---
+
+### **b) Valores de $x_q[n]$ para $n=0,\ldots,3$ com quantização**
+
+O ADC possui:
+- **2 bits** (portanto, $N = 2^2 = 4$ níveis de quantização).
+- **Passo de quantização** $\Delta = 0.025 \text{ V}$.
+- **Níveis de saída**: $\{-2\Delta, -\Delta, 0, \Delta\} = \{-0.05, -0.025, 0, 0.025\}$.
+- **Método de quantização**: **arredondamento**.
+
+O processo de quantização arredonda cada amostra para o nível mais próximo do conjunto de quantização.
+
+#### **Cálculo dos valores quantizados:**
+1. **Para $n=0$ ($t=0$):**
+   $$ x(0) = 0 \text{ V} $$
+   O nível mais próximo é $0 \text{ V}$.
+   $$ x_q[0] = 0 $$
+
+2. **Para $n=1$ ($t=0.01$):**
+   $$ x(0.01) = 0.02 \text{ V} $$
+   A distância para $-0.025$ é $0.045$ e para $0.025$ é $0.005$.
+   O nível mais próximo é $0.025 \text{ V}$.
+   $$ x_q[1] = 0.025 $$
+
+3. **Para $n=2$ ($t=0.02$):**
+   $$ x(0.02) = 0.04 \text{ V} $$
+   A distância para $0.025$ é $0.015$ e para $0.05$ não existe (o próximo nível seria $-0.05$ ou $0.025$).
+   O nível mais próximo é $0.025 \text{ V}$.
+   $$ x_q[2] = 0.025 $$
+
+4. **Para $n=3$ ($t=0.03$):**
+   $$ x(0.03) = 0.06 \text{ V} $$
+   A distância para $0.025$ é $0.035$ e para $-0.05$ é $0.11$.
+   O nível mais próximo é $0.025 \text{ V}$.
+   **Correção:** Como $0.06$ está mais próximo de $0.025$ do que de $-0.05$, mas o próximo nível disponível é $0.025$ (pois $0.05$ não está no conjunto de níveis).
+   No entanto, o conjunto de níveis é $\{-0.05, -0.025, 0, 0.025\}$, então o nível mais próximo é $0.025$ (pois $0.06$ está mais próximo de $0.025$ do que de $-0.05$).
+   **Mas, como o conjunto de níveis não inclui $0.05$, o arredondamento deve ser feito para o nível mais próximo disponível.**
+   Portanto, o nível mais próximo é $0.025$ (pois $0.06 - 0.025 = 0.035$ e $0.06 - (-0.05) = 0.11$).
+   $$ x_q[3] = 0.025 $$
+
+   **Observação:** Se o conjunto de níveis fosse $\{-0.05, -0.025, 0, 0.025, 0.05\}$, o nível mais próximo seria $0.05$. No entanto, com apenas 2 bits, os níveis são $\{-0.05, -0.025, 0, 0.025\}$. Portanto, o valor $0.06$ é arredondado para $0.025$.
+
+---
+
+### **Resposta final:**
+- **a) Valores das quatro primeiras amostras (sem quantização):**
+  $$
+  \begin{align*}
+  x[0] &= 0 \text{ V} \\
+  x[1] &= 0.02 \text{ V} \\
+  x[2] &= 0.04 \text{ V} \\
+  x[3] &= 0.06 \text{ V}
+  \end{align*}
+  $$
+
+- **b) Valores quantizados $x_q[n]$:**
+  $$
+  \begin{align*}
+  x_q[0] &= 0 \text{ V} \\
+  x_q[1] &= 0.025 \text{ V} \\
+  x_q[2] &= 0.025 \text{ V} \\
+  x_q[3] &= 0.025 \text{ V}
+  \end{align*}
+  $$
+
+---
+
+### **Referências:**
+Para aprofundar seus conhecimentos consulte a seguinte referência:
+Livro: *ak_dsp_book*
+Capítulo: Analog and Digital Signals
+Seção: Digitizing signals
+Páginas: Não informada
+
+Livro: *ak_dsp_book*
+Capítulo: Analog and Digital Signals
+Seção: An Introduction to Quantization
+Páginas: Não informada",29.7815,5.3036,0.0265,37.79,120,926,1046
+PT,SIM,1. Analog and Digital,13.0,"Um sinal analógico $x(t)$ foi amostrado periodicamente com período de amostragem $\ts=2$ ~s para obter o sinal amostrado $x_s(t)=2 \delta(t+4) - 5 \delta(t-2) + 7 \delta(t-6)$. O teorema da amostragem foi obedecido. a) Qual é a expressão analítica de $x(t)$? b) Esta é a única resposta possível? Por exemplo,é $2 \rect(t+4) - 5 \rect(t-2) + 7 \rect(t-6)$ uma possível expressão para $x(t)$ dado que $\ts=2$ ~se o teorema da amostragem foi obedecido? Por que?",cyankiwi/Ministral-3-8B-Instruct-2512-AWQ-8bit,"### Resposta:
+
+#### a) Expressão analítica de $x(t)$
+O sinal amostrado $x_s(t)$ é dado por:
+$$x_s(t) = 2\delta(t+4) - 5\delta(t-2) + 7\delta(t-6).$$
+
+Como o teorema da amostragem foi obedecido, o sinal analógico original $x(t)$ pode ser reconstruído usando a fórmula de interpolação de Whittaker-Shannon (Eq. 3.17 do livro *ak_dsp_book*, Capítulo **Analog and Digital Systems**, Seção **A proof sketch of the sampling theorem**):
+$$
+x(t) = \sum_{n=-\infty}^{\infty} x_s(nT_s) \cdot \text{sinc}\left(\frac{t - nT_s}{T_s}\right),
+$$
+onde $T_s = 2$ s é o período de amostragem.
+
+Substituindo os valores de $x_s(nT_s)$:
+- Para $n = -2$ (correspondente a $t = -4$), $x_s(-4) = 2$.
+- Para $n = 1$ (correspondente a $t = 2$), $x_s(2) = -5$.
+- Para $n = 3$ (correspondente a $t = 6$), $x_s(6) = 7$.
+
+A expressão analítica de $x(t)$ é:
+$$
+x(t) = 2 \cdot \text{sinc}\left(\frac{t + 4}{2}\right) - 5 \cdot \text{sinc}\left(\frac{t - 2}{2}\right) + 7 \cdot \text{sinc}\left(\frac{t - 6}{2}\right).
+$$
+
+#### b) Unicidade da resposta
+Não, a expressão $2 \cdot \text{rect}(t+4) - 5 \cdot \text{rect}(t-2) + 7 \cdot \text{rect}(t-6)$ **não** é uma expressão válida para $x(t)$ sob as mesmas condições.
+
+A função $\text{rect}(t)$ é definida como:
+$$
+\text{rect}(t) =
+\begin{cases}
+1, & \text{se } |t| \leq 0.5, \\
+0, & \text{caso contrário.}
+\end{cases}
+$$
+No entanto, o sinal $x(t)$ é reconstruído usando a função **sinc**, que é uma função contínua e infinita, não uma função retangular. A função $\text{rect}(t)$ é uma função retangular de suporte limitado, enquanto a reconstrução do sinal amostrado exige o uso de sincs para garantir a perfeita reconstrução do sinal original, conforme descrito na Eq. (1.28) do livro *ak_dsp_book*, Capítulo **Analog and Digital Signals**, Seção **Reconstruction**.
+
+Além disso, a função $\text{rect}(t)$ não possui a propriedade de interpolação necessária para reconstruir um sinal contínuo a partir de seus valores amostrados. A função sinc é a única capaz de garantir a reconstrução perfeita do sinal original, pois ela é a resposta ao impulso do filtro ideal de reconstrução (Eq. 3.17 do livro *ak_dsp_book*, Capítulo **Analog and Digital Systems**, Seção **A proof sketch of the sampling theorem**).
+
+---
+
+### Referências:
+Para aprofundar seus conhecimentos consulte a seguinte referência:
+Livro: **ak_dsp_book**
+Capítulo: **Analog and Digital Systems**
+Seção: **A proof sketch of the sampling theorem**
+Páginas: Não informada
+
+Livro: **ak_dsp_book**
+Capítulo: **Analog and Digital Signals**
+Seção: **Reconstruction**
+Páginas: Não informada",18.4236,5.403,0.0203,49.15,114,641,755

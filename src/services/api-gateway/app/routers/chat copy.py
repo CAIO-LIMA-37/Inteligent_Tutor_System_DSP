@@ -1,7 +1,6 @@
 """Chat endpoints for RAG conversations."""
 
-from fastapi import APIRouter, Request, HTTPException, Query
-from fastapi.responses import StreamingResponse
+from fastapi import APIRouter, Request, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 import logging
@@ -92,30 +91,17 @@ async def track_usage(
 
 async def get_session_or_error(request: Request, session_id: str):
     """Get session or raise 401 error."""
-
-    # --------TESTE--------
-
-    if session_id.startswith("benchmark-"):
-        return{
-            "user_id": "00000000-0000-0000-0000-000000000000",
-            "subject": "Processamento Digital de Sinais"
-        }
-
-    # --------TESTE--------
-
-
     session = await request.app.state.session_service.get_session(session_id)
     if not session:
         raise HTTPException(status_code=401, detail="Invalid or expired session")
     return session
 
 
-@router.post("/chat/{session_id}")
+@router.post("/chat/{session_id}", response_model=ChatResponse)
 async def chat(
     request: Request,
     session_id: str,
-    chat_request: ChatRequest,
-    stream: bool = Query(False, description="Ativa o SSE para benchmarks")
+    chat_request: ChatRequest
 ):
     """
     Send a message and get a RAG-powered response.
@@ -135,25 +121,6 @@ async def chat(
     # Get conversation history
     messages = await request.app.state.session_service.get_messages(session_id)
 
-    # ==========================================
-    # BIFURCAÇÃO: MODO BENCHMARK (STREAMING)
-    # ==========================================
-    if stream:
-        # Retorna o fluxo contínuo e pula a gravação no banco para não sujar as métricas de produção
-        return StreamingResponse(
-            orchestrator.process_query_stream(
-                query=chat_request.query,
-                subject=session.get("subject", settings.default_subject),
-                conversation_history=messages,
-                model=chat_request.model,
-                book_filter=chat_request.book_filter
-            ),
-            media_type="text/event-stream"
-        )
-
-    # ==========================================
-    # MODO FRONTEND (SÍNCRONO PADRÃO)
-    # ==========================================
     # Process query
     result = await orchestrator.process_query(
         query=chat_request.query,
@@ -214,12 +181,11 @@ async def chat(
     )
 
 
-@router.post("/chat/{session_id}/single")
+@router.post("/chat/{session_id}/single", response_model=ChatResponse)
 async def chat_single(
     request: Request,
     session_id: str,
-    chat_request: ChatRequest,
-    stream: bool = Query(False, description="Ativa o SSE para benchmarks")
+    chat_request: ChatRequest
 ):
     """
     Send a single query without using conversation history.
@@ -236,23 +202,6 @@ async def chat_single(
         redis=request.app.state.redis
     )
 
-    # ==========================================
-    # BIFURCAÇÃO: MODO BENCHMARK (STREAMING)
-    # ==========================================
-    if stream:
-        return StreamingResponse(
-            orchestrator.process_single_query_stream(
-                query=chat_request.query,
-                subject=session.get("subject", settings.default_subject),
-                model=chat_request.model,
-                book_filter=chat_request.book_filter
-            ),
-            media_type="text/event-stream"
-        )
-
-    # ==========================================
-    # MODO FRONTEND (SÍNCRONO PADRÃO)
-    # ==========================================
     # Process query without history
     result = await orchestrator.process_single_query(
         query=chat_request.query,

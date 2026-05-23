@@ -1,0 +1,42 @@
+Idioma,Interferencia_Tutor,Capitulo,Num_Questao,Pergunta,Modelo,Resposta_Gerada,Latencia_Total_s,TTFT_s,ITL_s,Throughput_tps,Tokens_In,Tokens_Out,Tokens_Total
+PT,NÃO,1. Analog and Digital,1.0,"Ambos em tempo contínuo $x(t)$ e o tempo discreto $x[n]$ os sinais consistem em pulsos com duração limitada (suporte finito). Suas amplitudes são iguais a três para $0 \le t \le4$ e $0 \le n \le4$, respectivamente, e zero caso contrário. a) Quais são os valores de $x(t)$ quando $t=1.5$, $3$ e $6$? b) Quais são os valores de $x[n]$ quando $n=1.5$, $3$ e $6$?",gpt-5,"a) Sinal contínuo x(t):
+- x(1.5) = 3 (pois 0 ≤ 1.5 ≤ 4)
+- x(3) = 3 (pois 0 ≤ 3 ≤ 4)
+- x(6) = 0 (fora do suporte)
+
+b) Sinal discreto x[n] (definido apenas para n inteiro):
+- x[1.5]: não definido (n não inteiro)
+- x[3] = 3 (pois 0 ≤ 3 ≤ 4)
+- x[6] = 0 (fora do suporte)",7.8047,6.8424,0.0014,739.83,134,713,847
+PT,NÃO,1. Analog and Digital,2.0,Um ADC usa $b=8$ bits por amostra e frequência de amostragem $\fs=100$ ~Msps. a) Qual é a respectiva taxa de bits em bits por segundo? b) Quantos megabytes são necessários para armazenar 1 hora de um sinal digitalizado com este ADC e armazenado em formato binário?``cru''formato (sem compactação ou cabeçalho de arquivo)?,gpt-5,"a) Taxa de bits: R = b·fs = 8 bits/amostra × 100×10^6 amostras/s = 8,0×10^8 bit/s = 800 Mbit/s.
+
+b) Armazenamento para 1 hora (3600 s):
+- Bytes/s = (800 Mbit/s) / 8 = 100×10^6 B/s.
+- Em 1 h: 100×10^6 × 3600 = 3,60×10^11 bytes.
+- Em megabytes decimais (1 MB = 10^6 B): 360,000 MB ≈ 360 GB.
+- Em unidades binárias: ≈ 343,323 MiB ≈ 335.5 GiB.",17.4419,16.2916,0.001,1038.83,95,1196,1291
+PT,NÃO,1. Analog and Digital,5.0,"O sinal analógico $x(t)=2t$ ~V é digitalizado usando um ADC de 2 bits com frequência de amostragem $\fs=100$ ~Hz para criar um sinal digital $x_q[n]$. Supondo que a primeira amostra seja obtida em $t=0$ ~s, informar: a) os valores das quatro primeiras amostras (use aqui apenas amostragem, sem quantização) e b) os valores de $x_q[n]$ para $n=0,\ldots,3$ dado que o ADC utiliza arredondamento e seus níveis de produção são $\{-2\Delta, -\Delta, 0, \Delta\}$, com $\Delta=0.025$ ~V.",gpt-5,"a) Amostragem (Ts = 1/fs = 0,01 s):
+- x[0] = x(0) = 2·0 = 0 V
+- x[1] = x(0,01) = 2·0,01 = 0,02 V
+- x[2] = x(0,02) = 2·0,02 = 0,04 V
+- x[3] = x(0,03) = 2·0,03 = 0,06 V
+
+b) Quantização (níveis: −0,05; −0,025; 0; 0,025 V; arredondamento):
+- x_q[0] = 0 V
+- x_q[1] = 0,025 V
+- x_q[2] = 0,025 V
+- x_q[3] = 0,025 V",26.2941,23.5182,0.0016,626.83,163,1741,1904
+PT,NÃO,1. Analog and Digital,13.0,"Um sinal analógico $x(t)$ foi amostrado periodicamente com período de amostragem $\ts=2$ ~s para obter o sinal amostrado $x_s(t)=2 \delta(t+4) - 5 \delta(t-2) + 7 \delta(t-6)$. O teorema da amostragem foi obedecido. a) Qual é a expressão analítica de $x(t)$? b) Esta é a única resposta possível? Por exemplo,é $2 \rect(t+4) - 5 \rect(t-2) + 7 \rect(t-6)$ uma possível expressão para $x(t)$ dado que $\ts=2$ ~se o teorema da amostragem foi obedecido? Por que?",gpt-5,"a) Pelo modelo de amostragem impulsiva,
+xs(t) = Σ x(nTs) δ(t − nTs).
+Logo, os valores amostrados são:
+- x(−4) = 2  (n = −2),
+- x(2) = −5  (n = 1),
+- x(6) = 7   (n = 3),
+e x(nTs) = 0 para todos os demais n ∈ Z.
+
+Como o teorema da amostragem foi obedecido (sem aliasing), a reconstrução ideal é única e dada pela interpolação de Whittaker–Shannon:
+x(t) = Σ x(nTs) sinc((t − nTs)/Ts),
+com sinc(u) = sin(πu)/(πu) e Ts = 2 s. Portanto,
+x(t) = 2 sinc((t + 4)/2) − 5 sinc((t − 2)/2) + 7 sinc((t − 6)/2).
+
+b) Sob a hipótese do teorema da amostragem (x(t) limitado em banda a |Ω| < π/Ts), a solução acima é única. A expressão 2 rect(t+4) − 5 rect(t−2) + 7 rect(t−6) não é uma candidata válida nesse contexto: embora ela produza as mesmas amostras em nTs, ela não é limitada em banda (é temporalmente limitada, logo tem espectro de suporte infinito). Assim, violaria a condição de bandalimitação exigida pelo teorema; a reconstrução ideal a partir das amostras não recuperaria esses “rects”, mas sim o sinal bandalimitado dado pela soma de sincs.",57.8908,53.4213,0.0011,870.78,168,3893,4061

@@ -1,0 +1,41 @@
+Idioma,Interferencia_Tutor,Capitulo,Num_Questao,Pergunta,Modelo,Resposta_Gerada,Latencia_Total_s,TTFT_s,ITL_s,Throughput_tps,Tokens_In,Tokens_Out,Tokens_Total
+PT,NÃO,1. Analog and Digital,1.0,"Ambos em tempo contínuo $x(t)$ e o tempo discreto $x[n]$ os sinais consistem em pulsos com duração limitada (suporte finito). Suas amplitudes são iguais a três para $0 \le t \le4$ e $0 \le n \le4$, respectivamente, e zero caso contrário. a) Quais são os valores de $x(t)$ quando $t=1.5$, $3$ e $6$? b) Quais são os valores de $x[n]$ quando $n=1.5$, $3$ e $6$?",gpt-5,"a)
+- x(1.5) = 3
+- x(3) = 3
+- x(6) = 0
+
+b)
+- x[1.5]: não definido (em tempo discreto o índice n deve ser inteiro)
+- x[3] = 3
+- x[6] = 0",11.7945,11.2512,0.0006,1676.82,134,912,1046
+PT,NÃO,1. Analog and Digital,2.0,Um ADC usa $b=8$ bits por amostra e frequência de amostragem $\fs=100$ ~Msps. a) Qual é a respectiva taxa de bits em bits por segundo? b) Quantos megabytes são necessários para armazenar 1 hora de um sinal digitalizado com este ADC e armazenado em formato binário?``cru''formato (sem compactação ou cabeçalho de arquivo)?,gpt-5,"a) Rb = b · fs = 8 · 100×10^6 = 8×10^8 bit/s = 800 Mbit/s (0,8 Gbit/s).
+
+b) Em 1 hora (3600 s):
+- Bits: 800×10^6 · 3600 = 2,88×10^12 bits
+- Bytes: 2,88×10^12 / 8 = 3,6×10^11 bytes
+- Megabytes (1 MB = 10^6 bytes): 3,6×10^11 / 10^6 = 360.000 MB ≈ 360 GB
+
+(Em unidades binárias: ≈ 343.323 MiB ≈ 335,5 GiB.)",19.8005,18.1096,0.0012,819.67,95,1387,1482
+PT,NÃO,1. Analog and Digital,5.0,"O sinal analógico $x(t)=2t$ ~V é digitalizado usando um ADC de 2 bits com frequência de amostragem $\fs=100$ ~Hz para criar um sinal digital $x_q[n]$. Supondo que a primeira amostra seja obtida em $t=0$ ~s, informar: a) os valores das quatro primeiras amostras (use aqui apenas amostragem, sem quantização) e b) os valores de $x_q[n]$ para $n=0,\ldots,3$ dado que o ADC utiliza arredondamento e seus níveis de produção são $\{-2\Delta, -\Delta, 0, \Delta\}$, com $\Delta=0.025$ ~V.",gpt-5,"a) Amostragem (Ts = 1/fs = 0,01 s; t = [0, 0,01, 0,02, 0,03] s):
+- x[0] = 2·0 = 0 V
+- x[1] = 2·0,01 = 0,02 V
+- x[2] = 2·0,02 = 0,04 V
+- x[3] = 2·0,03 = 0,06 V
+
+b) Quantização (níveis: {-2Δ, -Δ, 0, Δ} = {-0,05, -0,025, 0, 0,025} V; arredondamento com limiares em -0,0375, -0,0125, +0,0125 V):
+- x_q[0] = 0 V (0 está entre -0,0125 e +0,0125)
+- x_q[1] = 0,025 V (0,02 > 0,0125)
+- x_q[2] = 0,025 V (satura no nível máximo)
+- x_q[3] = 0,025 V (satura no nível máximo)",28.9007,26.3369,0.0012,806.22,163,2068,2231
+PT,NÃO,1. Analog and Digital,13.0,"Um sinal analógico $x(t)$ foi amostrado periodicamente com período de amostragem $\ts=2$ ~s para obter o sinal amostrado $x_s(t)=2 \delta(t+4) - 5 \delta(t-2) + 7 \delta(t-6)$. O teorema da amostragem foi obedecido. a) Qual é a expressão analítica de $x(t)$? b) Esta é a única resposta possível? Por exemplo,é $2 \rect(t+4) - 5 \rect(t-2) + 7 \rect(t-6)$ uma possível expressão para $x(t)$ dado que $\ts=2$ ~se o teorema da amostragem foi obedecido? Por que?",gpt-5,"a) Em amostragem por impulsos, xs(t) = Σn x(nTs) δ(t − nTs). Com Ts = 2 s, os instantes de amostragem são t = 2n. De xs(t) = 2 δ(t+4) − 5 δ(t−2) + 7 δ(t−6) obtemos:
+- x(−4) = 2  (n = −2)
+- x(2) = −5  (n = 1)
+- x(6) = 7   (n = 3)
+- x(2n) = 0 para todos os demais n.
+
+Como o Teorema da Amostragem foi obedecido (x(t) é limitado em banda a |f| < fs/2), a reconstrução ideal é única e dada por interpolação sinc:
+x(t) = Σn x(nTs) sinc((t − nTs)/Ts)
+com sinc(u) = sin(πu)/(πu). Assim, aqui:
+x(t) = 2 sinc((t + 4)/2) − 5 sinc((t − 2)/2) + 7 sinc((t − 6)/2).
+
+b) Sob as hipóteses do Teorema da Amostragem (x(t) limitado em banda e fs > 2B), a solução é única: é exatamente a interpolação sinc acima. A expressão 2 rect(t+4) − 5 rect(t−2) + 7 rect(t−6) não é válida como x(t) nesse cenário porque rect(·) no tempo NÃO é limitado em banda (seu espectro é um sinc de suporte infinito). Logo, ao amostrar com Ts = 2 s, haveria aliasing e as condições do teorema não seriam satisfeitas. Em outras palavras, muitas funções não limitadas em banda podem coincidir com as mesmas amostras, mas somente a função limitada em banda (a interpolada por sinc) é a x(t) garantida pelo teorema.",75.5794,71.0408,0.0008,1295.56,168,5881,6049

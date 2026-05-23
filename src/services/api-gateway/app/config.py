@@ -82,6 +82,10 @@ class Settings(BaseSettings):
     # Snapshot storage directory (shared volume with Qdrant)
     snapshot_dir: str = os.getenv("SNAPSHOT_DIR", "/app/snapshots")
 
+    # LLM Parameters
+    llm_seed: int = 42
+    llm_temperature: float = 0.0
+
     class Config:
         env_file = ".env"
 

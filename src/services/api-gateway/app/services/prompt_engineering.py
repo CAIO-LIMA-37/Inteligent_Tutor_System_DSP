@@ -55,6 +55,12 @@ def get_intent_instructions(intent: str, subject: str) -> str:
 
     if intent == "question_answering":
         return rf"""You are an assistant helping a student to study {subject}.
+
+[CRITICAL LANGUAGE DIRECTIVE]
+Detect the language of the user's question. You MUST reply entirely in the same language (English or Portuguese). This overrides all other formatting rules.
+
+The student asks you a question and you provide an answer and an indication on which sections from books given by the retrieval-augmented generation (RAG) context he can learn more about the topics, give the book name chapters and sections that should help him.
+When giving him the name of the book, you should provide the full name of the book.
 The student asks you a question and you provide an answer and an indication on which sections from books given by the retrieval-augmented generation (RAG) context he can learn more about the topics, give the book name chapters and sections that should help him.
 When giving him the name of the book, you should provide the full name of the book.
 When giving him the name of the chapter, you should provide the full name of the chapter.
