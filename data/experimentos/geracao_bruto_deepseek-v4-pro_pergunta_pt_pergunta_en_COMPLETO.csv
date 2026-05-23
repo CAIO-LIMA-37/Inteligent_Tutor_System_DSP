@@ -644,7 +644,57 @@ Aqui a função retangular tem largura \(3\) e está centrada em \(t=4\). Logo:
 \[
 Z(f) = 5 \cdot 3 \, \sinc(3f) \, e^{-j2\pi f \cdot 4} = 15 \, e^{-j8\pi f} \, \sinc(3f)
 \]",22.9807,17.0631063,5.91754794,177.1,59,1048,1107
-PT,NÃO,2. Transforms and Signal Representation,18.0,"Qual é a transformada de Fourier de: a) $x(t) = \sinc(t)$, b) $y(t) = 4\sinc(t-6)$ ec) $z(t) = 5\sinc( (t-4)/3)$?",deepseek-v4-pro,ERRO: The read operation timed out,0.0,0.0,0.0,0.0,0,0,0
+PT,NÃO,2. Transforms and Signal Representation,18.0,"Qual é a transformada de Fourier de: a) $x(t) = \sinc(t)$, b) $y(t) = 4\sinc(t-6)$ ec) $z(t) = 5\sinc( (t-4)/3)$?",deepseek-v4-pro,"Para resolver o problema, é necessário definir a **função sinc** e a **transformada de Fourier** adotadas. Em engenharia (processamento de sinais), a definição mais comum é:
+
+- **Função sinc normalizada:** \(\displaystyle \operatorname{sinc}(t) = \frac{\sin(\pi t)}{\pi t}\) para \(t \neq 0\) e \(\operatorname{sinc}(0)=1\).
+- **Transformada de Fourier:** \(\displaystyle X(\omega) = \int_{-\infty}^{\infty} x(t)\, e^{-j\omega t}\,dt\).
+- **Função retangular:** \(\operatorname{rect}(u) = \begin{cases} 1, & |u| < 1/2 \\ 1/2, & |u| = 1/2 \\ 0, & |u| > 1/2 \end{cases}\).
+
+Com essas definições, a transformada do sinc fundamental é um pulso retangular:
+\[
+\mathcal{F}\{\operatorname{sinc}(t)\} = \operatorname{rect}\!\left(\frac{\omega}{2\pi}\right)
+= \begin{cases} 1, & |\omega| < \pi \\ 0, & |\omega| > \pi \end{cases}.
+\]
+
+Aplicando as propriedades de linearidade, deslocamento no tempo e escalonamento:
+
+---
+
+### a) \(x(t) = \operatorname{sinc}(t)\)
+\[
+X(\omega) = \operatorname{rect}\!\left(\frac{\omega}{2\pi}\right)
+\]
+
+---
+
+### b) \(y(t) = 4\operatorname{sinc}(t-6)\)
+Pela propriedade do deslocamento no tempo (\(x(t-t_0) \leftrightarrow X(\omega)e^{-j\omega t_0}\)):
+\[
+Y(\omega) = 4\, X(\omega)\, e^{-j6\omega} 
+= 4\,\operatorname{rect}\!\left(\frac{\omega}{2\pi}\right) e^{-j6\omega}
+\]
+
+---
+
+### c) \(z(t) = 5\operatorname{sinc}\!\left(\frac{t-4}{3}\right)\)
+Podemos ver \(z(t) = 5\, w(t-4)\), onde \(w(t) = \operatorname{sinc}(t/3)\).  
+Pela propriedade do escalonamento (\(x(at) \leftrightarrow \frac{1}{|a|}X(\omega/a)\)), com \(a=1/3\):
+\[
+W(\omega) = 3\, X(3\omega) = 3\,\operatorname{rect}\!\left(\frac{3\omega}{2\pi}\right).
+\]
+Depois, aplicando o deslocamento e a linearidade:
+\[
+Z(\omega) = 5\, W(\omega)\, e^{-j4\omega} 
+= 15\,\operatorname{rect}\!\left(\frac{3\omega}{2\pi}\right) e^{-j4\omega}
+= \begin{cases} 15\,e^{-j4\omega}, & |\omega| < \pi/3 \\ 0, & |\omega| > \pi/3 \end{cases}.
+\]
+
+---
+
+**Observação:** Caso se utilize a transformada de Fourier na convenção de frequência em hertz (\(X(f) = \int x(t) e^{-j2\pi f t}dt\)), os resultados são análogos:
+- a) \(X(f) = \operatorname{rect}(f)\)
+- b) \(Y(f) = 4\,\operatorname{rect}(f)\,e^{-j12\pi f}\)
+- c) \(Z(f) = 15\,\operatorname{rect}(3f)\,e^{-j8\pi f}\).",92.0104,80.9080143,11.10237622,425.13,62,4720,4782
 PT,NÃO,2. Transforms and Signal Representation,19.0,"Prove as expressões: a) para a DTFT de $x[n]=0.9^n u[n] + 0.8^n u[n]$ eb) pela sua transformada Z, indicando o ROC.",deepseek-v4-pro,"A DTFT de um sinal discreto \(x[n]\) é dada por \(X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] e^{-j\omega n}\). Para o sinal \(x[n] = 0.9^n u[n] + 0.8^n u[n]\), temos:
 
 \[
